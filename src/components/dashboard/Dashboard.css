@@ -1,5 +1,4 @@
 .dashboard{
-    /* padding-left: 2rem; */
-    width: 92vw;
-    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
 }

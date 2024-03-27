@@ -40,7 +40,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useAppContext } from "../Appcontext";
-
+import Home from '../home/Home';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -489,7 +489,7 @@ const AuthForm=()=>{
         </List>
       </Drawer>
       
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
 
 
         <DrawerHeader />
@@ -502,7 +502,21 @@ const AuthForm=()=>{
         </DialogContent>
         </Dialog>
         <Dashhboard/>
-      </Box>
+      </Box> */}
+
+<div className='mainScreen'>
+<Dialog open={auth} onClose={()=>{setAuth(false);}}>
+        
+
+
+        <DialogContent>
+         <AuthForm/>
+        </DialogContent>
+        </Dialog>
+
+      <DrawerHeader/>
+        <Dashhboard/>
+      </div>
      
     </Box>
   );
