@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const GameCategories =[
     {
         icon: <i className="fa fa-home" style={{fontSize:'24px'}}></i>,
