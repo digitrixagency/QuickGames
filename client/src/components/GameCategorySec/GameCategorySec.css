@@ -1,0 +1,25 @@
+.game-category-sec{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: blueviolet;
+}
+
+.about-game{
+    width: 30%;
+}
+.game-category{
+    display: flex;
+    width: 70%;
+}
+@media only screen and (max-width: 600px) {
+    .game-category-sec{
+        flex-direction: column;
+    }
+    .about-game{
+        width: 100%;
+    }
+    .game-category{
+        width: 100%;
+    }
+}
