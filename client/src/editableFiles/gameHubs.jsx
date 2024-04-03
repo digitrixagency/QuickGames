@@ -106,6 +106,27 @@ export  const  group1= [
                 description: "game2"
             }
         ]
+
+export  const  GameCategory = [
+    {
+        name:"group1",
+    },
+    {
+        name:"group2"
+    },
+    {
+        name:"group3",
+    },
+    {
+        name:"group4"
+    },
+    {
+        name:"group5",
+    },
+    {
+        name:"group6"
+    }
+]
    
 // };
 

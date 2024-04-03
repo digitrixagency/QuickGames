@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./GameCard.css"
 // import images1 from "../../images/testImage/game1.webp"
 // import GameDataTest from "../../editableFiles/testGameObj";
@@ -6,7 +6,7 @@ import "./GameCard.css"
 
 const GameCard = ({GameData, GameDataName}) => {
     const [scrollPosition, setScrollPosition] = useState(0);
-    const cardWidth = 250;
+    const cardWidth = 1000;
 
     const handleLeftArrowClick = () => {
         setScrollPosition(Math.max(0, scrollPosition - cardWidth));
@@ -38,11 +38,12 @@ const GameCard = ({GameData, GameDataName}) => {
                     <div className="left-arrow" onClick={handleLeftArrowClick}>
                         <i class="arrow left"></i>
                     </div>
-                    <div className="game-list-container">
-                    {/*  */}
-                    <div className="game-card-list" style={{ transform: `translateX(-${scrollPosition}px)` }} >
+                    
 
-                            {console.log(GameData)}
+                    
+                    <div className="game-list-container">
+                        <div className="game-card-list" style={{ transform: `translateX(-${scrollPosition}px)` }}>
+                        
                             {GameData.map((game, index) => (
                                 <div key={index} className="game-card">
                                     <img className="card-img" src={game.image.game1} alt={game.name} />
@@ -50,6 +51,7 @@ const GameCard = ({GameData, GameDataName}) => {
                             ))}
                         </div>
                     </div>
+                   
                     <div className="right-arrow" onClick={handleRightArrowClick}>
                         <i class="arrow right"></i>
                     </div>
@@ -81,8 +83,8 @@ export default GameCard;
 //     };
 
 //     const handleRightArrowClick = (category) => {
-//         const containerWidth = document.querySelector(.game-card-container.${category})?.offsetWidth;
-//         const totalWidth = document.querySelector(.game-card-list.${category})?.scrollWidth;
+//         const containerWidth = document.querySelector(`.game-card-container.${category}`)?.offsetWidth;
+//         const totalWidth = document.querySelector(`.game-card-list.${category}`)?.scrollWidth;
 //         if (containerWidth && totalWidth) {
 //             setScrollPositions(prevScrollPositions => ({
 //                 ...prevScrollPositions,
@@ -112,12 +114,12 @@ export default GameCard;
 //                         <p className="category-name">{data.category}</p>
 //                         <p className="view-more">view more...</p>
 //                     </div>
-//                     <div className={game-card-container ${data.category}}>
+//                     <div className={`game-card-container ${data.category}`}>
 //                         <div className="left-arrow" onClick={() => handleLeftArrowClick(data.category)}>
 //                             <i className="arrow left"></i>
 //                         </div>
-//                         <div className={game-list-container ${data.category}}>
-//                             <div className={game-card-list ${data.category}} style={{ transform: translateX(-${scrollPositions[data.category] || 0}px) }}>
+//                         <div className={`game-list-container ${data.category}`}>
+//                             <div className={`game-card-list ${data.category}`} style={{ transform: `translateX(-${scrollPositions[data.category] || 0}px)` }}>
 //                                 {data.games.map((game, index) => (
 //                                     <div key={index} className="game-card">
 //                                         <img className="card-img" src={game.image.game1} alt={game.name} />
@@ -136,3 +138,4 @@ export default GameCard;
 // }
 
 // export default GameCard;
+

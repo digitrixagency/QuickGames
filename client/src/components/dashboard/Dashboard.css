@@ -1,4 +1,10 @@
 .dashboard{
+    /* padding-left: 2rem; */
     display: flex;
     flex-direction: column;
+    /* width: 92vw; */
+    margin-right: 0px;
+    /* width: 93vw; */
+    /* overflow: hidden; */
+    /* background-color: blue; */
 }

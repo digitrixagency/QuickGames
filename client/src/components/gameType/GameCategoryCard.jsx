@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from "react";
+import "./GameCategoryCard.css"
+// import { GameCategories } from "../../editableFiles/GameCategory";
 
-export const GameCategories =[
+
+const GameCategories =[
     {
         icon: <i className="fa fa-home" style={{fontSize:'24px'}}></i>,
         text: "Dashboard",
@@ -182,3 +185,63 @@ export const GameCategories =[
     //   index: 36
     // }
   ];
+
+const CategoryCard = () => {
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const cardWidth = 1000;
+
+    const handleLeftArrowClick = () => {
+        setScrollPosition(Math.max(0, scrollPosition - cardWidth));
+    };
+
+    const handleRightArrowClick = () => {
+        const containerWidth = document.querySelector(".game-card-container").offsetWidth;
+        const totalWidth = document.querySelector(".game-card-list").scrollWidth;
+        setScrollPosition(Math.min(scrollPosition + cardWidth, totalWidth - containerWidth));
+    };
+    return (
+        <>
+            <div className="Category-card-container">
+
+
+                <div className="category-left-arrow" onClick={handleLeftArrowClick}>
+                    <i class="categoryarrow left"></i>
+                </div>
+
+
+
+                <div className="category-list-container">
+                    <div className="category-card-list" style={{ transform: `translateX(-${scrollPosition}px)` }}>
+
+                        {GameCategories.map((category, index) => (
+                            <div key={index} className="category1-card">
+                                {/* <img className="category-card-img" src={category.icon} alt={category.text} /> */}
+                                {
+                                index%2!==0 && <img className="category-card-img" src={category.icon} alt={category.text} />
+                                }
+                            </div>
+                        ))}
+                    </div>
+                    <div className="category-card-list" style={{ transform: `translateX(-${scrollPosition}px)` }}>
+
+                        {GameCategories.map((category, index) => (
+                            <div key={index} className="category1-card">
+                            {
+                                index%2===0 && <img className="category-card-img" src={category.icon} alt={category.text} />
+                            }
+                                
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="category-right-arrow" onClick={handleRightArrowClick}>
+                    <i class="categoryarrow right"></i>
+                </div>
+
+            </div>
+        </>
+    )
+}
+
+export default CategoryCard; 
