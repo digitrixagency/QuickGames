@@ -3,14 +3,16 @@
     flex-direction: row;
     width: 100%;
     height: 160px;
-    background-color: blueviolet;
+    background-color:skyblue;
 }
 
 .about-game{
     width: 30%;
+    background-color: #212233;
 }
 .game-category{
     display: flex;
+    align-items: center;
     width: 70%;
     height: 100%;
     overflow-x: hidden;
