@@ -18,11 +18,29 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Dashhboard from "../dashboard/Dashboard"
+import { Button } from '@mui/material';
+import Chip from "@mui/material/Chip";
+import FaceIcon from "@mui/icons-material/Face";
+import Paper from "@mui/material/Paper";
+import LockIcon from "@mui/icons-material/Lock";
 
+import Switch from "@mui/material/Switch";
+import { useState } from "react";
+import Login from "../Authentication/Login";
+import Signup from "../Authentication/SignUp";
 
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { useAppContext } from "../Appcontext";
+import Home from '../home/Home';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -273,6 +291,50 @@ const sideBarData =[
   // }
 ];
 
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+ 
+  borderRadius: '21px',
+  backgroundColor: 'rgba(255, 255, 255, 0.15)',
+  '&:hover': {
+    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+  },
+  margin:'auto',
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  width: '100%',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
+  },
+}));
+
+
 export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -284,12 +346,54 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const{ loginchk, setLogin
+  }=useAppContext()
+
+ 
+
+
+const [auth,setAuth]=useState(false);
+ const authclicked =()=>{
+setAuth(true);
+ }
+
+const AuthForm=()=>{
+  return (
+    <div className="App">
+      <Paper elevation={0} style={{ padding: "10px", paddingBottom: "50px"  }}>
+        <div align="center">
+          {loginchk ? (
+            <Chip
+              icon={<LockIcon />}
+              label="Log In"
+              variant="outlined"
+              color="info"
+            />
+          ) : (
+            <Chip
+              icon={<FaceIcon />}
+              label="Sign Up"
+              variant="outlined"
+              color="info"
+            />
+          )}
+          <br />
+
+         
+        </div>
+
+        {loginchk ? <Login /> : <Signup />}
+      </Paper>
+    </div>
+  );
+}
+
 
   return (
-    <Box sx={{ display: 'flex'}}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -302,9 +406,28 @@ export default function MiniDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+          <Typography  variant="h6" noWrap component="div">
+           QuickGames
           </Typography>
+       <div style={{marginLeft:'auto'}}>
+       <Search >
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
+       </div>
+          
+          <IconButton  sx={{marginLeft:'9px'}} color="inherit" aria-label="favorite">
+            <FavoriteIcon />
+          </IconButton>
+          <Button sx={{marginLeft:'9px', borderRadius: '50px',justifyContent:'center'}} onClick={authclicked} variant='contained'>Login</Button>
+          {/* <Button sx={{marginLeft:'9px', borderRadius: '50px'}}variant='contained'>Sign Up</Button> */}
+
+         
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -365,14 +488,36 @@ export default function MiniDrawer() {
           ))}
         </List>
       </Drawer>
-      {/* <Box component="main" >
+      
+      {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+
+
         <DrawerHeader />
+<Dialog open={auth} onClose={()=>{setAuth(false);}}>
+        
+
+
+        <DialogContent>
+         <AuthForm/>
+        </DialogContent>
+        </Dialog>
         <Dashhboard/>
       </Box> */}
-      <div className='mainScreen'>
+
+<div className='mainScreen'>
+<Dialog open={auth} onClose={()=>{setAuth(false);}}>
+        
+
+
+        <DialogContent>
+         <AuthForm/>
+        </DialogContent>
+        </Dialog>
+
       <DrawerHeader/>
         <Dashhboard/>
       </div>
+     
     </Box>
   );
 }
