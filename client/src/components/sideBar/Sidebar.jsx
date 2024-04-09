@@ -392,7 +392,7 @@ const AuthForm=()=>{
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open}  sx={{ backgroundColor: (theme) => `rgba(0, 0, 0, 0.2)`}}>
         <Toolbar >
           <IconButton
             color="inherit"
@@ -430,15 +430,15 @@ const AuthForm=()=>{
          
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
+      <Drawer variant="permanent" open={open} sx={{ backgroundColor: (theme) => `rgba(0, 0, 0, 0.2)`}}>
+        <DrawerHeader >
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
         
-        <List>
+        <List >
           {sideBarData.map((data, index) => (
             <ListItem key={data} disablePadding sx={{ display: 'block' }}>
               <ListItemButton

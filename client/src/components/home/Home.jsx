@@ -6,6 +6,8 @@ import MiniDrawer from "../sideBar/Sidebar";
 import GameCategorySec from "../gameType/Gamecategory";
 import { group1, group2 } from "../../editableFiles/gameHubs";
 import GameCard from "../gamecard/GameCard";
+import { DashBoardSlider } from "../DashBoardSlider/DashBoardSlider";
+ import { Footer1 } from "../Footer/footer";
 
 const Home =()=>{
     return (
@@ -13,15 +15,18 @@ const Home =()=>{
             <div className="home">
                 {/* <Navbar /> */}
                 <MiniDrawer/>
-                <div className="copiedDash">
-                <GameCard GameData={group1} GameDataName={"Group1"}/>
+                {/* <DashBoardSlider/> */}
+                {/* <div className="copiedDash">
+             <GameCard GameData={group1} GameDataName={"Group1"}/>
                 <GameCard GameData={group2} GameDataName={"Group2"}/>
                 <GameCard GameData={group1} GameDataName={"Group1"}/>
                 <GameCard GameData={group2} GameDataName={"Group2"}/>
                 <GameCard GameData={group1} GameDataName={"Group1"}/>
-                <GameCard GameData={group2} GameDataName={"Group2"}/>
-                <GameCategorySec/>
-                </div>
+                <GameCard GameData={group2} GameDataName={"Group2"}/> 
+                // <GameCategorySec/>
+                </div> */}
+               
+                  <Footer1/>
                 
             </div>
             
