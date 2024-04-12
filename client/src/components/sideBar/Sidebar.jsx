@@ -392,7 +392,7 @@ const AuthForm=()=>{
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}  sx={{ backgroundColor: (theme) => `rgba(0, 0, 0, 0.2)`}}>
+      <AppBar position="fixed" open={open}  sx={{ backgroundColor: (theme) => 'rgba(0, 0, 0, 0.83)'}}>
         <Toolbar >
           <IconButton
             color="inherit"
@@ -406,7 +406,7 @@ const AuthForm=()=>{
           >
             <MenuIcon />
           </IconButton>
-          <Typography  variant="h6" noWrap component="div">
+          <Typography  variant="h6" noWrap component="div" >
            QuickGames
           </Typography>
        <div style={{marginLeft:'auto'}}>
@@ -424,7 +424,7 @@ const AuthForm=()=>{
           <IconButton  sx={{marginLeft:'9px'}} color="inherit" aria-label="favorite">
             <FavoriteIcon />
           </IconButton>
-          <Button sx={{marginLeft:'9px', borderRadius: '50px',justifyContent:'center'}} onClick={authclicked} variant='contained'>Login</Button>
+          <Button sx={{marginLeft:'9px', borderRadius: '50px',justifyContent:'center', backgroundColor: (theme) => 'rgb(108, 0, 224)'}} onClick={authclicked} variant='contained'>Login</Button>
           {/* <Button sx={{marginLeft:'9px', borderRadius: '50px'}}variant='contained'>Sign Up</Button> */}
 
          

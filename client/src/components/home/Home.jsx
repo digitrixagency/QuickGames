@@ -6,8 +6,22 @@ import MiniDrawer from "../sideBar/Sidebar";
 import GameCategorySec from "../gameType/Gamecategory";
 import { group1, group2 } from "../../editableFiles/gameHubs";
 import GameCard from "../gamecard/GameCard";
-import { DashBoardSlider } from "../DashBoardSlider/DashBoardSlider";
+import  DashBoardSlider1  from "../DashBoardSlider/DashBoardSlider";
  import { Footer1 } from "../Footer/footer";
+ import game1 from '../DashBoardSlider/game1.webp'
+ import game2 from '../DashBoardSlider/game2.webp'
+ import game3 from '../DashBoardSlider/game3.webp'
+ import game4 from '../DashBoardSlider/game4.webp'
+
+
+ const cards = [
+    { title: 'Image 1',des:'sd', imageSrc: game1 },
+    { title: 'Image 2', des:'asd', imageSrc: game2 },
+    { title: 'Image 1',des:'sd', imageSrc: game3},
+    { title: 'Image 2', des:'asd', imageSrc: game4 }
+    // Add more cards as needed
+  ];
+  
 
 const Home =()=>{
     return (
@@ -15,7 +29,7 @@ const Home =()=>{
             <div className="home">
                 {/* <Navbar /> */}
                 <MiniDrawer/>
-                {/* <DashBoardSlider/> */}
+                 <DashBoardSlider1 cards={cards}/> 
                 {/* <div className="copiedDash">
              <GameCard GameData={group1} GameDataName={"Group1"}/>
                 <GameCard GameData={group2} GameDataName={"Group2"}/>
