@@ -218,8 +218,8 @@ const CategoryCard = () => {
                 {/* <img className="category-card-img" src={category.icon} alt={category.text} /> */}
                 {
                   index % 2 !== 0 && <div className="category-card-img">
-                    <div className="icon1" style={{color:"whiteSmoke"}}>{category.icon}</div>
-                    <div className="text1" style={{color:"whiteSmoke"}}>{category.text}</div>
+                    <div className="icon1" style={{color:"whiteSmoke",display:"flex", justifyContent:"center"}}>{category.icon}</div>
+                    <div className="text1" style={{color:"whiteSmoke" ,display:"flex", justifyContent:"center"}}>{category.text}</div>
                   </div>
                 }
 
@@ -232,8 +232,8 @@ const CategoryCard = () => {
               <div key={index} className="category1-card">
                 {
                   index % 2 !== 0 && <div className="category-card-img">
-                    <div className="icon1" style={{color:"whiteSmoke"}}>{category.icon}</div>
-                    <div className="text1" style={{color:"whiteSmoke"}}>{category.text}</div>
+                    <div className="icon1" style={{color:"whiteSmoke",display:"flex", justifyContent:"center"}}>{category.icon}</div>
+                    <div className="text1" style={{color:"whiteSmoke" ,display:"flex", justifyContent:"center"}}>{category.text}</div>
                   </div>
                 }
 
