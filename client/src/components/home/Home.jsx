@@ -30,7 +30,7 @@ const Home =()=>{
                 {/* <Navbar /> */}
                 <MiniDrawer/>
                  <DashBoardSlider1 cards={cards}/> 
-                {/* <div className="copiedDash">
+                <div className="copiedDash">
              <GameCard GameData={group1} GameDataName={"Group1"}/>
                 <GameCard GameData={group2} GameDataName={"Group2"}/>
                 <GameCard GameData={group1} GameDataName={"Group1"}/>
@@ -38,7 +38,7 @@ const Home =()=>{
                 <GameCard GameData={group1} GameDataName={"Group1"}/>
                 <GameCard GameData={group2} GameDataName={"Group2"}/> 
                 // <GameCategorySec/>
-                </div> */}
+                </div>
                
                   <Footer1/>
                 
