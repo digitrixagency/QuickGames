@@ -12,6 +12,7 @@ import  DashBoardSlider1  from "../DashBoardSlider/DashBoardSlider";
  import game2 from '../DashBoardSlider/game2.webp'
  import game3 from '../DashBoardSlider/game3.webp'
  import game4 from '../DashBoardSlider/game4.webp'
+import CardScrolling from "../../CardScrolling/CardScrolling";
 
 
  const cards = [
@@ -30,15 +31,22 @@ const Home =()=>{
                 {/* <Navbar /> */}
                 <MiniDrawer/>
                  <DashBoardSlider1 cards={cards}/> 
+
+                 <CardScrolling GameData={group1} GameDataName={"Group1"}/>
+                 <CardScrolling GameData={group2} GameDataName={"Group1"}/>
+                 <CardScrolling GameData={group1} GameDataName={"Group1"}/>
+                 <CardScrolling GameData={group2} GameDataName={"Group1"}/>
                 <div className="copiedDash">
-             <GameCard GameData={group1} GameDataName={"Group1"}/>
+                 
+             {/* <GameCard GameData={group1} GameDataName={"Group1"}/>
                 <GameCard GameData={group2} GameDataName={"Group2"}/>
                 <GameCard GameData={group1} GameDataName={"Group1"}/>
                 <GameCard GameData={group2} GameDataName={"Group2"}/>
                 <GameCard GameData={group1} GameDataName={"Group1"}/>
-                <GameCard GameData={group2} GameDataName={"Group2"}/> 
-                // <GameCategorySec/>
+                <GameCard GameData={group2} GameDataName={"Group2"}/>  */}
+                 
                 </div>
+                <GameCategorySec/>
                
                   <Footer1/>
                 

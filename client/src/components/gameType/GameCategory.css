@@ -12,14 +12,21 @@
 }
 .game-category{
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 70%;
     height: 100%;
-    overflow-x: hidden;
+    margin-left: 2px;
+    overflow-x: auto;
 }
+.game-category::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
+  }
 @media only screen and (max-width: 600px) {
     .game-category-sec{
         flex-direction: column;
+        height: 100%;
     }
     .about-game{
         width: 100%;

@@ -204,28 +204,13 @@ const CategoryCard = () => {
       <div className="Category-card-container">
 
 
-        <div className="category-left-arrow" onClick={handleLeftArrowClick}>
+        {/* <div className="category-left-arrow" onClick={handleLeftArrowClick}>
           <i class="categoryarrow left"></i>
-        </div>
+        </div> */}
 
 
 
-        <div className="category-list-container">
-          <div className="category-card-list" style={{ transform: `translateX(-${scrollPosition}px)` }}>
-
-            {GameCategories.map((category, index) => (
-              <div key={index} className="category1-card">
-                {/* <img className="category-card-img" src={category.icon} alt={category.text} /> */}
-                {
-                  index % 2 !== 0 && <div className="category-card-img">
-                    <div className="icon1" style={{color:"whiteSmoke",display:"flex", justifyContent:"center"}}>{category.icon}</div>
-                    <div className="text1" style={{color:"whiteSmoke" ,display:"flex", justifyContent:"center"}}>{category.text}</div>
-                  </div>
-                }
-
-              </div>
-            ))}
-          </div>
+        {/* <div className="category-list-container"> */}
           <div className="category-card-list" style={{ transform: `translateX(-${scrollPosition}px)` }}>
 
             {GameCategories.map((category, index) => (
@@ -240,11 +225,25 @@ const CategoryCard = () => {
               </div>
             ))}
           </div>
-        </div>
+          <div className="category-card-list" style={{ transform: `translateX(-${scrollPosition}px)` }}>
 
-        <div className="category-right-arrow" onClick={handleRightArrowClick}>
+            {GameCategories.map((category, index) => (
+              <div key={index} className="category1-card">
+                {
+                  index % 2 === 0 && <div className="category-card-img">
+                    <div className="icon1" style={{color:"whiteSmoke",display:"flex", justifyContent:"center"}}>{category.icon}</div>
+                    <div className="text1" style={{color:"whiteSmoke" ,display:"flex", justifyContent:"center"}}>{category.text}</div>
+                  </div>
+                }
+
+              </div>
+            ))}
+          </div>
+        {/* </div> */}
+
+        {/* <div className="category-right-arrow" onClick={handleRightArrowClick}>
           <i class="categoryarrow right"></i>
-        </div>
+        </div> */}
 
       </div>
     </>
