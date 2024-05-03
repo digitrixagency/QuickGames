@@ -1,0 +1,80 @@
+.Gamepage-cointainer{
+    display: flex;
+    padding-left: 70px;
+    padding-top: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.main-game-page{
+    display: flex;
+    width: 70%;
+    flex-direction: column;
+    background-color: white;
+}
+.game-box{
+    background-color: rgb(2, 2, 1);
+    align-self: center;
+    width: 800px;
+    height: 460px;
+}
+.game{
+    width: 100%;
+    height: 100%;
+}
+.screen-mode-div{
+    display: flex;
+    align-items: center;
+    align-self: center;
+    justify-content: flex-end;
+    background-color: rgb(33, 34, 51);
+    /* background-color: wheat; */
+    height: 40px;
+    width: 800px;
+}
+.game-descriptions{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(33, 34, 51);
+    color: whitesmoke;
+    width: 800px;
+    font-size: large;
+    align-self: center;
+    margin-top: 30px;
+    padding: 10px;
+
+}
+.decription-table{
+    display: flex;
+    width: 100%;
+    height: 30px;
+    /* background-color: red; */
+}
+.description-para{
+    padding-bottom: 20px;
+}
+
+
+
+.related-game-page{
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    width: 30%;
+    background-color: white;
+}
+
+@media only screen and (max-width: 1250px){
+    .Gamepage-cointainer{
+        display: flex;
+        flex-direction: column;
+    }
+    .main-game-page{
+        display: flex;
+        width: 100%;
+    }
+    .related-game-page{
+        display: flex;
+        width: 100%;
+    }
+}

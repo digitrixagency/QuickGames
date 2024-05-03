@@ -5,52 +5,66 @@ export  const  group1= [
             {
                 name: "Category Name 1",
                 image: {game1}, // relative path to the image in your project directory
-                description: "game1"
+                description: "game1",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg",
+                play:"https://cdn.htmlgames.com/PyramidTripeaks/"
             },
             {
                 name: "Category Name 2",
                 image: {game1},
-                description: "game2"
+                description: "game2",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg",
+                play:"https://cdn.htmlgames.com/PyramidTripeaks/"
             },
             {
                 name: "Category Name 1",
                 image: {game1}, // relative path to the image in your project directory
-                description: "game1"
+                description: "game1",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg",
+                play:"https://cdn.htmlgames.com/PyramidTripeaks/"
             },
             {
                 name: "Category Name 2",
                 image: {game1},
-                description: "game2"
+                description: "game2",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg",
+                play:"https://cdn.htmlgames.com/PyramidTripeaks/"
             },
             {
                 name: "Category Name 1",
                 image: {game1}, // relative path to the image in your project directory
-                description: "game1"
+                description: "game1",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
                 name: "Category Name 2",
                 image: {game1},
-                description: "game2"
+                description: "game2",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
                 name: "Category Name 1",
                 image: {game1}, // relative path to the image in your project directory
-                description: "game1"
+                description: "game1",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
                 name: "Category Name 2",
                 image: {game1},
-                description: "game2"
+                description: "game2",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
                 name: "Category Name 1",
                 image: {game1}, // relative path to the image in your project directory
-                description: "game1"
+                description: "game1",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
                 name: "Category Name 2",
                 image: {game1},
-                description: "game2"
+                description: "game2",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             }
         ]
 
@@ -58,52 +72,62 @@ export  const  group1= [
             {
                 name: "Category Name 1",
                 image: {game1}, // relative path to the image in your project directory
-                description: "game1"
+                description: "game1",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
                 name: "Category Name 2",
                 image: {game1},
-                description: "game2"
+                description: "game2",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
                 name: "Category Name 1",
                 image: {game1}, // relative path to the image in your project directory
-                description: "game1"
+                description: "game1",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
                 name: "Category Name 2",
                 image: {game1},
-                description: "game2"
+                description: "game2",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
                 name: "Category Name 1",
                 image: {game1}, // relative path to the image in your project directory
-                description: "game1"
+                description: "game1",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
                 name: "Category Name 2",
                 image: {game1},
-                description: "game2"
+                description: "game2",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
                 name: "Category Name 1",
                 image: {game1}, // relative path to the image in your project directory
-                description: "game1"
+                description: "game1",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
                 name: "Category Name 2",
                 image: {game1},
-                description: "game2"
+                description: "game2",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
                 name: "Category Name 1",
                 image: {game1}, // relative path to the image in your project directory
-                description: "game1"
+                description: "game1",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
                 name: "Category Name 2",
                 image: {game1},
-                description: "game2"
+                description: "game2",
+                trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             }
         ]
 
