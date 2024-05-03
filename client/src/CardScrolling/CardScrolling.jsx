@@ -1,11 +1,10 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import YouTube from 'react-youtube';
 import "./CardScrolling.css";
-
-import AfroStyles from "./AfroStyles";
 
 const NextArrow = (props) => {
     const { className, onClick } = props;
@@ -43,6 +42,106 @@ const PrevArrow = (props) => {
 
 
 const CardScrolling = ({ GameData, GameDataName }) => {
+    const [hoveredIndex, setHoverIndex] = useState(-1);
+    const navigateToThisGame = useNavigate();
+
+    const handleGameSelection = (gameName) => {
+        navigateToThisGame(`this-game-name/`);
+    };
+
+    const handleMouseEnter = (index) => {
+        setHoverIndex(index);
+    }
+
+    const handleMouseLeave = () => {
+        setHoverIndex(-1);
+    }
+
+    // const renderContent = (game, index) =>{
+    //     if(hoveredIndex === index){
+    //         const videoId = extractVideoId("https://www.youtube.com/watch?v=bXrDhn7ERmg");
+    //         const opts = {
+    //             height: '200',
+    //             width: '150',
+    //             playerVars: {
+    //                 autoplay: 1,             // Auto-play the video
+    //                 loop: 1,                 // Loop the video
+    //                 controls: 0,             // Hide player controls
+    //                 modestbranding: 1,       // Reduce YouTube branding
+    //                 showinfo: 0,             // Hide video title and uploader info
+    //                 fs: 0,                   // Disable full-screen option
+    //                 rel: 0,                 // Disable related videos at the end
+    //                 mute:1,
+    //                 disablekb: 1,          // Disable keyboard controls (0 or 1)               
+
+    //             }
+    //         };
+    //         return(
+    //             <YouTube
+    //                 videoId={videoId} // Assuming game object contains a trailer property with YouTube video ID
+    //                 opts={opts} // Adjust player options as needed
+    //                 onEnd={() => setHoverIndex(-1)}
+    //                 onError={(e) => console.log('Error:', e)}
+    //             />
+    //         );
+    //     } else {
+    //         return (
+    //             <img 
+    //                 className="card-img" 
+    //                 src={game.image.game1} 
+    //                 alt={game.name} 
+    //                 onMouseEnter={() => handleMouseEnter(index)}
+    //                 onMouseLeave={handleMouseLeave}
+    //             />
+    //         );
+    //     }
+    // }
+
+    // const extractVideoId = (videoUrl) => {
+    //     // Example video URL: https://www.youtube.com/watch?v=VIDEO_ID
+    //     const videoId = videoUrl.split('v=')[1];
+    //     console.log(videoId)
+    //     return videoId;
+    // };
+
+    const renderContent = (game, index) => {
+        const videoId = extractVideoId(game.trailer);
+        
+
+        if (hoveredIndex === 2) {
+            const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&modestbranding=1&showinfo=0&rel=0`;
+            return (
+                <div className="video-container" onMouseLeave={handleMouseLeave}>
+                    <iframe
+                        title={game.name}
+                        src={embedUrl}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="video-iframe"
+                    ></iframe>
+                </div>
+            );
+        } else {
+            return (
+                <img
+                    className="card-img"
+                    src={game.image.game1}
+                    alt={game.name}
+                    onMouseEnter={() => handleMouseEnter(index)}
+                    onClick={()=> handleGameSelection(game.name)}
+                />
+            );
+        }
+    };
+
+    const extractVideoId = (videoUrl) => {
+        const urlParams = new URLSearchParams(new URL(videoUrl).search);
+        return urlParams.get('v');
+    };
+
+
+
     var settings = {
         dots: false,
         speed: 1500,
@@ -102,7 +201,8 @@ const CardScrolling = ({ GameData, GameDataName }) => {
                     {GameData.map((game, index) => (
                         <div key={index}>
                             <div className="card-scrolling-img-body">
-                                <img className="card-img" src={game.image.game1} alt={game.name} />
+                                {/* <img className="card-img" src={game.image.game1} alt={game.name} /> */}
+                                {renderContent(game, index)}
                             </div>
                         </div>
                     ))}
