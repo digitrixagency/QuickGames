@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
@@ -41,6 +42,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useAppContext } from "../Appcontext";
 import Home from '../home/Home';
+import "./Sidebar.css";
+
+
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -82,8 +87,8 @@ const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    // marginLeft: drawerWidth,
+    // width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -108,59 +113,116 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const sideBarData =[
+const sideBarData = [
   {
-      icon: <i class="fa fa-home" style={{fontSize:'24px'}}></i>,
-      text: "Dashboard",
-      index: 1
+    icon: <i class="fa fa-home" style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, blue, brown)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text', // Clip the gradient to the text (icon)
+      // display: 'inline-block', // Ensure the icon behaves as an inline-block element
+      // lineHeight: '24px', // Adjust line height to center the icon vertically
+    }}></i>,
+    text: "Dashboard",
+    index: 1
   },
   {
-    icon: <i class='fa fa-history' style={{fontSize:'24px'}}></i>,
+    icon: <i class='fa fa-history' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, black, brown)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Mail",
     index: 2
   },
   {
-    icon: <i className='fa fa-play-circle' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-play-circle' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, blue, blue)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Recently played",
     index: 3
   },
   {
-    icon: <i className='fa fa-plus-circle' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-plus-circle' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, lightGreen, green)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "New",
     index: 4
   },
   {
-    icon: <i className='fa fa-trophy' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-trophy' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, lightGreen, orange)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Trending now",
     index: 5
   },
   {
-    icon: <i className='fa fa-refresh' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-refresh' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, brown, black)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Updated",
     index: 6
   },
   {
-    icon: <i className='fa fa-film' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-film' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, wheat, red)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Originals",
     index: 7
   },
   {
-    icon: <i className='fa fa-random' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-random' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, 	lightcoral, coral)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Random",
     index: 8
   },
   {
-    icon: <i className='fa fa-users' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-users' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, lightsalmon, orangered)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "2 Player",
     index: 9
   },
   {
-    icon: <i className='fa fa-fighter-jet' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-fighter-jet' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, indianred, firebrick)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Action",
     index: 10
   },
   {
-    icon: <i className='fa fa-compass' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-compass' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, lightpink, 	deeppink)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Adventure",
     index: 11
   },
@@ -170,37 +232,72 @@ const sideBarData =[
   //   index: 12
   // },
   {
-    icon: <i className='fa fa-female' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-female' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, palevioletred, 	mediumvioletred)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Beauty",
     index: 13
   },
   {
-    icon: <i className='fa fa-motorcycle' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-motorcycle' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, mediumorchid, 	purple)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Bike",
     index: 14
   },
   {
-    icon: <i className='fa fa-car' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-car' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, royalblue, 	indigo)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Car",
     index: 15
   },
   {
-    icon: <i className='fa fa-id-card' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-id-card' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, dodgerblue, 	mediumblue)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Card",
     index: 16
   },
   {
-    icon: <i className='fa fa-users' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-users' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, steelblue, black)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Casual",
     index: 17
   },
   {
-    icon: <i className='fa fa-mouse-pointer' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-mouse-pointer' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, rosybrown, 		saddlebrown)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Clicker",
     index: 18
   },
   {
-    icon: <i className='fa fa-gamepad' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-gamepad' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, blanchedalmond, 		maroon)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Controller",
     index: 19
   },
@@ -210,7 +307,12 @@ const sideBarData =[
   //   index: 20
   // },
   {
-    icon: <i className='fa fa-car' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-car' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, blanchedalmond, 		saddlebrown)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Driving",
     index: 21
   },
@@ -220,12 +322,22 @@ const sideBarData =[
   //   index: 22
   // },
   {
-    icon: <i className='fa fa-bolt' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-bolt' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, mistyrose,chocolate)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Flash",
     index: 23
   },
   {
-    icon: <i className='fa fa-crosshairs' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-crosshairs' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, maroon, 		maroon)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "FPS",
     index: 24
   },
@@ -235,37 +347,67 @@ const sideBarData =[
   //   index: 25
   // },
   {
-    icon: <i className='fa fa-globe' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-globe' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, green, 		green)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: ".io",
     index: 26
   },
   {
-    icon: <i className='fa fa-building' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-building' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, black, 		white)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Mahjong",
     index: 27
   },
   {
-    icon: <i className='fa fa-cube' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-cube' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, black, 		lightblue)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text',
+    }}></i>,
     text: "Minecraft",
     index: 28
   },
-  {
-    icon: <i className='fa fa-users' style={{ fontSize: '24px' }}></i>,
-    text: "Multiplayer",
-    index: 29
-  },
+  // {
+  //   icon: <i className='fa fa-users' style={{ 
+  //     fontSize: '24px',
+  //   color: 'transparent', // Make the icon color transparent to show the gradient
+  //   backgroundImage: 'linear-gradient(to top, cadetblue, 		royalblue)', // Specify your gradient colors here
+  //   WebkitBackgroundClip: 'text',
+  //    }}></i>,
+  //   text: "Multiplayer",
+  //   index: 29
+  // },
   // {
   //   icon: <i className='fa fa-billiards' style={{ fontSize: '24px' }}></i>,
   //   text: "Pool",
   //   index: 30
   // },
   {
-    icon: <i className='fa fa-puzzle-piece' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-puzzle-piece' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, cadetblue, 		purple)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text'
+    }}></i>,
     text: "Puzzle",
     index: 31
   },
   {
-    icon: <i className='fa fa-bomb' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-bomb' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, indigo, 		indigo)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text'
+    }}></i>,
     text: "Shooting",
     index: 32
   },
@@ -280,7 +422,12 @@ const sideBarData =[
   //   index: 34
   // },
   {
-    icon: <i className='fa fa-sticky-note' style={{ fontSize: '24px' }}></i>,
+    icon: <i className='fa fa-sticky-note' style={{
+      fontSize: '24px',
+      color: 'transparent', // Make the icon color transparent to show the gradient
+      backgroundImage: 'linear-gradient(to top, darkslategray, 		black)', // Specify your gradient colors here
+      WebkitBackgroundClip: 'text'
+    }}></i>,
     text: "Stickman",
     index: 35
   },
@@ -293,13 +440,13 @@ const sideBarData =[
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
- 
+
   borderRadius: '21px',
   backgroundColor: 'rgba(255, 255, 255, 0.15)',
   '&:hover': {
     backgroundColor: 'rgba(255, 255, 255, 0.25)',
   },
-  margin:'auto',
+  margin: 'auto',
   width: '100%',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(1),
@@ -335,9 +482,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
+
+
 export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [openSideBar, setOpenSideBar] = React.useState(true);
+  
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -346,99 +497,124 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const{ loginchk, setLogin
-  }=useAppContext()
 
- 
+  const handleSideBarOpen = () => {
+    setOpenSideBar(true);
+  };
+
+  const handleSideBarClose = () => {
+    setOpenSideBar(false);
+  };
+
+  const { loginchk, setLogin
+  } = useAppContext()
 
 
-const [auth,setAuth]=useState(false);
- const authclicked =()=>{
-setAuth(true);
- }
 
-const AuthForm=()=>{
-  return (
-    <div className="App">
-      <Paper elevation={0} style={{ padding: "10px", paddingBottom: "50px"  }}>
-        <div align="center">
-          {loginchk ? (
-            <Chip
-              icon={<LockIcon />}
-              label="Log In"
-              variant="outlined"
-              color="info"
-            />
-          ) : (
-            <Chip
-              icon={<FaceIcon />}
-              label="Sign Up"
-              variant="outlined"
-              color="info"
-            />
-          )}
-          <br />
 
-         
-        </div>
+  const [auth, setAuth] = useState(false);
+  const authclicked = () => {
+    setAuth(true);
+  }
 
-        {loginchk ? <Login /> : <Signup />}
-      </Paper>
-    </div>
-  );
-}
+  const AuthForm = () => {
+    return (
+      <div className="App">
+        <Paper elevation={0} style={{ padding: "10px", paddingBottom: "50px" }}>
+          <div align="center">
+            {loginchk ? (
+              <Chip
+                icon={<LockIcon />}
+                label="Log In"
+                variant="outlined"
+                color="info"
+              />
+            ) : (
+              <Chip
+                icon={<FaceIcon />}
+                label="Sign Up"
+                variant="outlined"
+                color="info"
+              />
+            )}
+            <br />
+
+
+          </div>
+
+          {loginchk ? <Login /> : <Signup />}
+        </Paper>
+      </div>
+    );
+  }
+
 
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}  sx={{ backgroundColor: (theme) => 'rgba(0, 0, 0, 0.83)'}}>
+      <AppBar position="fixed" open={open} sx={{ backgroundColor: (theme) => 'rgba(0, 0, 0, 0.83)' }}>
         <Toolbar >
           <IconButton
             color="inherit"
             aria-label="open drawer"
+
             onClick={handleDrawerOpen}
             edge="start"
             sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
+             marginRight: 5,
+              // ...(open && { display:'none',rotate:'90deg' }),
             }}
           >
-            <MenuIcon />
+           {open? <MenuIcon 
+           /> : 
+           <MenuOpenIcon
+            onClick={handleDrawerClose}
+           />}
           </IconButton>
-          <Typography  variant="h6" noWrap component="div" >
-           QuickGames
+          <Typography variant="h6" noWrap component="div" >
+            QuickGames
           </Typography>
-       <div style={{marginLeft:'auto'}}>
-       <Search >
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-       </div>
-          
-          <IconButton  sx={{marginLeft:'9px'}} color="inherit" aria-label="favorite">
+          <div style={{ marginLeft: 'auto' }}>
+            <Search >
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
+          </div>
+
+          <IconButton sx={{ marginLeft: '9px' }} color="inherit" aria-label="favorite">
             <FavoriteIcon />
           </IconButton>
-          <Button sx={{marginLeft:'9px', borderRadius: '50px',justifyContent:'center', backgroundColor: (theme) => 'rgb(108, 0, 224)'}} onClick={authclicked} variant='contained'>Login</Button>
+          <Button sx={{ marginLeft: '9px', borderRadius: '50px', justifyContent: 'center', backgroundColor: (theme) => 'rgb(108, 0, 224)' }} onClick={authclicked} variant='contained'>Login</Button>
           {/* <Button sx={{marginLeft:'9px', borderRadius: '50px'}}variant='contained'>Sign Up</Button> */}
 
-         
+
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open} sx={{ backgroundColor: (theme) => `rgba(0, 0, 0, 0.2)`}}>
+      <Drawer variant="permanent"
+        open={open}
+        sx={{ backgroundColor: (theme) => 'red' }}
+        onMouseEnter={handleDrawerOpen}
+        onMouseLeave={handleDrawerClose}
+      >
         <DrawerHeader >
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
-        
-        <List >
+
+        <List 
+        className='List-Sec'
+        sx={{
+          background:'rgba(0, 0, 0, 0.87)',
+           color:'white', 
+           }}>
           {sideBarData.map((data, index) => (
             <ListItem key={data} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
@@ -446,6 +622,12 @@ const AuthForm=()=>{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
                   px: 2.5,
+                  '&:hover':{
+                      color:'rgb(108, 0, 224)',
+                      paddingLeft:'5%',
+                      transform:'2s',
+                      transition:'0.3s'
+                    }
                 }}
               >
                 <ListItemIcon
@@ -462,7 +644,7 @@ const AuthForm=()=>{
             </ListItem>
           ))}
         </List>
-        <Divider />
+        {/* <Divider />
         <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
@@ -486,9 +668,9 @@ const AuthForm=()=>{
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Drawer>
-      
+
       {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
 
 
@@ -504,20 +686,20 @@ const AuthForm=()=>{
         <Dashhboard/>
       </Box> */}
 
-<div className='mainScreen'>
-<Dialog open={auth} onClose={()=>{setAuth(false);}}>
-        
+      <div className='mainScreen'>
+        <Dialog open={auth} onClose={() => { setAuth(false); }}>
 
 
-        <DialogContent>
-         <AuthForm/>
-        </DialogContent>
+
+          <DialogContent>
+            <AuthForm />
+          </DialogContent>
         </Dialog>
 
-      <DrawerHeader/>
-        <Dashhboard/>
+        <DrawerHeader />
+        <Dashhboard />
       </div>
-     
+
     </Box>
   );
 }
