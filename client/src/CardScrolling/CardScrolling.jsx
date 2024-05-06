@@ -48,6 +48,9 @@ const CardScrolling = ({ GameData, GameDataName }) => {
     const handleGameSelection = (gameName) => {
         navigateToThisGame(`this-game-name/`);
     };
+    const handleGamegategorySelection = (gameName) => {
+        navigateToThisGame(`cardgames/populargame`);
+    };
 
     const handleMouseEnter = (index) => {
         setHoverIndex(index);
@@ -195,7 +198,7 @@ const CardScrolling = ({ GameData, GameDataName }) => {
                     {GameDataName}
                     {/* {console.log(GameStore)} */}
                 </p>
-                <p className="view-more">view more...</p>
+                <p className="view-more" onClick={handleGamegategorySelection}>view more...</p>
             </div>
             <div className="card-scrolling-container">
                 <Slider {...settings}>

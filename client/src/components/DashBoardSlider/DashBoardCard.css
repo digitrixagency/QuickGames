@@ -2,7 +2,7 @@
 
 
 .carousel{
-    height: 72vh;
+    height: 76vh;
     width: 100vw;
     overflow: hidden;
     position: relative;
@@ -30,7 +30,8 @@
 }
 .carousel .list .item .content{
     position: absolute;
-    top: 15%;
+    padding-left: 9px;
+    top:3%;
     width: 1140px;
     max-width: 80%;
     left: 45%;

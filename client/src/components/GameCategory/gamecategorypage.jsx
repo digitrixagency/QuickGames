@@ -54,6 +54,7 @@ return (
       displayEmpty
       inputProps={{ 'aria-label': 'Without label' }}
       className='mr-3'
+      
       sx={{
         '&:hover': {
           borderColor: 'purple', // Change this to the purple color you prefer
@@ -119,7 +120,7 @@ return (
     <Pagination size='large' className="mx-auto mb-12 mt-7"count={20} page={page} onChange={handleChange}  sx={{
         '& .MuiPaginationItem-page.Mui-selected': {
           backgroundColor: 'rgb(108, 0, 224)',
-          color: '#fff', // Text color for selected page
+          color: '#FFFFFF', // Text color for selected page
         },
       }} />
 

@@ -49,7 +49,7 @@
   font-family: "Roboto";
 }
 .App{
-  background-image: url('https://img.freepik.com/free-photo/black-smooth-wooden-textured-background_53876-153465.jpg?w=996&t=st=1714919429~exp=1714920029~hmac=3736b384095ec9bdcc869aca68fb22b68f975cd28d10c0b0df20841b395b2cb2');
+  /* background-image: url('https://img.freepik.com/free-photo/black-smooth-wooden-textured-background_53876-153465.jpg?w=996&t=st=1714919429~exp=1714920029~hmac=3736b384095ec9bdcc869aca68fb22b68f975cd28d10c0b0df20841b395b2cb2'); */
   /* Other background properties */
   background-size: cover; /* Adjusts the size of the background image */
   background-position: center; 
