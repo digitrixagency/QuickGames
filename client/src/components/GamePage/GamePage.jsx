@@ -140,7 +140,7 @@ const GamePage = ({GameData}) => {
                 </div>
             </div>
             <div className="related-game-pagelower"
-                style={{paddingLeft:'5%'}}
+                
             >
                 <UserRecentPlayed game={GameData}/>
             </div>

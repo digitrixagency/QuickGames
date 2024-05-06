@@ -11,6 +11,14 @@
     font-family: Helvetica;
     width: 100%;
   } */
+ .UserRecentPlayed{
+  width: 100%;
+  background-image: url('https://img.freepik.com/free-photo/black-smooth-wooden-textured-background_53876-153465.jpg?w=996&t=st=1714919429~exp=1714920029~hmac=3736b384095ec9bdcc869aca68fb22b68f975cd28d10c0b0df20841b395b2cb2');
+    /* Other background properties */
+    background-size: cover; /* Adjusts the size of the background image */
+    background-position: center; /* Positions the background image */
+    
+  }
 
   .Your-might-like {
     margin: 0;
@@ -19,6 +27,7 @@
     color: #fff;
     font-size: 24px;
     text-align: center;
+    
   }
 
   .main-section {
@@ -36,7 +45,26 @@
     margin: var(--cardMargin);
     /* border: 1px solid #ccc; */
     border-radius: 8px;
-    background: #fff;
+    /* background: #fff; */
     box-sizing: border-box;
+    cursor: pointer;
+    overflow: hidden; /* Ensures image won't overflow the card */
+    transition: transform 0.3s ease; /* Smooth transition effect */
   }
+
+  .card:hover {
+    transform: scale(1.1); /* Increases the size of the card on hover */
+  }
+  
+  .card-img {
+    width: 100%; /* Ensures the image fills the card */
+    height: auto; /* Maintains aspect ratio */
+    transition: transform 0.3s ease; /* Smooth transition effect */
+  }
+  
+  .card:hover .card-img {
+    transform: scale(1.1); /* Increases the size of the image on hover */
+  }
+
+
   
