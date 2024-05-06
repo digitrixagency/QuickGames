@@ -4,7 +4,9 @@ import "./RelatedGame.css"
 
 const UserRecentPlayed = ({ game }) => {
     return (
-        <div className="UserRecentPlayed">
+        <div className="UserRecentPlayed"
+            
+        >
             {/* <h1 className="Your-might-like">You Might Like this games</h1> */}
             <section className="main-section">
 

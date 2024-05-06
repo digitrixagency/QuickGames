@@ -108,7 +108,7 @@ const CardScrolling = ({ GameData, GameDataName }) => {
         const videoId = extractVideoId(game.trailer);
         
 
-        if (hoveredIndex === 2) {
+        if (hoveredIndex === index) {
             const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&modestbranding=1&showinfo=0&rel=0`;
             return (
                 <div className="video-container" onMouseLeave={handleMouseLeave}>
@@ -148,11 +148,12 @@ const CardScrolling = ({ GameData, GameDataName }) => {
         slidesToShow: 5,
         slidesToScroll: 5,
         infinite: true,
-        autoplay: true,
+        arrows: true, // Disable default arrows
+        // autoplay: true,
         autoplaySpeed: 1000,
-        // nextArrow:<NextArrow/>,
+        nextArrow:<NextArrow/>,
 
-        //   prevArrow: <PrevArrow/>,
+          prevArrow: <PrevArrow/>,
         responsive: [
             {
                 breakpoint: 1110,
@@ -201,7 +202,7 @@ const CardScrolling = ({ GameData, GameDataName }) => {
                     {GameData.map((game, index) => (
                         <div key={index}>
                             <div className="card-scrolling-img-body">
-                                {/* <img className="card-img" src={game.image.game1} alt={game.name} /> */}
+                            
                                 {renderContent(game, index)}
                             </div>
                         </div>
