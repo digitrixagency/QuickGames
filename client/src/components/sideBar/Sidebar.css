@@ -1,0 +1,33 @@
+.List-Sec {
+    /* Set the height and enable overflow */
+    /* height: 100vh; */
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  /* Styling for scrollbar */
+  .List-Sec::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+  }
+  
+  /* Handle of the scrollbar */
+  .List-Sec::-webkit-scrollbar-thumb {
+    background-color: black; /* Color of the scrollbar handle */
+    border-radius: 4px; /* Rounded corners of the handle */
+    
+  }
+  
+  /* Track (background) of the scrollbar */
+  .List-Sec::-webkit-scrollbar-track {
+    background-color: transparent; 
+  }
+
+  .List-Sec::-webkit-scrollbar-track:hover {
+    background-color: whitesmoke; /* Color of the scrollbar track */
+  }
+  
+  
+  /* When hovering over the scrollbar */
+  .List-Sec::-webkit-scrollbar-thumb:hover {
+    background-color: black; /* Darker color on hover */
+  }
