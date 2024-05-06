@@ -7,7 +7,7 @@ import GamePage from './components/GamePage/GamePage';
 import { group1 } from './editableFiles/gameHubs';
 import { Footer1 } from './components/Footer/footer';
 import MiniDrawer from './components/sideBar/Sidebar';
-
+import GameCategoryPage from './components/GameCategory/gamecategorypage';
 
 function App() {
   return (
@@ -17,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Home/>} />
         <Route path='this-game-name/' element={<GamePage GameData={group1}/>} />
+        <Route path='cardgames/populargame' element={<GameCategoryPage/>  }/>
       </Routes>
       <Footer1/>
     </Router>
