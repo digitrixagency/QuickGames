@@ -10,6 +10,8 @@ const DashBoardSlider1 = ({ cards }) => {
       autoPlay={true}
 
       animation="slide"
+      interval="5000"
+      
       indicators={false}
       navButtonsAlwaysVisible={false}
     
