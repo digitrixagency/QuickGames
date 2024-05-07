@@ -25,13 +25,13 @@ import Stack from '@mui/material/Stack';
 
 const Card = ({ imageUrl }) => {
     return (
-      <div className="relative overflow-hidden rounded-lg ">
-        <div
-          className="bg-cover bg-center h-24 sm:h-32 rounded-lg transition-transform transform-gpu scale-100 hover:scale-100"
-          style={{ backgroundImage: `url(${imageUrl})` }}
-        ></div>
-        <div className="absolute inset-0 rounded-lg border-custom-purple border-2 opacity-0 hover:opacity-100 transition-opacity hover:border-4"></div>
-      </div>
+      <div className="relative overflow-hidden rounded-lg hover:transition-transform hover:scale-110 hover:z-10 ">
+      <div
+        className="bg-cover bg-center h-24 sm:h-32 rounded-lg transition-transform transform-gpu scale-100 hover:scale-100"
+        style={{ backgroundImage: `url(${imageUrl})` }}
+      ></div>
+      <div className="absolute inset-0 rounded-lg  border-2 opacity-0 hover:opacity-100 transition-opacity"></div>
+    </div>
     );
   };
   
@@ -82,7 +82,7 @@ return (
         
 
     
-    <div className="grid grid-cols-6 gap-1   p-8 ml-12">
+    <div className="grid grid-cols-6  gap-1   p-8 ml-12">
     <Card imageUrl={game1}/>
     <Card imageUrl={game2}/>
     <Card imageUrl={game3}/>

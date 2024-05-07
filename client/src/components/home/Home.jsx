@@ -41,7 +41,8 @@ const Home =()=>{
               
                  
                 </div>
-                 {/* <GameCategorySec/> 
+                <GameCategorySec/> 
+                 {/* 
                
                   
                   <GamePage GameData={group1}/> */}

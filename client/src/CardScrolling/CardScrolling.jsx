@@ -139,25 +139,26 @@ const CardScrolling = ({ GameData, GameDataName }) => {
 
 
         if (hoveredIndex === index) {
+           const url="https://drive.google.com/file/d/1AFx1hQszwDoEILMPl-o7M1hE8T0AUucl/preview"
             const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&modestbranding=1&showinfo=0&rel=0`;
             return (
-                // <div className="video-container" onMouseLeave={handleMouseLeave}>
-                //     <iframe
-                //         title={game.name}
-                //         src={"embedUrl"}
-                //         frameBorder="0"
-                //         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                //         allowFullScreen
-                //         className="video-iframe"
-                //     ></iframe>
-                // </div>
-                <img
-                    className="card-img"
-                    src={game.image.game1}
-                    alt={game.name}
-                    onMouseEnter={() => handleMouseEnter(index)}
-                    onClick={() => handleGameSelection(game.name)}
-                />
+                <div className="video-container" onMouseLeave={handleMouseLeave}>
+                    <iframe
+                        title={game.name}
+                        src={url}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="video-iframe"
+                    ></iframe>
+                </div>
+                // <img
+                //     className="card-img"
+                //     src={game.image.game1}
+                //     alt={game.name}
+                //     onMouseEnter={() => handleMouseEnter(index)}
+                //     onClick={() => handleGameSelection(game.name)}
+                // />
             );
         } else {
             return (
