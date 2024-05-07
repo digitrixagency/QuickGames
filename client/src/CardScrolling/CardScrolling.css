@@ -1,10 +1,14 @@
- 
+
+  .slick-prev:before, .slick-next:before {
+  display: none;
+  }
+  
   .card-scrolling-content {
     text-align: center;
     margin-top: 24px;
     margin-bottom: 50px;
     margin-left: 5%;
-    width: 92.5%;
+    width: 94%;
 
   }
   .card-scrolling-header {
@@ -67,9 +71,11 @@
     padding-left: 4%;
     font-size: 1.3rem;
     font-weight: 600;
+    color: wheat;
 }
 .view-more{
     padding-left: 10px;
     color: rgb(228, 74, 18);
     cursor: pointer;
 }
+
