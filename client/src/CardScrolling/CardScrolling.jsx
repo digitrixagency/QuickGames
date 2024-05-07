@@ -9,8 +9,20 @@ import "./CardScrolling.css";
 const NextArrow = (props) => {
     const { className, onClick } = props;
     return (
-        <div className={className} onClick={onClick}>
-            <svg
+        <div className={className} onClick={onClick}
+            style={{
+                display:'flex',
+                alignItems:'center',
+                justifyContent:'center',
+                backgroundColor:'gray',
+                opacity:'0.5',
+                height:'95%',
+                right:'0px',
+                // top:'94p%',
+                width:'35px',
+            }}
+        >
+            {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 stroke="black"
                 height="24"
@@ -18,6 +30,11 @@ const NextArrow = (props) => {
                 width="24"
             >
                 <path d="M272 464.4L456.4 280 272 95.6 272 192 144 192 144 320 272 320z" />
+            </svg> */}
+            <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="24" height="24"
+            ><path d="m11.707 3.293-1.414 1.414L17.586 12l-7.293 7.293 1.414 1.414L20.414 12l-8.707-8.707z"/><path d="M5.707 3.293 4.293 4.707 11.586 12l-7.293 7.293 1.414 1.414L14.414 12 5.707 3.293z"/>
             </svg>
         </div>
     );
@@ -26,15 +43,25 @@ const NextArrow = (props) => {
 const PrevArrow = (props) => {
     const { className, onClick } = props;
     return (
-        <div className={className} onClick={onClick}>
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                stroke="black"
-                height="24"
-                viewBox="0 0 512 512"
-                width="24"
-            >
-                <path d="M240 464.4L55.6 280 240 95.6 240 192 368 192 368 320 240 320z" />
+        <div className={className} onClick={onClick}
+          style={{
+                display:'flex',
+                alignItems:'center',
+                justifyContent:'center',
+                backgroundColor:'gray',
+                opacity:'0.5',
+                height:'95%',
+                left:'0px',
+                // top:'94p%',
+                width:'35px',
+                zIndex:'1'
+            }}
+        >
+            <svg 
+            xmlns="http://www.w3.org/2000/svg"
+             width="24" 
+             height="24"
+             ><path d="m13.707 4.707-1.414-1.414L3.586 12l8.707 8.707 1.414-1.414L6.414 12l7.293-7.293z"/><path d="m19.707 4.707-1.414-1.414L9.586 12l8.707 8.707 1.414-1.414L12.414 12l7.293-7.293z"/>
             </svg>
         </div>
     );
@@ -106,21 +133,28 @@ const CardScrolling = ({ GameData, GameDataName }) => {
 
     const renderContent = (game, index) => {
         const videoId = extractVideoId(game.trailer);
-        
+
 
         if (hoveredIndex === index) {
             const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&modestbranding=1&showinfo=0&rel=0`;
             return (
-                <div className="video-container" onMouseLeave={handleMouseLeave}>
-                    <iframe
-                        title={game.name}
-                        src={embedUrl}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        className="video-iframe"
-                    ></iframe>
-                </div>
+                // <div className="video-container" onMouseLeave={handleMouseLeave}>
+                //     <iframe
+                //         title={game.name}
+                //         src={"embedUrl"}
+                //         frameBorder="0"
+                //         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                //         allowFullScreen
+                //         className="video-iframe"
+                //     ></iframe>
+                // </div>
+                <img
+                    className="card-img"
+                    src={game.image.game1}
+                    alt={game.name}
+                    onMouseEnter={() => handleMouseEnter(index)}
+                    onClick={() => handleGameSelection(game.name)}
+                />
             );
         } else {
             return (
@@ -129,7 +163,7 @@ const CardScrolling = ({ GameData, GameDataName }) => {
                     src={game.image.game1}
                     alt={game.name}
                     onMouseEnter={() => handleMouseEnter(index)}
-                    onClick={()=> handleGameSelection(game.name)}
+                    onClick={() => handleGameSelection(game.name)}
                 />
             );
         }
@@ -144,16 +178,15 @@ const CardScrolling = ({ GameData, GameDataName }) => {
 
     var settings = {
         dots: false,
-        speed: 1500,
+        speed: 3000,
         slidesToShow: 5,
-        slidesToScroll: 5,
+        slidesToScroll: 3,
         infinite: true,
-        arrows: true, // Disable default arrows
         // autoplay: true,
-        autoplaySpeed: 1000,
-        nextArrow:<NextArrow/>,
+        autoplaySpeed: 100,
+        nextArrow: <NextArrow className="nextArrow"/>,
 
-          prevArrow: <PrevArrow/>,
+        prevArrow: <PrevArrow className="nextArrow"/>,
         responsive: [
             {
                 breakpoint: 1110,
@@ -202,7 +235,7 @@ const CardScrolling = ({ GameData, GameDataName }) => {
                     {GameData.map((game, index) => (
                         <div key={index}>
                             <div className="card-scrolling-img-body">
-                            
+
                                 {renderContent(game, index)}
                             </div>
                         </div>
