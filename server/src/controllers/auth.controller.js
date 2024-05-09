@@ -39,7 +39,12 @@ const SetToken = async (req, res) => {
                 path: "/", //cookie valid for whole site
             })
         );
-        return res.status(200).json(userData);
+        const user ={
+            ...userData,
+            access_token: accessToken,
+            refresh_token: refreshToken,
+        }
+        return res.status(200).json(user);
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal Server Error" });
@@ -102,15 +107,19 @@ const Login = async (req, res, next) => {
     try {
         const { credential, password } = req.body;
 
-        const user = await prisma.user.findFirst({
-            where:{
-                OR: { email: credential,username: credential }
-            },
+        let user = await prisma.user.findFirst({
+            where:{email: credential},
         });
-
-        if (!user) {
-            return res.status(404).json({ message: "Invalid credentials" });
+        if(!user){
+            user = await prisma.user.findFirst({
+                where:{username: credential},
+            });
+    
+            if (!user) {
+                return res.status(404).json({ message: "Invalid credentials" });
+            }
         }
+
 
         const matchPassword = await bcrypt.compare(password, user.password);
         if (matchPassword) {
