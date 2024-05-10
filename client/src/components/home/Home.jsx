@@ -15,6 +15,7 @@ import  DashBoardSlider1  from "../DashBoardSlider/DashBoardSlider";
 import CardScrolling from "../../CardScrolling/CardScrolling";
 import GamePage from "../GamePage/GamePage";
 import GameCategoryPage from "../GameCategory/gamecategorypage";
+import LongCardScrolling from "../../CardScrolling/LongCardScrolling";
 
  const cards = [
     { title: 'Image 1',des:'sd', imageSrc: game1 },
@@ -37,6 +38,7 @@ const Home =()=>{
                  <CardScrolling GameData={group2} GameDataName={"Group1"}/>
                  <CardScrolling GameData={group1} GameDataName={"Group1"}/>
                  <CardScrolling GameData={group2} GameDataName={"Group1"}/>
+                 <LongCardScrolling GameData={group1} GameDataName={"LongCard"} />
                  <div className="copiedDash">
               
                  

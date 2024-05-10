@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import YouTube from 'react-youtube';
-import "./CardScrolling.css";
+import "./LongCardSec.css";
 
 const NextArrow = (props) => {
     const { className, onClick } = props;
@@ -22,15 +21,6 @@ const NextArrow = (props) => {
                 width:'35px',
             }}
         >
-            {/* <svg
-                xmlns="http://www.w3.org/2000/svg"
-                stroke="black"
-                height="24"
-                viewBox="0 0 512 512"
-                width="24"
-            >
-                <path d="M272 464.4L456.4 280 272 95.6 272 192 144 192 144 320 272 320z" />
-            </svg> */}
             <svg 
             xmlns="http://www.w3.org/2000/svg" 
             width="24" height="24"
@@ -68,7 +58,7 @@ const PrevArrow = (props) => {
 };
 
 
-const CardScrolling = ({ GameData, GameDataName }) => {
+const LongCardScrolling = ({ GameData, GameDataName }) => {
     const [hoveredIndex, setHoverIndex] = useState(-1);
     const navigateToThisGame = useNavigate();
 
@@ -87,53 +77,7 @@ const CardScrolling = ({ GameData, GameDataName }) => {
         setHoverIndex(-1);
     }
 
-    // const renderContent = (game, index) =>{
-    //     if(hoveredIndex === index){
-    //         const videoId = extractVideoId("https://www.youtube.com/watch?v=bXrDhn7ERmg");
-    //         const opts = {
-    //             height: '200',
-    //             width: '150',
-    //             playerVars: {
-    //                 autoplay: 1,             // Auto-play the video
-    //                 loop: 1,                 // Loop the video
-    //                 controls: 0,             // Hide player controls
-    //                 modestbranding: 1,       // Reduce YouTube branding
-    //                 showinfo: 0,             // Hide video title and uploader info
-    //                 fs: 0,                   // Disable full-screen option
-    //                 rel: 0,                 // Disable related videos at the end
-    //                 mute:1,
-    //                 disablekb: 1,          // Disable keyboard controls (0 or 1)               
-
-    //             }
-    //         };
-    //         return(
-    //             <YouTube
-    //                 videoId={videoId} // Assuming game object contains a trailer property with YouTube video ID
-    //                 opts={opts} // Adjust player options as needed
-    //                 onEnd={() => setHoverIndex(-1)}
-    //                 onError={(e) => console.log('Error:', e)}
-    //             />
-    //         );
-    //     } else {
-    //         return (
-    //             <img 
-    //                 className="card-img" 
-    //                 src={game.image.game1} 
-    //                 alt={game.name} 
-    //                 onMouseEnter={() => handleMouseEnter(index)}
-    //                 onMouseLeave={handleMouseLeave}
-    //             />
-    //         );
-    //     }
-    // }
-
-    // const extractVideoId = (videoUrl) => {
-    //     // Example video URL: https://www.youtube.com/watch?v=VIDEO_ID
-    //     const videoId = videoUrl.split('v=')[1];
-    //     console.log(videoId)
-    //     return videoId;
-    // };
-
+ 
     const renderContent = (game, index) => {
         const videoId = extractVideoId(game.trailer);
 
@@ -153,7 +97,7 @@ const CardScrolling = ({ GameData, GameDataName }) => {
                 //     ></iframe>
                 // </div>
                 <img
-                    className="card-img"
+                    className="Longcard-img"
                     src={game.image.game1}
                     alt={game.name}
                     onMouseEnter={() => handleMouseEnter(index)}
@@ -163,7 +107,7 @@ const CardScrolling = ({ GameData, GameDataName }) => {
         } else {
             return (
                 <img
-                    className="card-img"
+                    className="Longcard-img"
                     src={game.image.game1}
                     alt={game.name}
                     onMouseEnter={() => handleMouseEnter(index)}
@@ -183,7 +127,7 @@ const CardScrolling = ({ GameData, GameDataName }) => {
     var settings = {
         dots: false,
         speed: 3000,
-        slidesToShow: 5,
+        slidesToShow: screen.width/200,
         slidesToScroll: 3,
         infinite: true,
         // autoplay: true,
@@ -225,7 +169,7 @@ const CardScrolling = ({ GameData, GameDataName }) => {
     };
 
     return (
-        <div className="card-scrolling-content">
+        <div className="Longcard-scrolling-content">
             {/* <h1 className="card-scrolling-header">{GameDataName}</h1> */}
             <div className="category-cointainer">
                 <p className="category-name">
@@ -234,11 +178,11 @@ const CardScrolling = ({ GameData, GameDataName }) => {
                 </p>
                 <p className="view-more" onClick={handleGamegategorySelection}>view more...</p>
             </div>
-            <div className="card-scrolling-container">
+            <div className="Longcard-scrolling-container">
                 <Slider {...settings}>
                     {GameData.map((game, index) => (
                         <div key={index}>
-                            <div className="card-scrolling-img-body">
+                            <div className="Longcard-scrolling-img-body">
 
                                 {renderContent(game, index)}
                             </div>
@@ -250,4 +194,4 @@ const CardScrolling = ({ GameData, GameDataName }) => {
     );
 };
 
-export default CardScrolling;
+export default LongCardScrolling;

@@ -1,4 +1,5 @@
 import game1 from "./../images/testImage/game1.webp"
+// import game1 from "./../images/testImage/game1.webp"
 
 // const GameStore = {
 export  const  group1= [
@@ -17,51 +18,51 @@ export  const  group1= [
                 play:"https://cdn.htmlgames.com/PyramidTripeaks/"
             },
             {
-                name: "Category Name 1",
+                name: "Category Name 3",
                 image: {game1}, // relative path to the image in your project directory
                 description: "game1",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg",
                 play:"https://cdn.htmlgames.com/PyramidTripeaks/"
             },
             {
-                name: "Category Name 2",
+                name: "Category Name 4",
                 image: {game1},
                 description: "game2",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg",
                 play:"https://cdn.htmlgames.com/PyramidTripeaks/"
             },
             {
-                name: "Category Name 1",
+                name: "Category Name 5",
                 image: {game1}, // relative path to the image in your project directory
                 description: "game1",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
-                name: "Category Name 2",
+                name: "Category Name 6",
                 image: {game1},
                 description: "game2",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
-                name: "Category Name 1",
+                name: "Category Name 7",
                 image: {game1}, // relative path to the image in your project directory
                 description: "game1",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
-                name: "Category Name 2",
+                name: "Category Name 8",
                 image: {game1},
                 description: "game2",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
-                name: "Category Name 1",
+                name: "Category Name 9",
                 image: {game1}, // relative path to the image in your project directory
                 description: "game1",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
-                name: "Category Name 2",
+                name: "Category Name 10",
                 image: {game1},
                 description: "game2",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
@@ -82,49 +83,49 @@ export  const  group1= [
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
-                name: "Category Name 1",
+                name: "Category Name 3",
                 image: {game1}, // relative path to the image in your project directory
                 description: "game1",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
-                name: "Category Name 2",
+                name: "Category Name 4",
                 image: {game1},
                 description: "game2",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
-                name: "Category Name 1",
+                name: "Category Name 5",
                 image: {game1}, // relative path to the image in your project directory
                 description: "game1",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
-                name: "Category Name 2",
+                name: "Category Name 6",
                 image: {game1},
                 description: "game2",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
-                name: "Category Name 1",
+                name: "Category Name 7",
                 image: {game1}, // relative path to the image in your project directory
                 description: "game1",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
-                name: "Category Name 2",
+                name: "Category Name 8",
                 image: {game1},
                 description: "game2",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
-                name: "Category Name 1",
+                name: "Category Name 9",
                 image: {game1}, // relative path to the image in your project directory
                 description: "game1",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
             },
             {
-                name: "Category Name 2",
+                name: "Category Name 10",
                 image: {game1},
                 description: "game2",
                 trailer:"https://www.youtube.com/watch?v=bXrDhn7ERmg"
