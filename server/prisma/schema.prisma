@@ -44,6 +44,7 @@ model Game {
   subcategory  String
   image_url    String
   launch_year  DateTime
+  totalLikes   Int       @default(0)
   likes        Like[]    @relation("GameLikes")
   favorites    FavoriteGame[] @relation("GameFavorites")
 }

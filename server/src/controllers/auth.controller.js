@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookie = require("cookie");
 const { PrismaClient } = require("@prisma/client");
+const {handleErrorResponse}=require('../errorResponses');
 
 const prisma = new PrismaClient();
 
@@ -47,7 +48,8 @@ const SetToken = async (req, res) => {
         return res.status(200).json(user);
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ message: "Internal Server Error" });
+        handleErrorResponse(res,500);
+       
     }
 };
 
@@ -67,9 +69,8 @@ const SignUp = async (req, res, next) => {
         console.log(req.body);
 
         if (password.length < 7) {
-            return res.status(401).json({
-                message: "password length should be more than 6",
-            });
+           return handleErrorResponse(res,401,"password length should be more than 6");
+        
         }
 
         const checkUser = await prisma.user.findFirst({
@@ -78,9 +79,9 @@ const SignUp = async (req, res, next) => {
             },
         });
         if (checkUser) {
-            return res.status(401).json({
-                message: "User already exists",
-            });
+            return handleErrorResponse(res,401,"User already exists");
+            
+            
         }
 
         const salt = await bcrypt.genSalt(5);
@@ -97,9 +98,8 @@ const SignUp = async (req, res, next) => {
         return next();
     } catch (error) {
         console.error(error);
-        return res.status(500).json({
-            message: "Internal server error!!!",
-        });
+        return handleErrorResponse(res,500);
+       
     }
 };
 
@@ -116,7 +116,8 @@ const Login = async (req, res, next) => {
             });
     
             if (!user) {
-                return res.status(404).json({ message: "Invalid credentials" });
+                return  handleErrorResponse(res,404,"Invalid credentials");
+                
             }
         }
 
@@ -126,13 +127,11 @@ const Login = async (req, res, next) => {
             res.locals.userData = user;
             return next();
         } else {
-            return res.status(404).json({ message: "Invalid credentials" });
+            return handleErrorResponse(res,404,"Invalid credentials");
         }
     } catch (error) {
         console.log(error);
-        return res.status(500).json({
-            message: "Internal Server Error",
-        });
+        return handleErrorResponse(res,500);
     }
 };
 

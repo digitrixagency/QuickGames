@@ -1,5 +1,6 @@
 const express = require("express");
 const authRoutes = require("./src/routes/auth.route");
+const {gameRoutes}=require("./src/routes/categorypage");
 
 const app = express();
 require('dotenv').config();
@@ -8,6 +9,7 @@ require('dotenv').config();
 app.use(express.json());
 
 app.use("/auth/", authRoutes);
+app.use("/",gameRoutes)
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
