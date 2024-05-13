@@ -96,8 +96,106 @@ async function searchGames(req, res) {
 }
 
 
+async function getGameByName(req, res) {
+  const { title } = req.params;
+
+  try {
+    const game = await prisma.game.findFirst({
+      where: {
+        title: {
+          equals: title.toLowerCase() // Case-insensitive exact match
+        }
+      }
+    });
+
+    if (!game) {
+      return handleErrorResponse(res,404,'Game not found' );
+      
+    }
+
+    res.json(game);
+  } catch (error) {
+    console.error('Error getting game by name:', error);
+    
+    handleErrorResponse(res,500);
+  }
+}
+
+async function getNameByGameId(req, res) {
+  const { gameId } = req.params;
+
+  try {
+    const game = await prisma.game.findUnique({
+      where: {
+        id: parseInt(gameId)
+      }
+    });
+
+    if (!game) {
+      return handleErrorResponse(res,404,'Game not found' );
+    }
+
+    res.json({  game});
+  } catch (error) {
+    console.error('Error getting game name by ID:', error);
+    handleErrorResponse(res,500);
+  }
+}
+
+
+
+async function countLikesById(req, res) {
+  const { gameId } = req.params;
+
+  try {
+    const game = await prisma.game.findUnique({
+      where: {
+        id: parseInt(gameId)
+      }
+    });
+
+    if (!game) {
+      return handleErrorResponse(res, 404, 'Game not found');
+    }
+
+    res.json({ title: game.title, totalLikes: game.totalLikes });
+  } catch (error) {
+    console.error('Error counting likes by ID:', error);
+    handleErrorResponse(res, 500);
+  }
+}
+
+async function countDislikesById(req, res) {
+  const { gameId } = req.params;
+
+  try {
+    const game = await prisma.game.findUnique({
+      where: {
+        id: parseInt(gameId)
+      },
+      include: {
+        likes: true // Include the likes associated with the game
+      }
+    });
+
+    if (!game) {
+      return handleErrorResponse(res, 404, 'Game not found');
+    }
+
+    const dislikeCount = game.likes.filter(like => like.like_status === -1).length; // Count dislikes
+    res.json({ title: game.title, dislikeCount });
+  } catch (error) {
+    console.error('Error counting dislikes by ID:', error);
+    handleErrorResponse(res, 500);
+  }
+}
+
 module.exports = {
   getGamesByCategory,
   getGamesBySubcategory,
-  searchGames
+  searchGames,
+  getGameByName,
+  getNameByGameId,
+  countLikesById,
+  countDislikesById
 };
