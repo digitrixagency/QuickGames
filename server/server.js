@@ -1,6 +1,6 @@
 const express = require("express");
 const authRoutes = require("./src/routes/auth.route");
-const {gameRoutes}=require("./src/routes/categorypage");
+const {gameRoutes}=require("./src/routes/game.route");
 
 const app = express();
 require('dotenv').config();

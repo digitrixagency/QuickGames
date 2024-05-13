@@ -66,7 +66,38 @@ async function getGamesBySubcategory(req, res) {
   }
 }
 
+
+
+async function searchGames(req, res) {
+  const { searchtitle } = req.query;
+  const { limit = 10, page = 1 } = req.query;
+  const offset = (page - 1) * limit;
+
+  try {
+    
+    const games = await prisma.game.findMany({
+      where: {
+        title: {
+          contains: searchtitle.toLowerCase() // Case-insensitive search by title
+        }
+      },
+      orderBy: {
+        played: 'desc' // Order by most played
+      },
+      take: Number(limit),
+      skip: offset
+    });
+
+    res.json(games);
+  } catch (error) {
+    console.error('Error searching games:', error);
+    handleErrorResponse(res,500);
+  }
+}
+
+
 module.exports = {
   getGamesByCategory,
-  getGamesBySubcategory
+  getGamesBySubcategory,
+  searchGames
 };
