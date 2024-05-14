@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Define User role enum
+enum Role {
+  ADMIN
+  USER
+}
+
+
+// Define the User table
+model User {
+  id        Int       @id @default(autoincrement())
+  username  String    @unique
+  email     String    @unique
+  password  String
+  role      Role      @default(USER)
+  likes     Like[]    @relation("UserLikes")
+  favorites FavoriteGame[] @relation("UserFavorites")
+}
+
+// Define the Game table
+model Game {
+  id           Int       @id @default(autoincrement())
+  title        String
+  description  String
+  technology   String
+  rating       String
+  played       Int
+  video_url    String
+  category     String
+  subcategory  String
+  image_url    String
+  launch_year  DateTime
+  totalLikes   Int       @default(0)
+  likes        Like[]    @relation("GameLikes")
+  favorites    FavoriteGame[] @relation("GameFavorites")
+}
+
+// Define the Like table
+model Like {
+  user_id    Int
+  game_id    Int
+  like_status Int
+  user       User      @relation("UserLikes", fields: [user_id], references: [id])
+  game       Game      @relation("GameLikes", fields: [game_id], references: [id])
+
+  @@id([user_id, game_id])
+}
+
+// Define the FavoriteGame table
+model FavoriteGame {
+  user_id    Int
+  game_id    Int
+  user       User      @relation("UserFavorites", fields: [user_id], references: [id])
+  game       Game      @relation("GameFavorites", fields: [game_id], references: [id])
+
+  @@id([user_id, game_id])
+}
+
