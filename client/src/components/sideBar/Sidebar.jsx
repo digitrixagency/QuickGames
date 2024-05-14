@@ -553,7 +553,7 @@ export default function MiniDrawer() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{ backgroundColor: (theme) => 'rgba(0, 0, 0, 0.83)' }}>
+      <AppBar position="fixed" open={open} sx={{ backgroundColor: (theme) => 'rgb(21, 21, 21)' }}>
         <Toolbar >
           <IconButton
             color="inherit"
@@ -612,7 +612,7 @@ export default function MiniDrawer() {
         <List 
         className='List-Sec'
         sx={{
-          background:'rgba(0, 0, 0, 0.87)',
+          background:'#0C0D14',
            color:'white', 
            }}>
           {sideBarData.map((data, index) => (
