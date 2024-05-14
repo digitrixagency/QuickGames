@@ -16,6 +16,7 @@ import CardScrolling from "../../CardScrolling/CardScrolling";
 import GamePage from "../GamePage/GamePage";
 import GameCategoryPage from "../GameCategory/gamecategorypage";
 import LongCardScrolling from "../../CardScrolling/LongCardScrolling";
+import DynamicCardScrolling from "../../CardScrolling/DynamicCard";
 
  const cards = [
     { title: 'Image 1',des:'sd', imageSrc: game1 },
@@ -33,8 +34,9 @@ const Home =()=>{
                 {/* <Navbar /> */}
                 
                  <DashBoardSlider1 cards={cards}/> 
-
+                 {/* <DynamicCardScrolling GameData={group1} GameDataName={"Group1"}/> */}
                  <CardScrolling GameData={group1} GameDataName={"Group1"}/>
+                 <LongCardScrolling GameData={group1} GameDataName={"LongCard"} />
                  <CardScrolling GameData={group2} GameDataName={"Group1"}/>
                  <CardScrolling GameData={group1} GameDataName={"Group1"}/>
                  <CardScrolling GameData={group2} GameDataName={"Group1"}/>

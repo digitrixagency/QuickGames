@@ -26,6 +26,8 @@
   .card-scrolling-img-body {
     display: flex;
     /* overflow: hidden; */
+    height: 140px;
+    width: 175px;
     transition: transform 0.3s ease; /* Smooth transition effect */
   }
   .card-scrolling-img-body:hover{
@@ -34,8 +36,14 @@
   .card-img{
     display:flex;
     padding: 1px;
-    width: 100%;
+    /* width: 100%; */
+    /* width: 150px;
+    height: 120px; */
+    object-fit: fill;
     border-radius: 10px;
+}
+.card-img:hover{
+  border: 2px blueviolet solid;
 }
   
   .card-scrolling-container {

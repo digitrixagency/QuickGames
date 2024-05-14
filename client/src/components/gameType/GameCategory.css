@@ -13,6 +13,7 @@
     padding: 10px;
     background-color: #31323b;
     color: whitesmoke;
+    border-radius: 10px;
 }
 .game-category{
     /* display: flex; */
@@ -23,6 +24,7 @@
     width: 65%;
     height: 100%;
     margin: 0 auto;
+    /* background-color: #31323b; */
    
     /* overflow-x: auto; */
 }

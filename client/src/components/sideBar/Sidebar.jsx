@@ -612,7 +612,7 @@ export default function MiniDrawer() {
         <List 
         className='List-Sec'
         sx={{
-          background:'rgba(0, 0, 0, 0.87)',
+          background:'#0C0D14',
            color:'white', 
            }}>
           {sideBarData.map((data, index) => (
