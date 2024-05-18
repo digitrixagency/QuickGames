@@ -50,6 +50,7 @@ import { userState } from '../../slice/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import AccountMenu from '../Authentication/SignOut';
+import BasicPopover from '../Authentication/SignOut';
 
 
 
@@ -525,6 +526,7 @@ export default function MiniDrawer() {
 
   const [auth, setAuth] = useState(false);
   const authclicked = () => {
+    // navigate("/log-in")
     setAuth(true);
   }
 
@@ -607,10 +609,13 @@ export default function MiniDrawer() {
           {userStates?.isLoggedIn === true ?
           <IconButton sx={{ marginLeft: '9px' }} color="inherit" aria-label="favorite">
             {/* <AccountCircleIcon fontSize='medium'  /> */}
-            <AccountMenu/>
+            {/* <AccountMenu/> */}
+            <BasicPopover/>
           </IconButton>
         :
-          <Button sx={{ marginLeft: '9px', borderRadius: '50px', justifyContent: 'center', backgroundColor: (theme) => 'rgb(108, 0, 224)' }} onClick={authclicked} variant='contained'>Login</Button>
+          <Button sx={{ marginLeft: '9px', borderRadius: '50px', justifyContent: 'center', backgroundColor: (theme) => 'rgb(108, 0, 224)',
+          
+           }} onClick={authclicked} variant='contained'>Login</Button>
           }
           {/* <Button sx={{marginLeft:'9px', borderRadius: '50px'}}variant='contained'>Sign Up</Button> */}
 

@@ -5,8 +5,8 @@
   
   .card-scrolling-content {
     text-align: center;
-    margin-top: 24px;
-    margin-bottom: 30px;
+    margin-top: 14px;
+    margin-bottom: 10px;
     margin-left: 5%;
     width: 94%;
 
@@ -70,13 +70,13 @@
     align-items: center;
 }
 .category-name{
-    padding-left: 4%;
+    /* padding-left: 2%; */
     font-size: 1.3rem;
     font-weight: 600;
     color: wheat;
 }
 .view-more{
-    padding-left: 10px;
+    padding-left: 1px;
     color: rgb(228, 74, 18);
     cursor: pointer;
 }

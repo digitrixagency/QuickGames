@@ -1,6 +1,6 @@
 :root {
-    --cardWidth: 200px;
-    --cardHeight: 150px;
+    --cardWidth: 170px;
+    --cardHeight: 100px;
     --cardMargin: 1px;
   }
   
@@ -13,7 +13,7 @@
   } */
  .UserRecentPlayed{
   width: 100%;
-  background-image: url('https://img.freepik.com/free-photo/black-smooth-wooden-textured-background_53876-153465.jpg?w=996&t=st=1714919429~exp=1714920029~hmac=3736b384095ec9bdcc869aca68fb22b68f975cd28d10c0b0df20841b395b2cb2');
+  /* background-image: url('https://img.freepik.com/free-photo/black-smooth-wooden-textured-background_53876-153465.jpg?w=996&t=st=1714919429~exp=1714920029~hmac=3736b384095ec9bdcc869aca68fb22b68f975cd28d10c0b0df20841b395b2cb2'); */
     /* Other background properties */
     background-size: cover; /* Adjusts the size of the background image */
     background-position: center; /* Positions the background image */
@@ -50,10 +50,12 @@
     cursor: pointer;
     overflow: hidden; /* Ensures image won't overflow the card */
     transition: transform 0.3s ease; /* Smooth transition effect */
+    background-color: transparent;
   }
 
   .card:hover {
     transform: scale(1.1); /* Increases the size of the card on hover */
+    z-index: 2;
   }
   
   .card-img {
@@ -62,9 +64,7 @@
     transition: transform 0.3s ease; /* Smooth transition effect */
   }
   
-  .card:hover .card-img {
-    transform: scale(1.1); /* Increases the size of the image on hover */
-  }
+
 
 
   
