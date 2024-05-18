@@ -4,7 +4,7 @@ const gameController = require('../controllers/game.controller');
 const gameRoutes = Router();
 
 
-
+gameRoutes.get('/games/top-categories', gameController.getTopCategories); //data to display on dashboard
 gameRoutes.get('/games/category/:category',gameController.getGamesByCategory);
 gameRoutes.get('/games/subcategory/:subcategory', gameController.getGamesBySubcategory);
 gameRoutes.get('/games/search', gameController.searchGames);
