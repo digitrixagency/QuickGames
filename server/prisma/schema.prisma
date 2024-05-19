@@ -35,15 +35,16 @@ model User {
 model Game {
   id           Int       @id @default(autoincrement())
   title        String
-  description  String
-  technology   String
-  rating       String
-  played       Int
-  video_url    String
-  category     String
-  subcategory  String
-  image_url    String
-  launch_year  DateTime
+  description  String    @default("")
+  technology   String    @default("")
+  rating       Float     @default(0)
+  played       Int       @default(0)
+  video_url    String    @default("")
+  game_url     String    @default("")
+  category     String    @default("")
+  subcategory  String    @default("")
+  image_url    String    @default("")
+  launch_year  String    @default("")
   totalLikes   Int       @default(0)
   likes        Like[]    @relation("GameLikes")
   favorites    FavoriteGame[] @relation("GameFavorites")

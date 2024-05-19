@@ -37,8 +37,16 @@ const Card = ({ imageUrl }) => {
   
 const GameCategoryPage=()=>{
   const [page, setPage] = React.useState(1);
-  const handleChange = (event, value) => {
+  const [filter, setfilter] = React.useState('new');
+
+  const handlepageChange = (event, value) => {
+    console.log(value)
     setPage(value);
+  };
+
+  const handlefilterChange = (event,value) => {
+  console.log(value.props.value)
+    setfilter(value.props.value);
   };
 
 return (
@@ -49,31 +57,33 @@ return (
 
      
       <Select
-      value={"Most Played"}
-      onChange={handleChange}
+      value={filter}
+      onChange={handlefilterChange}
       displayEmpty
       inputProps={{ 'aria-label': 'Without label' }}
       className='mr-3'
       
       sx={{
-        '&:hover': {
+        color: 'white', // Text color
+        '& .MuiSelect-icon': {
+          color: 'white', // Arrow color
+        },
+        '&:hover .MuiOutlinedInput-notchedOutline': {
           borderColor: 'purple', // Change this to the purple color you prefer
         },
-        '&:focus': {
-          backgroundColor: 'transparent', // Removes the default focus color
+        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+          borderColor: 'white', // Change this to the purple color you prefer
         },
-        // Set the width to 100%
-        height:'45px',
+        height: '45px',
         borderRadius: '4px', // Optional: you can adjust this value
         borderWidth: '1px', // Optional: you can adjust this value
-        borderStyle: 'solid',
-         // Optional: you can adjust this value
+        borderStyle: 'solid', // Optional: you can adjust this value
       }}
     >
       
-      <MenuItem value={"New"}>New</MenuItem>
-      <MenuItem value={"Most Played"}>Most Played</MenuItem>
-      <MenuItem value={"Trending"}>Trending</MenuItem>
+      <MenuItem value={"new"}>New</MenuItem>
+      <MenuItem value={"mostPlayed"}>Most Played</MenuItem>
+      <MenuItem value={"mostLiked"}>Trending</MenuItem>
     </Select>
        
   
@@ -117,12 +127,36 @@ return (
 
     </div>
 
-    <Pagination size='large' className="mx-auto mb-12 mt-7"count={20} page={page} onChange={handleChange}  sx={{
-        '& .MuiPaginationItem-page.Mui-selected': {
-          backgroundColor: 'rgb(108, 0, 224)',
-          color: '#FFFFFF', // Text color for selected page
+    <Pagination size='large' className="mx-auto mb-12 mt-7"count={20} page={page} onChange={handlepageChange}  
+   sx={{
+        '& .MuiPaginationItem-page': {
+          backgroundColor: '#FFFFFF', // Non-selected background color
+          color: '#000000', // Non-selected text color
+          '&:hover': {
+            backgroundColor: '#f0f0f0', // Light grey background on hover for non-selected pages
+          },
         },
-      }} />
+        '& .MuiPaginationItem-page.Mui-selected': {
+          backgroundColor: 'rgb(108, 0, 224)', // Selected background color
+          color: '#FFFFFF', // Selected text color
+          '&:hover, &:focus': {
+            backgroundColor: 'rgb(108, 0, 224)', // Keep the background color the same on hover and focus
+            outline: 'none', // Remove the default outline
+          },
+        },
+        '& .MuiPaginationItem-ellipsis': {
+          color: '#FFFFFF', // Color for ellipsis
+        },
+        '& .MuiPaginationItem-previousNext': {
+          color: '#FFFFFF', // Color for arrows
+        },
+        '& .MuiPaginationItem-previousNext.Mui-disabled': {
+          color: 'rgba(255, 255, 255, 0.5)', // Color for disabled arrows
+        },
+      }}
+      
+      
+      />
 
   </div>
 );

@@ -13,6 +13,7 @@ const userSlice = createSlice({
             authForms: "",
         },
         allGames: [],
+        selectedGames:[],
         subscribedGames: []
     },
 
@@ -91,6 +92,19 @@ const userSlice = createSlice({
             state.allGames = action.payload;
         },
         fetchAllGamesError: (state) => {
+            state.isError = true;
+            state.isFetching = false;
+        },
+        //for category and sub category games
+        fetchselectedGamesStart: (state) => {
+            state.isFetching = true;
+        },
+        fetchselectedGamesSuccess: (state, action) => {
+            state.isError = false;
+            state.isFetching = false;
+            state.selectedGames = action.payload;
+        },
+        fetchselectedGamesError: (state) => {
             state.isError = true;
             state.isFetching = false;
         },
@@ -232,6 +246,9 @@ export const {
     fetchAllGamesError,
     fetchAllGamesStart,
     fetchAllGamesSuccess,
+    fetchselectedGamesStart,
+    fetchselectedGamesSuccess,
+    fetchselectedGamesError,
     removeAddGamesStatus,
     forgotPassStart,
     forgotPassSuccess,
