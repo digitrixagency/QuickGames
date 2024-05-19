@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Home.css"
 // import Navbar from "../Navbar/Navbar";
 import MiniDrawer from "../sideBar/Sidebar";
@@ -17,6 +17,10 @@ import GamePage from "../GamePage/GamePage";
 import GameCategoryPage from "../GameCategory/gamecategorypage";
 import LongCardScrolling from "../../CardScrolling/LongCardScrolling";
 import DynamicCardScrolling from "../../CardScrolling/DynamicCard";
+import { useDispatch, useSelector } from "react-redux";
+import { userState } from "../../slice/userSlice";
+import { useNavigate } from "react-router-dom";
+import { fetchTopCategories } from "../../middleware/games";
 
  const cards = [
     { title: 'Image 1',des:'sd', imageSrc: game1 },
@@ -28,11 +32,26 @@ import DynamicCardScrolling from "../../CardScrolling/DynamicCard";
   
 
 const Home =()=>{
+    const userStates = useSelector(userState);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    // const handleTest = async (e) => {
+    //     e.preventDefault();
+    //     await dispatch(fetchTopCategories());
+    //     // console.log(fetchTopCategoriesSuccess);
+    // }
+    useEffect(() => {
+        dispatch(fetchTopCategories());
+    }, [dispatch])
+    
     return (
         <>
             <div className="home">
                 {/* <Navbar /> */}
-                
+                {/* <button style={{color:'red', height:'30px', background:'blue', width:'200px', alignSelf:'center'}}
+                onClick={handleTest}
+                >this is button for click</button> */}
                  <DashBoardSlider1 cards={cards}/> 
                  {/* <DynamicCardScrolling GameData={group1} GameDataName={"Group1"}/> */}
                  <CardScrolling GameData={group1} GameDataName={"Group1"}/>
@@ -50,10 +69,6 @@ const Home =()=>{
                
                   
                   <GamePage GameData={group1}/> */}
-                
-
-
-
             </div>
             
         </>

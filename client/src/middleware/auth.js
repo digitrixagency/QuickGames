@@ -32,11 +32,11 @@ export const signUp = async (data, dispatch, navigate) => {
             withCredentials:true,
         });
         dispatch(AuthSuccess(response.data));
-        console.log("all right up to middleware");
         navigate("/");
     }catch (error){
         dispatch(AuthFailure(error.response));
-        console.log("error when signup",error);
+        console.log(error.response.data.error.message);
+        console.log(error.response.status);
     }
 };
 
@@ -52,6 +52,7 @@ export const signIn = async (
         withCredentials: true,
       });
       dispatch(AuthSuccess(response.data));
+      console.log(response.data)
       handleClose();
       navigate("/");
     } catch (error) {

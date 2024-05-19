@@ -13,8 +13,15 @@ const userSlice = createSlice({
             authForms: "",
         },
         allGames: [],
+<<<<<<< HEAD
         selectedGames:[],
         subscribedGames: []
+=======
+        subscribedGames: [],
+        topCategories: [],
+        topCategoriesFetching: false, // Add this line
+        topCategoriesError: false, // Add this line
+>>>>>>> 940edd655d5dbe7f9ba3da1ea9bc896e354196a5
     },
 
     reducers: {
@@ -188,45 +195,76 @@ const userSlice = createSlice({
 
         //for favorite Product
         //for subscribed Product
-    subscribedGamefetchStart : (state) =>{
-        state.subscribedGamefetchStatusSuccess = false;
-        state.subscribedGamefetchStatusPending = true;
-        state.subscribedGamefetchStatusError = false;
-      },
-      subscribedGamefetchError: (state, action) =>{
-        state.subscribedGamefetchStatusPending = false;
-        state.subscribedGamefetchStatusSuccess = false;
-        state.subscribedGamefetchStatusError = true;
-        state.subscribedGamefetchStatusErrorMessage = action.payload.data.message;
-      },
-      subscribedGamefetchSuccess: (state, action) =>{
-        state.subscribedProductfetchStatusSuccess = true;
-        state.subscribedProductfetchStatusPending = false;
-        state.subscribedProductfetchStatusError = false;
-        state.subscribedProducts = action.payload;
-      },
-      RemoveSubscribedGamefetchstatus: (state) =>{
-        state.subscribedProductfetchStatusSuccess = false;
-        state.subscribedProductfetchStatusError = false;
-        state.RemoveSubscribedProductfetchstatusMessage = "";
-      },
+        subscribedGamefetchStart: (state) => {
+            state.subscribedGamefetchStatusSuccess = false;
+            state.subscribedGamefetchStatusPending = true;
+            state.subscribedGamefetchStatusError = false;
+        },
+        subscribedGamefetchError: (state, action) => {
+            state.subscribedGamefetchStatusPending = false;
+            state.subscribedGamefetchStatusSuccess = false;
+            state.subscribedGamefetchStatusError = true;
+            state.subscribedGamefetchStatusErrorMessage = action.payload.data.message;
+        },
+        subscribedGamefetchSuccess: (state, action) => {
+            state.subscribedProductfetchStatusSuccess = true;
+            state.subscribedProductfetchStatusPending = false;
+            state.subscribedProductfetchStatusError = false;
+            state.subscribedProducts = action.payload;
+        },
+        RemoveSubscribedGamefetchstatus: (state) => {
+            state.subscribedProductfetchStatusSuccess = false;
+            state.subscribedProductfetchStatusError = false;
+            state.RemoveSubscribedProductfetchstatusMessage = "";
+        },
 
-      //Get Game y ID
-      GetGameFromIDStart: (state) => {
-        state.getGameFromIdSuccess = false;
-        state.getGameFromIdPending = true;
-        state.getGameFromIdError = false;
-      },
-      GetGameFromIDSuccess: (state) => {
-        state.getGameFromIdSuccess = true;
-        state.getGameFromIdPending = false;
-        state.getGameFromIdError = false;
-      },
-      GetGameFromIDError: (state) => {
-        state.getGameFromIdSuccess = false;
-        state.getGameFromIdPending = false;
-        state.getGameFromIdError = true;
-      },
+        //Get Game y ID
+        GetGameFromIDStart: (state) => {
+            state.getGameFromIdSuccess = false;
+            state.getGameFromIdPending = true;
+            state.getGameFromIdError = false;
+        },
+        GetGameFromIDSuccess: (state) => {
+            state.getGameFromIdSuccess = true;
+            state.getGameFromIdPending = false;
+            state.getGameFromIdError = false;
+        },
+        GetGameFromIDError: (state) => {
+            state.getGameFromIdSuccess = false;
+            state.getGameFromIdPending = false;
+            state.getGameFromIdError = true;
+        },
+
+        //Get Game by name
+        GetGameFromNameStart: (state) => {
+            state.getGameFromNameSuccess = false;
+            state.getGameFromNamePending = true;
+            state.getGameFromNameError = false;
+        },
+        GetGameFromNameSuccess: (state) => {
+            state.getGameFromNameSuccess = true;
+            state.getGameFromNamePending = false;
+            state.getGameFromIdError = false;
+        },
+        GetGameFromNameError: (state) => {
+            state.getGameFromNameSuccess = false;
+            state.getGameFromNamePending = false;
+            state.getGameFromNameError = true;
+        },
+
+        //fetching for dashboard
+        fetchTopCategoriesStart: (state) => {
+            state.topCategoriesFetching = true;
+            state.topCategoriesError = false;
+        },
+        fetchTopCategoriesSuccess: (state, action) => {
+            state.topCategoriesFetching = false;
+            state.topCategories = action.payload;
+        },
+        fetchTopCategoriesError: (state) => {
+            state.topCategoriesFetching = false;
+            state.topCategoriesError = true;
+        },
     }
 });
 
@@ -264,7 +302,13 @@ export const {
     RemoveSubscribedGamefetchstatus,
     GetGameFromIDStart,
     GetGameFromIDError,
-    GetGameFromIDSuccess
+    GetGameFromIDSuccess,
+    GetGameFromNameStart,
+    GetGameFromNameSuccess,
+    GetGameFromNameError,
+    fetchTopCategoriesStart,
+    fetchTopCategoriesError,
+    fetchTopCategoriesSuccess
 
 } = userSlice.actions
 

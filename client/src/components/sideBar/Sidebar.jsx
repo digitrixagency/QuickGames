@@ -22,6 +22,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Dashhboard from "../dashboard/Dashboard"
 import { Button } from '@mui/material';
@@ -42,7 +43,14 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useAppContext } from "../Appcontext";
 import Home from '../home/Home';
+
+
 import "./Sidebar.css";
+import { userState } from '../../slice/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import AccountMenu from '../Authentication/SignOut';
+import BasicPopover from '../Authentication/SignOut';
 
 
 
@@ -488,6 +496,10 @@ export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [openSideBar, setOpenSideBar] = React.useState(true);
+
+  const userStates = useSelector(userState);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   
 
   const handleDrawerOpen = () => {
@@ -514,12 +526,14 @@ export default function MiniDrawer() {
 
   const [auth, setAuth] = useState(false);
   const authclicked = () => {
+    // navigate("/log-in")
     setAuth(true);
   }
 
   const AuthForm = () => {
     return (
       <div className="App">
+      
         <Paper elevation={0} style={{ padding: "10px", paddingBottom: "50px" }}>
           <div align="center">
             {loginchk ? (
@@ -590,7 +604,19 @@ export default function MiniDrawer() {
           <IconButton sx={{ marginLeft: '9px' }} color="inherit" aria-label="favorite">
             <FavoriteIcon />
           </IconButton>
-          <Button sx={{ marginLeft: '9px', borderRadius: '50px', justifyContent: 'center', backgroundColor: (theme) => 'rgb(108, 0, 224)' }} onClick={authclicked} variant='contained'>Login</Button>
+
+
+          {userStates?.isLoggedIn === true ?
+          <IconButton sx={{ marginLeft: '9px' }} color="inherit" aria-label="favorite">
+            {/* <AccountCircleIcon fontSize='medium'  /> */}
+            {/* <AccountMenu/> */}
+            <BasicPopover/>
+          </IconButton>
+        :
+          <Button sx={{ marginLeft: '9px', borderRadius: '50px', justifyContent: 'center', backgroundColor: (theme) => 'rgb(108, 0, 224)',
+          
+           }} onClick={authclicked} variant='contained'>Login</Button>
+          }
           {/* <Button sx={{marginLeft:'9px', borderRadius: '50px'}}variant='contained'>Sign Up</Button> */}
 
 

@@ -3,6 +3,50 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const {handleErrorResponse}=require('../errorResponses');
 
+//Finding to 10 categories to display data in Home page
+async function getTopCategories(req, res) {
+  try {
+    // Aggregate data to find top 10 categories based on number of games
+    const categories = await prisma.game.groupBy({
+      by: ['category'],
+      _count: {
+        category: true,
+      },
+      orderBy: {
+        _count: {
+          category: 'desc',
+        },
+      },
+      take: 10,
+    });
+
+    // Fetch data for these top categories
+    const categoryDataPromises = categories.map(async (category) => {
+      const games = await prisma.game.findMany({
+        where: {
+          category: category.category,
+        },
+        orderBy: {
+          played: 'desc',
+        },
+        take: 5, // Fetch top 5 games for each category, adjust as needed
+      });
+      return {
+        category: category.category,
+        gameCount: category._count.category,
+        games,
+      };
+    });
+
+    const categoryData = await Promise.all(categoryDataPromises);
+
+    res.json(categoryData);
+  } catch (error) {
+    console.error('Error fetching top categories:', error);
+    handleErrorResponse(res, 500);
+  }
+}
+
 async function getGamesByCategory(req, res) {
   const { category } = req.params;
   const { filter = 'new', limit = 10, page = 1 } = req.query;
@@ -191,6 +235,7 @@ async function countDislikesById(req, res) {
 }
 
 module.exports = {
+  getTopCategories,
   getGamesByCategory,
   getGamesBySubcategory,
   searchGames,

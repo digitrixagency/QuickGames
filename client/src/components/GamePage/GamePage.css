@@ -67,7 +67,9 @@
     width: 30%;
     /* background-color: white; */
 }
-
+.related-game-pagelower{
+ padding-left: 7%;
+}
 @media only screen and (max-width: 1250px){
     .Gamepage-cointainer{
         display: flex;
