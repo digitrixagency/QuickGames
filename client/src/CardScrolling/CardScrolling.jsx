@@ -83,16 +83,16 @@ const CardScrolling = ({ GameData, GameDataName }) => {
     };
    
     const handleGamegategorySelection = async() => {
-          console.log(GameDataName);
-        const data={
-            category:'Solitaire',
-            limit:10,
-            page:1,
-            filter:'new'
-        }
-      await fetchcategory(data,dispatch);
+    //       console.log(GameDataName);
+    //     const data={
+    //         category:GameDataName,
+    //         limit:50,
+    //         page:1,
+    //         filter:'new'
+    //     }
+    //   await fetchcategory(data,dispatch);
       
-    //     navigateToThisGame(`cardgames/populargame`);
+         navigateToThisGame(`games/${GameDataName}`);
     };
 
     const handleMouseEnter = (index) => {
