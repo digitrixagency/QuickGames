@@ -33,26 +33,42 @@ import { fetchTopCategories } from "../../middleware/games";
 
 const Home =()=>{
     const userStates = useSelector(userState);
+    const { topCategories } = useSelector((state) => state.user); // top 10 categories data stored here
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // const handleTest = async (e) => {
-    //     e.preventDefault();
-    //     await dispatch(fetchTopCategories());
-    //     // console.log(fetchTopCategoriesSuccess);
-    // }
     useEffect(() => {
         dispatch(fetchTopCategories());
     }, [dispatch])
+
     
+    // console.log(topCategories[0]?.games[0]?.title);
+ 
+    console.log(topCategories);
+
     return (
         <>
             <div className="home">
                 {/* <Navbar /> */}
-                {/* <button style={{color:'red', height:'30px', background:'blue', width:'200px', alignSelf:'center'}}
-                onClick={handleTest}
-                >this is button for click</button> */}
+                
+
+
                  <DashBoardSlider1 cards={cards}/> 
+
+                 {/* <div > */}
+                    
+                    {/* {topCategories && topCategories.length > 0 ? (
+                        topCategories?.map((category,index) => (
+                            <div key={index}>
+                            <CardScrolling GameData={category.games} GameDataName={category.category}/>
+    
+                            </div>
+                        ))
+                    ) : (
+                        <p>Loading...</p>
+                    )} */}
+                {/* </div> */}
+
                  {/* <DynamicCardScrolling GameData={group1} GameDataName={"Group1"}/> */}
                  <CardScrolling GameData={group1} GameDataName={"Group1"}/>
                  <LongCardScrolling GameData={group1} GameDataName={"LongCard"} />
