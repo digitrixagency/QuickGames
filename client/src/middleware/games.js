@@ -31,8 +31,7 @@ export const fetchTopCategories = () => async (dispatch) => {
   try {
     
       const response = await API.get('/games/top-categories');
-
-      console.log(response.data);
+      
       dispatch(fetchTopCategoriesSuccess(response.data));
   } catch (error) {
       dispatch(fetchTopCategoriesError());
