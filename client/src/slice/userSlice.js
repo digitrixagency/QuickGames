@@ -13,15 +13,11 @@ const userSlice = createSlice({
             authForms: "",
         },
         allGames: [],
-<<<<<<< HEAD
         selectedGames:[],
-        subscribedGames: []
-=======
         subscribedGames: [],
         topCategories: [],
         topCategoriesFetching: false, // Add this line
         topCategoriesError: false, // Add this line
->>>>>>> 940edd655d5dbe7f9ba3da1ea9bc896e354196a5
     },
 
     reducers: {
