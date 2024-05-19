@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./LongCardSec.css";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const NextArrow = (props) => {
     const { className, onClick } = props;
@@ -59,6 +60,7 @@ const PrevArrow = (props) => {
 
 
 const LongCardScrolling = ({ GameData, GameDataName }) => {
+    const [ishovered , setishovered] = useState(false)
     const [hoveredIndex, setHoverIndex] = useState(-1);
     const navigateToThisGame = useNavigate();
 
@@ -131,10 +133,11 @@ const LongCardScrolling = ({ GameData, GameDataName }) => {
         slidesToScroll: 3,
         infinite: true,
         // autoplay: true,
+    
         autoplaySpeed: 100,
-        nextArrow: <NextArrow className="nextArrow"/>,
+        nextArrow: ishovered?<NextArrow className="nextArrow"/>:null,
 
-        prevArrow: <PrevArrow className="nextArrow"/>,
+        prevArrow: ishovered?<PrevArrow className="nextArrow"/>:null,
         responsive: [
             {
                 breakpoint: 1110,
@@ -181,7 +184,7 @@ const LongCardScrolling = ({ GameData, GameDataName }) => {
             <div className="Longcard-scrolling-container">
                 <Slider {...settings}>
                     {GameData.map((game, index) => (
-                        <div key={index}>
+                        <div key={index} onMouseEnter={()=> {setishovered(true)}}  onMouseLeave={()=> {setishovered(false)}}>
                             <div className="Longcard-scrolling-img-body">
 
                                 {renderContent(game, index)}
