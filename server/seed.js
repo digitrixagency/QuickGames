@@ -9,7 +9,7 @@ async function main() {
 
 
   const Gamedata=excelToJson(filepath);
-  console.log(Gamedata[1]);
+  console.log(Gamedata);
   await prisma.game.createMany({
     data:Gamedata
   });
