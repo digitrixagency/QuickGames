@@ -29,7 +29,7 @@ async function getTopCategories(req, res) {
         orderBy: {
           played: 'desc',
         },
-        take: 5, // Fetch top 5 games for each category, adjust as needed
+        take: 20, // Fetch top 5 games for each category, adjust as needed
       });
       return {
         category: category.category,

@@ -6,9 +6,6 @@ import "slick-carousel/slick/slick-theme.css";
 import YouTube from 'react-youtube';
 import HoverVideoPlayer from 'react-hover-video-player';
 import "./CardScrolling.css";
-import { useSelector , useDispatch } from 'react-redux';
-import { fetchcategory } from "../middleware/category";
-
 
 const NextArrow = (props) => {
     const { className, onClick } = props;
@@ -73,21 +70,13 @@ const PrevArrow = (props) => {
 
 
 const CardScrolling = ({ GameData, GameDataName }) => {
-
-    const dispatch = useDispatch();
     const [hoveredIndex, setHoverIndex] = useState(-1);
     const navigateToThisGame = useNavigate();
 
     const handleGameSelection = (gameName) => {
         navigateToThisGame(`this-game-name/`);
     };
-    const handleGamegategorySelection = async(gameName) => {
-        const data={
-            category:'puzzle',
-            limit:20,
-            page:1,
-        }
-      await fetchcategory(data,dispatch);
+    const handleGamegategorySelection = (gameName) => {
         navigateToThisGame(`cardgames/populargame`);
     };
 
@@ -266,11 +255,11 @@ const CardScrolling = ({ GameData, GameDataName }) => {
                                 {/* {renderContent(game, index)} */}
                                 <HoverVideoPlayer
                                 
-                                    videoSrc={game.trailer}
+                                    videoSrc={game.video_url}
                                     
                                     pausedOverlay={
                                         <img
-                                            src={game.image.game1}
+                                            src={game.image_url}
                                             alt="this is img"
                                             style={{
                                                 // Make the image expand to cover the video's dimensions

@@ -57,7 +57,7 @@ const Home =()=>{
 
                  {/* <div > */}
                     
-                    {/* {topCategories && topCategories.length > 0 ? (
+                    {topCategories && topCategories.length > 0 ? (
                         topCategories?.map((category,index) => (
                             <div key={index}>
                             <CardScrolling GameData={category.games} GameDataName={category.category}/>
@@ -66,16 +66,16 @@ const Home =()=>{
                         ))
                     ) : (
                         <p>Loading...</p>
-                    )} */}
+                    )}
                 {/* </div> */}
 
                  {/* <DynamicCardScrolling GameData={group1} GameDataName={"Group1"}/> */}
-                 <CardScrolling GameData={group1} GameDataName={"Group1"}/>
+                 {/* <CardScrolling GameData={group1} GameDataName={"Group1"}/>
                  <LongCardScrolling GameData={group1} GameDataName={"LongCard"} />
                  <CardScrolling GameData={group2} GameDataName={"Group1"}/>
                  <CardScrolling GameData={group1} GameDataName={"Group1"}/>
                  <CardScrolling GameData={group2} GameDataName={"Group1"}/>
-                 <LongCardScrolling GameData={group1} GameDataName={"LongCard"} />
+                 <LongCardScrolling GameData={group1} GameDataName={"LongCard"} /> */}
                  <div className="copiedDash">
               
                  
