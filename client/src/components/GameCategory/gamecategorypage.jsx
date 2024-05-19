@@ -14,16 +14,18 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
+import { useDispatch, useSelector } from "react-redux";
+import { userState } from "../../slice/userSlice";
+import { useNavigate } from "react-router-dom";
 import Stack from '@mui/material/Stack';
-
-
+import { fetchcategory } from "../../middleware/category";
   // const [age, setAge] = React.useState('');
 
   const handleChange = (event) => {
     // setAge(event.target.value);
   };
 
-const Card = ({ imageUrl }) => {
+const Card = ({ imageUrl ,gameid }) => {
     return (
       <div className="relative overflow-hidden rounded-lg hover:transition-transform hover:scale-110 hover:z-10 ">
       <div
@@ -39,6 +41,9 @@ const GameCategoryPage=()=>{
   const [page, setPage] = React.useState(1);
   const [filter, setfilter] = React.useState('new');
 
+  const userStates = useSelector(userState);
+    const { selectedGames } = useSelector((state) => state.user); 
+
   const handlepageChange = (event, value) => {
     console.log(value)
     setPage(value);
@@ -48,6 +53,8 @@ const GameCategoryPage=()=>{
   console.log(value.props.value)
     setfilter(value.props.value);
   };
+
+  console.log(selectedGames);
 
 return (
     <div className="flex flex-col">
@@ -92,40 +99,19 @@ return (
         
 
     
-    <div className="grid grid-cols-6  gap-1   p-8 ml-12">
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game2}/>
-    <Card imageUrl={game3}/>
-    <Card imageUrl={game5}/>
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game6}/>
-    <Card imageUrl={game2}/>
-    <Card imageUrl={game4}/>
-    <Card imageUrl={game7}/>
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game3}/>
+    {/* <div className="grid grid-cols-6  gap-1   p-8 ml-12">
+    {selectedGames && selectedGames.length > 0 ? (
+                        selectedGames?.map((game,index) => (
+                            <div key={game.id}>
+                            <Card imageUrl={game.image_url} gameid={game.id}/>
+    
+                            </div>
+                        ))
+                    ) : (
+                        <p>Loading...</p>
+                    )}
 
-    <Card imageUrl={game2}/>
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game3}/>
-
-    <Card imageUrl={game5}/>
-    <Card imageUrl={game4}/>
-    <Card imageUrl={game7}/>
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game3}/>
-    <Card imageUrl={game6}/>
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game5}/>
-    <Card imageUrl={game2}/>
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game7}/>
-
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game3}/>
-    <Card imageUrl={game4}/>
-
-    </div>
+    </div> */}
 
     <Pagination size='large' className="mx-auto mb-12 mt-7"count={20} page={page} onChange={handlepageChange}  
    sx={{
