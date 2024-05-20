@@ -141,7 +141,7 @@ const sideBarData = [
       backgroundImage: 'linear-gradient(to top, black, brown)', // Specify your gradient colors here
       WebkitBackgroundClip: 'text',
     }}></i>,
-    text: "Mail",
+    text: "Speed up",
     index: 2
   },
   {
