@@ -65,19 +65,20 @@
 }
 
 .category-cointainer{
+  padding-left: 0%;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-.category-name{
-    /* padding-left: 2%; */
+.category-name {
+    padding-left: 0%;
     font-size: 1.3rem;
     font-weight: 600;
     color: wheat;
 }
 .view-more{
-    padding-left: 1px;
-    color: rgb(228, 74, 18);
+    padding-left: 10px;
+    color: rgb(255 133 89);
     cursor: pointer;
 }
 

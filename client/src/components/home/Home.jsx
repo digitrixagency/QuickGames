@@ -44,7 +44,6 @@ const Home =()=>{
     
     // console.log(topCategories[0]?.games[0]?.title);
  
-    console.log(topCategories);
 
     return (
         <>
@@ -60,8 +59,17 @@ const Home =()=>{
                     {topCategories && topCategories.length > 0 ? (
                         topCategories?.map((category,index) => (
                             <div key={index}>
-                            <CardScrolling GameData={category.games} GameDataName={category.category}/>
-    
+                            {
+                                <>
+                                {index % 3 === 0 && index !== 0 ? (
+                                    <LongCardScrolling GameData={category.games} GameDataName={category.category} />
+                                ) : (
+                                    <CardScrolling GameData={category.games} GameDataName={category.category} />
+                                )}
+                                </>
+                            }
+                            {/* <CardScrolling GameData={category.games} GameDataName={category.category}/> */}
+                            {/* <LongCardScrolling GameData={category.games} GameDataName={category.category} /> */}
                             </div>
                         ))
                     ) : (
