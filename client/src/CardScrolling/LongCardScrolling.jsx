@@ -63,8 +63,10 @@ const LongCardScrolling = ({ GameData, GameDataName }) => {
     const [hoveredIndex, setHoverIndex] = useState(-1);
     const navigateToThisGame = useNavigate();
 
-    const handleGameSelection = (gameName) => {
-        navigateToThisGame(`this-game-name/`);
+    const handleGameSelection = (game) => {
+        const gameTitle = game.title.replace(/\s+/g, '-').toLowerCase(); // Convert title to URL-friendly format
+        navigateToThisGame(`/game/${gameTitle}`, { state: { game , GameData } });
+        // navigateToThisGame(`this-game-name/`);
     };
     const handleGamegategorySelection = (gameName) => {
         navigateToThisGame(`cardgames/populargame`);
@@ -102,7 +104,7 @@ const LongCardScrolling = ({ GameData, GameDataName }) => {
                     src={game.image_url}
                     alt={game.title}
                     onMouseEnter={() => handleMouseEnter(index)}
-                    onClick={() => handleGameSelection(game.title)}
+                    onClick={() => handleGameSelection(game)}
                 />
             );
         } else {
@@ -112,7 +114,7 @@ const LongCardScrolling = ({ GameData, GameDataName }) => {
                     src={game.image_url}
                     alt={game.title}
                     onMouseEnter={() => handleMouseEnter(index)}
-                    onClick={() => handleGameSelection(game.title)}
+                    onClick={() => handleGameSelection(game)}
                 />
             );
         }
