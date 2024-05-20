@@ -2,7 +2,7 @@ import React from "react";
 import "./RelatedGame.css"
 
 
-const UserRecentPlayed = ({ GameData }) => {
+const UserRecentPlayed = ({ game }) => {
 
     // const handleGame = (game) => {
     //     const gameTitle = game.title.replace(/\s+/g, '-').toLowerCase(); // Convert title to URL-friendly format
@@ -16,7 +16,7 @@ const UserRecentPlayed = ({ GameData }) => {
             <section className="main-section">
 
                 {
-                    GameData.map((game, index) => (
+                    game.map((game, index) => (
                         <div key={index} className="card" >
                             <img
                                 className="card-img"
