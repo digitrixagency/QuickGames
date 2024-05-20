@@ -16,7 +16,8 @@ function App() {
     <MiniDrawer/>
       <Routes>
         <Route path="/" exact element={<Home/>} />
-        <Route path='this-game-name/' element={<GamePage GameData={group1}/>} />
+        {/* <Route path='this-game-name/' element={<GamePage GameData={group1}/>} /> */}
+        <Route path='game/:title' element={<GamePage/>} />
         <Route path='cardgames/populargame/' element={<GameCategoryPage/>  }/>
         {/* <Route path='log-in/' element={</>} /> */}
       </Routes>

@@ -5,11 +5,16 @@ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import "./GamePage.css";
 import UserRecentPlayed from "../RelatedGames/RelatedGame";
+import { useLocation } from "react-router-dom";
 
 
 
 
-const GamePage = ({GameData}) => {
+const GamePage = () => {
+    const { state } = useLocation();
+    const { game, GameData } = state || {};
+
+    console.log(game);
 
     const iframeRef = useRef(null);
 
@@ -61,10 +66,10 @@ const GamePage = ({GameData}) => {
                         />
                     </div>
                     <div className="game-descriptions">
-                        <h1>Game Title</h1>
+                        <h1>{game.title}</h1>
                         <div className="decription-table">
                             <text style={{ width: '20%', color: '#929aab', fontSize: '16px' }}>Rating:</text>
-                            <text>8.6(14,431 votes)</text>
+                            <text>{game.rating}(14,431 votes)</text>
                         </div>
                         <div className="decription-table">
                             <text style={{ width: '20%', color: '#929aab', fontSize: '16px' }}>Developer:</text>
@@ -72,11 +77,11 @@ const GamePage = ({GameData}) => {
                         </div>
                         <div className="decription-table">
                             <text style={{ width: '20%', color: '#929aab', fontSize: '16px' }}>Released:</text>
-                            <text>July 2023</text>
+                            <text>{game.lunch_year}</text>
                         </div>
                         <div className="decription-table">
                             <text style={{ width: '20%', color: '#929aab', fontSize: '16px' }}>Technology:</text>
-                            <text>HTML5 (Unity WebGL)</text>
+                            <text>{game.technology}</text>
                         </div>
                         <div className="decription-table">
                             <text style={{ width: '20%', color: '#929aab', fontSize: '16px' }}>Platforms:</text>
@@ -90,7 +95,7 @@ const GamePage = ({GameData}) => {
                         <hr style={{ margin: '10px 0px' }} />
 
                         <div className="description-para">
-                            Jump Into The Plane is a casual game that lets you perform mind-blowing stunts as you jump from a car into a plane, channeling your inner super agent. Who needs conventional parking when you can drive straight into a cargo hold? Brace yourself for an insanely fun experience that defies logic. With a wide array of cars, planes, and thrilling locations, prepare for heart-pounding excitement. But remember, timing is everything. Don't miss your chance to catch that plane!
+                            {game.description}
                         </div>
 
 
@@ -136,13 +141,13 @@ const GamePage = ({GameData}) => {
                     </div>
                 </div>
                 <div className="related-game-page">
+                {/* user recently played */}
                     <UserRecentPlayed game={GameData}/>
                 </div>
             </div>
-            <div className="related-game-pagelower"
-                
-            >
-                <UserRecentPlayed game={GameData}/>
+            <div className="related-game-pagelower">
+                {/* related game data i.e. category data */}
+                <UserRecentPlayed game={GameData} />
             </div>
         </>
     );
