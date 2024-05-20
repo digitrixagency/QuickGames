@@ -83,14 +83,18 @@ const CardScrolling = ({ GameData, GameDataName }) => {
         const gameTitle = game.title.replace(/\s+/g, '-').toLowerCase(); // Convert title to URL-friendly format
         navigateToThisGame(`/game/${gameTitle}`, { state: { game , GameData } });
     };
-    const handleGamegategorySelection = async(gameName) => {
-        const data={
-            category:'puzzle',
-            limit:20,
-            page:1,
-        }
-      await fetchcategory(data,dispatch);
-        navigateToThisGame(`cardgames/populargame`);
+   
+    const handleGamegategorySelection = async() => {
+    //       console.log(GameDataName);
+    //     const data={
+    //         category:GameDataName,
+    //         limit:50,
+    //         page:1,
+    //         filter:'new'
+    //     }
+    //   await fetchcategory(data,dispatch);
+      
+         navigateToThisGame(`games/${GameDataName}`);
     };
 
     const handleMouseEnter = (index) => {

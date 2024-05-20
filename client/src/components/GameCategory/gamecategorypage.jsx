@@ -1,59 +1,81 @@
 import * as React from 'react';
-import game1 from "../DashBoardSlider/game1.webp"
-import game2 from "../DashBoardSlider/game2.webp"
-import game3 from "../DashBoardSlider/game3.webp"
-import game4 from "../DashBoardSlider/game4.webp"
-import game5 from "./game5.webp"
-import game6 from "./game6.webp"
-import game7 from "./game7.webp"
+import { useEffect } from 'react';
 
-import InputLabel from '@mui/material/InputLabel';
+import { useParams } from 'react-router-dom';
+
 import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
+
 import Select from '@mui/material/Select';
-import Typography from '@mui/material/Typography';
+
 import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+import { useDispatch, useSelector } from "react-redux";
+import { userState } from "../../slice/userSlice";
+import { useNavigate } from "react-router-dom";
 
-
+import { fetchcategory } from "../../middleware/category";
   // const [age, setAge] = React.useState('');
 
   const handleChange = (event) => {
     // setAge(event.target.value);
   };
 
-const Card = ({ imageUrl }) => {
+const Card = ({ imageUrl ,gameid }) => {
     return (
-      <div className="relative overflow-hidden rounded-lg hover:transition-transform hover:scale-110 hover:z-10 ">
+      <div className="relative overflow-hidden rounded-lg hover:transition-transform hover:scale-110 hover:z-10  ">
       <div
-        className="bg-cover bg-center h-24 sm:h-32 rounded-lg transition-transform transform-gpu scale-100 hover:scale-100"
+        className="bg-cover bg-center h-24 sm:h-32 rounded-lg transition-transform transform-gpu scale-100 hover:scale-100 "
         style={{ backgroundImage: `url(${imageUrl})` }}
       ></div>
-      <div className="absolute inset-0 rounded-lg  border-2 opacity-0 hover:opacity-100 transition-opacity"></div>
+      <div className="absolute inset-0 rounded-lg  hover:border-[5px] opacity-0 hover:opacity-100 transition-opacity hover:border-custom-purple"></div>
     </div>
     );
   };
   
 const GameCategoryPage=()=>{
+  const dispatch = useDispatch();
+  const { categoryName } = useParams();
   const [page, setPage] = React.useState(1);
   const [filter, setfilter] = React.useState('new');
 
-  const handlepageChange = (event, value) => {
-    console.log(value)
+  const userStates = useSelector(userState);
+    const { selectedGames } = useSelector((state) => state.user); 
+
+  const handlepageChange = async(event, value) => {
     setPage(value);
+    setfilter('new');
   };
 
-  const handlefilterChange = (event,value) => {
-  console.log(value.props.value)
+  const handlefilterChange = async(event,value) => {
     setfilter(value.props.value);
+    
+    setPage(1);
   };
+
+
+  useEffect(() => {
+    
+    const fetchData = async () => {
+      const data = {
+        category: categoryName,
+        limit: 63,
+        page: page,
+        filter: filter,
+      };
+  
+      await fetchcategory(data, dispatch);
+    };
+  
+    fetchData(); // Call the async function immediately
+  }, [dispatch, categoryName, filter, page]);
+
+console.log("selectedgames");
+  console.log(selectedGames);
 
 return (
     <div className="flex flex-col">
 
       <div className="flex flex-row justify-between mt-3">
-      <h1 className="font-bold font-sans ml-20 text-3xl  ">Card Game</h1>
+      <h1 className="font-bold font-sans ml-20 mt-1 text-4xl text-white  ">{categoryName}</h1>
 
      
       <Select
@@ -83,49 +105,32 @@ return (
       
       <MenuItem value={"new"}>New</MenuItem>
       <MenuItem value={"mostPlayed"}>Most Played</MenuItem>
-      <MenuItem value={"mostLiked"}>Trending</MenuItem>
+      <MenuItem value={"mostLiked"}>Most Liked</MenuItem>
     </Select>
        
   
      
       </div>
         
-
+      {selectedGames && selectedGames.length > 0 ?
+     (
+    <div className="grid grid-cols-6  gap-1  mt-[-12px] p-8 ml-12">
+   
+                    {   selectedGames?.map((game,index) => (
+                            <div key={game.id}>
+                            <Card imageUrl={game.image_url} gameid={game.id}/>
     
-    <div className="grid grid-cols-6  gap-1   p-8 ml-12">
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game2}/>
-    <Card imageUrl={game3}/>
-    <Card imageUrl={game5}/>
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game6}/>
-    <Card imageUrl={game2}/>
-    <Card imageUrl={game4}/>
-    <Card imageUrl={game7}/>
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game3}/>
+                            </div>
+                        ))
 
-    <Card imageUrl={game2}/>
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game3}/>
+                      }
+                     
+                   
 
-    <Card imageUrl={game5}/>
-    <Card imageUrl={game4}/>
-    <Card imageUrl={game7}/>
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game3}/>
-    <Card imageUrl={game6}/>
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game5}/>
-    <Card imageUrl={game2}/>
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game7}/>
-
-    <Card imageUrl={game1}/>
-    <Card imageUrl={game3}/>
-    <Card imageUrl={game4}/>
-
-    </div>
+    </div> ) 
+    : (
+      <h1 className="font-bold font-sans ml-40 text-3xl text-white  ">No games</h1>
+  )}
 
     <Pagination size='large' className="mx-auto mb-12 mt-7"count={20} page={page} onChange={handlepageChange}  
    sx={{

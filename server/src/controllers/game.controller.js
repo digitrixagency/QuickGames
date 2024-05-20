@@ -64,7 +64,7 @@ async function getGamesByCategory(req, res) {
   try {
     const games = await prisma.game.findMany({
       where: {
-        category: category.toLowerCase() // Assuming category is stored in lowercase
+        category: category // Assuming category is stored in lowercase
       },
       orderBy,
       take: Number(limit),
@@ -96,7 +96,7 @@ async function getGamesBySubcategory(req, res) {
   try {
     const games = await prisma.game.findMany({
       where: {
-        subcategory: subcategory.toLowerCase() 
+        subcategory: subcategory
       },
       orderBy,
       take: Number(limit),
@@ -122,7 +122,7 @@ async function searchGames(req, res) {
     const games = await prisma.game.findMany({
       where: {
         title: {
-          contains: searchtitle.toLowerCase() // Case-insensitive search by title
+          contains: searchtitle // Case-insensitive search by title
         }
       },
       orderBy: {
@@ -147,7 +147,7 @@ async function getGameByName(req, res) {
     const game = await prisma.game.findFirst({
       where: {
         title: {
-          equals: title.toLowerCase() // Case-insensitive exact match
+          equals: title // Case-insensitive exact match
         }
       }
     });

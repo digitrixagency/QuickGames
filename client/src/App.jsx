@@ -18,7 +18,7 @@ function App() {
         <Route path="/" exact element={<Home/>} />
         {/* <Route path='this-game-name/' element={<GamePage GameData={group1}/>} /> */}
         <Route path='game/:title' element={<GamePage/>} />
-        <Route path='cardgames/populargame/' element={<GameCategoryPage/>  }/>
+        <Route path='games/:categoryName' element={<GameCategoryPage />} />
         {/* <Route path='log-in/' element={</>} /> */}
       </Routes>
       <Footer1/>
