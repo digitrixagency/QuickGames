@@ -129,8 +129,8 @@ const LongCardScrolling = ({ GameData, GameDataName }) => {
 
     var settings = {
         dots: false,
-        speed: 2000,
-        slidesToShow: 10,
+        speed: 1800,
+        slidesToShow: 6,
         slidesToScroll: 3,
         infinite: true,
         // autoplay: true,

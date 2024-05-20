@@ -16,7 +16,7 @@ const DashBoardCard = (props) => {
                 <div className="content">
                     <div className="author">#Spotlight {props.spotlightno} </div>
                     <div className="title">DESIGN SLIDER</div>
-                    <div className="topic">ANIMAL</div>
+                    <div className="topic">Games</div>
                     <div className="des">
                       
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?

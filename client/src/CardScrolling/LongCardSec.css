@@ -7,8 +7,8 @@
       text-align: center;
       margin-top: 24px;
       margin-bottom: 30px;
-      margin-left: 5%;
-      width: 94%;
+      margin-left: 5.4%;
+      width: 94.5%;
   
     }
     .card-scrolling-header {
@@ -31,23 +31,27 @@
     
     .Longcard-scrolling-img-body {
       display: flex;
-      /* overflow: hidden; */
-      
-      transition: transform 0.3s ease; /* Smooth transition effect */
+      width: 203px;
+      height: 270px;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effect */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increased elevation effect */
+      border: 4.5px solid transparent; /* Initial transparent border */
+      border-radius: 12px; /* Smooth transition effect */
     }
     .Longcard-scrolling-img-body:hover{
       transform: scale(0.9);
+      border-radius: 18px;
+    border-color: rgb(108, 0, 224);
     }
     .Longcard-img{
       display:flex;
       padding: 1px;
-      width: 150px;
-      height: 250px;
-      border-radius: 10px;
+      
+      border-radius: 12px;
   }
-  .Longcard-img:hover{
+  /* .Longcard-img:hover{
     border: 2px blueviolet solid;
-  }
+  } */
     
 
     .rotate-180 {

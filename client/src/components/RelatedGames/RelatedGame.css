@@ -51,17 +51,23 @@
     overflow: hidden; /* Ensures image won't overflow the card */
     transition: transform 0.3s ease; /* Smooth transition effect */
     background-color: transparent;
+    
   }
 
   .card:hover {
     transform: scale(1.1); /* Increases the size of the card on hover */
     z-index: 2;
+    border: 4.5px solid ;
+    border-radius: 18px;
+    border-color: rgb(108, 0, 224);
+   
   }
   
   .card-img {
     width: 100%; /* Ensures the image fills the card */
     height: auto; /* Maintains aspect ratio */
-    transition: transform 0.3s ease; /* Smooth transition effect */
+    transition: transform 0.3s ease;
+ /* Smooth transition effect */
   }
   
 

@@ -203,8 +203,8 @@ const CardScrolling = ({ GameData, GameDataName }) => {
 
     var settings = {
         dots: false,
-        speed: 2500,
-        slidesToShow: 8,
+        speed: 1800,
+        slidesToShow: 6,
         slidesToScroll: 3,
         infinite: true,
         // autoplay: true,
@@ -265,7 +265,7 @@ const CardScrolling = ({ GameData, GameDataName }) => {
                 <Slider {...settings}>
                     {GameData.map((game, index) => (
                         <div key={index}>
-                            <div className="card-scrolling-img-body" >
+                            <div className="card-scrolling-img-body hover:border-custom-purple" >
 
                                 {/* {renderContent(game, index)} */}
                                 <HoverVideoPlayer

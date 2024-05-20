@@ -7,8 +7,8 @@
     text-align: center;
     margin-top: 14px;
     margin-bottom: 10px;
-    margin-left: 5%;
-    width: 94%;
+    margin-left: 5.4%;
+    width: 94.5%;
 
   }
   .card-scrolling-header {
@@ -25,26 +25,34 @@
   
   .card-scrolling-img-body {
     display: flex;
-    /* overflow: hidden; */
     height: 140px;
-    width: 175px;
-    transition: transform 0.3s ease; /* Smooth transition effect */
-  }
+    width: 201px;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effect */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increased elevation effect */
+    border: 4.5px solid transparent; /* Initial transparent border */
+    border-radius: 12px;
+}
+
+
   .card-scrolling-img-body:hover{
     transform: scale(0.9);
+    border-radius: 18px;
+    border-color: rgb(108, 0, 224);
   }
   .card-img{
     display:flex;
     padding: 1px;
     /* width: 100%; */
     /* width: 150px;
+    filter: brightness(1.2);
     height: 120px; */
     object-fit: fill;
+    
     border-radius: 10px;
 }
-.card-img:hover{
+/* .card-img:hover{
   border: 2px blueviolet solid;
-}
+} */
   
   .card-scrolling-container {
     margin: 0 auto;
