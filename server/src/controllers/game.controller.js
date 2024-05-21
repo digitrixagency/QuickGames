@@ -167,7 +167,6 @@ async function getGameByName(req, res) {
 
 async function getNameByGameId(req, res) {
   const { gameId } = req.params;
-
   try {
     const game = await prisma.game.findUnique({
       where: {
