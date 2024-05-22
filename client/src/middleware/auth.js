@@ -62,13 +62,9 @@ export const signIn = async (
 };
 
 export const signOut = async (dispatch, navigate) => {
-    dispatch(signOutStart());
+  dispatch(signOutStart());
     try {
-      await API.get("/api/auth/sign-out", {
-        withCredentials: true,
-      });
       dispatch(signOutSuccess());
-      navigate("/sign-in");
     } catch (error) {
       dispatch(SignOutError(error.response));
       console.log(error);
