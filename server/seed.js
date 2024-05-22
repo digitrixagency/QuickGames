@@ -6,7 +6,6 @@ const excelToJson=require('./scrap')
 const filepath='./HTML_Games.xlsx'
 async function main() {
   // // Insert dummy users
-<<<<<<< Updated upstream
 
 
   const Gamedata=excelToJson(filepath);
@@ -14,17 +13,6 @@ async function main() {
   await prisma.game.createMany({
     data:Gamedata
   });
-=======
-  // await prisma.user.createMany({
-  //   data: [
-  //     { name: 'user1', email: 'user1@example.com', password: 'password1' },
-  //     { name: 'user2', email: 'user2@example.com', password: 'password2' },
-  //     { name: 'user3', email: 'user3@example.com', password: 'password3' },
-  //     { name: 'user4', email: 'user4@example.com', password: 'password4' },
-  //     // Add more users as needed
-  //   ],
-  // });
->>>>>>> Stashed changes
 
   // Insert dummy games
   // await prisma.game.createMany({
