@@ -39,7 +39,7 @@ const GamePage = () => {
                         <iframe
                             ref={iframeRef}
                             className="game"
-                            src="https://cdn.htmlgames.com/HalloweenCardConnect/"
+                            src={game.game_url}
                         ></iframe>
                     </div>
                     <div className="screen-mode-div">
