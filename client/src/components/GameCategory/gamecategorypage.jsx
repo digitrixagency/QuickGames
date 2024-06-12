@@ -32,6 +32,7 @@ const Card = ({ imageUrl ,gameid }) => {
   };
   
 const GameCategoryPage=()=>{
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { categoryName } = useParams();
   const [page, setPage] = React.useState(1);
@@ -52,6 +53,7 @@ const GameCategoryPage=()=>{
   };
 
 
+
   useEffect(() => {
     
     const fetchData = async () => {
@@ -70,6 +72,13 @@ const GameCategoryPage=()=>{
 
 console.log("selectedgames");
   console.log(selectedGames);
+  console.log("category name");
+  console.log(categoryName);
+
+  const handleGameSelection = (game) => {
+    const gameTitle = game.title.replace(/\s+/g, '-').toLowerCase(); // Convert title to URL-friendly format
+    navigate(`/game/${gameTitle}`, { state: { game: game, GameData: selectedGames } });
+};
 
 return (
     <div className="flex flex-col">
@@ -117,7 +126,8 @@ return (
     <div className="grid grid-cols-6  gap-1  mt-[-12px] p-8 ml-12">
    
                     {   selectedGames?.map((game,index) => (
-                            <div key={game.id}>
+                            <div key={game.id} onClick={() => handleGameSelection(game)}>
+
                             <Card imageUrl={game.image_url} gameid={game.id}/>
     
                             </div>

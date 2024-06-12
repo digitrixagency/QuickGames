@@ -166,32 +166,6 @@ const userSlice = createSlice({
             state.setPasswordStatusMessage = "";
             state.setPasswordStatusSuccess = false;
         },
-
-        // myProductsFetchStart: (state) => {
-        //     state.myGameFetchStatusFetching = true;
-        //     state.myGameFetchStatusError = false;
-        //     state.myGameFetchStatusSuccess = false;
-        //   },
-        //   myGamesFetchSuccess: (state, action) => {
-        //     state.myGameFetchStatusFetching = false;
-        //     state.myGameFetchStatusError = false;
-        //     state.myGameFetchStatusSuccess = true;
-        //     state.myGames = action.payload;
-        //   },
-        //   myGamesFetchError: (state, action) => {
-        //     state.myGameFetchStatusFetching = false;
-        //     state.myGameFetchStatusError = true;
-        //     state.myGameFetchStatusSuccess = false;
-        //     state.myGameFetchStatusErrorrMessage = action.payload.data.message;
-        //   },
-        //   RemoveMyProductsfetchStatus: (state) => {
-        //     state.myGameFetchStatusError = false;
-        //     state.myGameFetchStatusSuccess = false;
-        //     state.myGameFetchStatusErrorrMessage = "";
-        //   },
-
-        //for favorite Product
-        //for subscribed Product
         subscribedGamefetchStart: (state) => {
             state.subscribedGamefetchStatusSuccess = false;
             state.subscribedGamefetchStatusPending = true;
