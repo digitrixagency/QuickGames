@@ -68,9 +68,18 @@ const LongCardScrolling = ({ GameData, GameDataName }) => {
         navigateToThisGame(`/game/${gameTitle}`, { state: { game , GameData } });
         // navigateToThisGame(`this-game-name/`);
     };
-    const handleGamegategorySelection = (gameName) => {
-        navigateToThisGame(`cardgames/populargame`);
-    };
+    const handleGamegategorySelection = async() => {
+        //       console.log(GameDataName);
+        //     const data={
+        //         category:GameDataName,
+        //         limit:50,
+        //         page:1,
+        //         filter:'new'
+        //     }
+        //   await fetchcategory(data,dispatch);
+          
+             navigateToThisGame(`games/${GameDataName}`);
+        };
 
     const handleMouseEnter = (index) => {
         setHoverIndex(index);
