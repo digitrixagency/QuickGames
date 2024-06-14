@@ -1,10 +1,10 @@
 import express from 'express';
 import authRoutes from './src/routes/auth.route.js';
 import { gameRoutes } from './src/routes/game.route.js';
-// import AdminJS from 'adminjs'
-// import AdminJSExpress from '@adminjs/express'
 import cors from 'cors';
 import dotenv from 'dotenv';
+
+import {admin, adminRouter} from './admin.js';
 
 dotenv.config();
 
@@ -17,10 +17,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// const admin = new AdminJS({})
-
-// const adminRouter = AdminJSExpress.buildRouter(admin)
-// app.use(admin.options.rootPath, adminRouter)
+app.use(admin.options.rootPath, adminRouter); // Use AdminJS router
 
 app.use("/auth/", authRoutes);
 app.use("/", gameRoutes);

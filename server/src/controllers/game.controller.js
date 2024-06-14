@@ -227,6 +227,36 @@ async function countDislikesById(req, res) {
   }
 }
 
+
+//admin controllers
+
+// add new game
+// async function addNewGame(req,res){
+//   const { title, description, technology, rating, played, video_url, game_url, category, subcategory, image_url, launch_year } = req.body;
+
+//   try {
+//     const newGame = await prisma.game.create({
+//       data: {
+//         title,
+//         description,
+//         technology,
+//         rating,
+//         played,
+//         video_url,
+//         game_url,
+//         category,
+//         subcategory,
+//         image_url,
+//         launch_year,
+//       },
+//     });
+
+//     res.status(201).json(newGame);
+//   } catch (error) {
+//     res.status(500).json({ error: "error in adding game" + error.message });
+//   }
+// }
+
 export {
   getTopCategories,
   getGamesByCategory,

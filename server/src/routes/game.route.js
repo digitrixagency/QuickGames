@@ -12,6 +12,7 @@ gameRoutes.get('/game/gamedetail/i/:gameId', gameController.getNameByGameId);
 gameRoutes.get('/game/gamedetail/t/:title', gameController.getGameByName);
 gameRoutes.get('/game/gamedetail/likes/:gameId', gameController.countLikesById);
 gameRoutes.get('/game/gamedetail/dislikes/:gameId', gameController.countDislikesById);
+// gameRoutes.post('/addnewgame', gameController.addNewGame)
 
 export {
     gameRoutes
