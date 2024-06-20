@@ -228,34 +228,51 @@ async function countDislikesById(req, res) {
 }
 
 
-//admin controllers
+//Retriving descriptions from backend based on category getting in req
+async function getCategoryDescription(req, res) {
+  const { category } = req.params;
+  // console.log(category)
+  try {
+    const categoryDetails = await prisma.category.findMany({
+      where: {
+        category_name: category,
+      },
+      include: {
+        description2: true,
+      },
+    });
 
-// add new game
-// async function addNewGame(req,res){
-//   const { title, description, technology, rating, played, video_url, game_url, category, subcategory, image_url, launch_year } = req.body;
+    if (categoryDetails.length === 0) {
+      return handleErrorResponse(res, 404, "Category not found");
+    }
+    
 
-//   try {
-//     const newGame = await prisma.game.create({
-//       data: {
-//         title,
-//         description,
-//         technology,
-//         rating,
-//         played,
-//         video_url,
-//         game_url,
-//         category,
-//         subcategory,
-//         image_url,
-//         launch_year,
-//       },
-//     });
+    res.json(categoryDetails);
+  } catch (error) {
+    console.error("Error fetching category description:", error);
+    handleErrorResponse(res, 500);
+  }
+}
 
-//     res.status(201).json(newGame);
-//   } catch (error) {
-//     res.status(500).json({ error: "error in adding game" + error.message });
-//   }
-// }
+//getting all categories for sidebar in app
+async function getAllUniqueCategories(req, res) {
+  try {
+    const categories = await prisma.category.findMany({
+      select: {
+        id: true,
+        category_name: true,
+        icon: true,
+        index: true,
+        description1: true
+      },
+    });
+
+    res.json(categories);
+  } catch (error) {
+    console.error("Error fetching unique categories:", error);
+    handleErrorResponse(res, 500);
+  }
+}
 
 export {
   getTopCategories,
@@ -266,6 +283,8 @@ export {
   getNameByGameId,
   countLikesById,
   countDislikesById,
+  getCategoryDescription,
+  getAllUniqueCategories,
 };
 
 

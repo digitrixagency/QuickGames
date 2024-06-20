@@ -51,6 +51,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import AccountMenu from '../Authentication/SignOut';
 import BasicPopover from '../Authentication/SignOut';
+import { fetchUniqueCategories } from '../../middleware/category';
 
 
 
@@ -121,330 +122,343 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const sideBarData = [
+const category = [
   {
-    icon: <i class="fa fa-home" style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, blue, brown)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text', // Clip the gradient to the text (icon)
-      // display: 'inline-block', // Ensure the icon behaves as an inline-block element
-      // lineHeight: '24px', // Adjust line height to center the icon vertically
-    }}></i>,
-    text: "Dashboard",
-    index: 1
+    index: 1,
+    text: "Arcade",
+    icon: "https://images.crazygames.com/icon/Action.svg"
   },
   {
-    icon: <i class='fa fa-history' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, black, brown)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Speed up",
-    index: 2
-  },
-  {
-    icon: <i className='fa fa-play-circle' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, blue, blue)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Recently played",
-    index: 3
-  },
-  {
-    icon: <i className='fa fa-plus-circle' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, lightGreen, green)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "New",
-    index: 4
-  },
-  {
-    icon: <i className='fa fa-trophy' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, lightGreen, orange)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Trending now",
-    index: 5
-  },
-  {
-    icon: <i className='fa fa-refresh' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, brown, black)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Updated",
-    index: 6
-  },
-  {
-    icon: <i className='fa fa-film' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, wheat, red)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Originals",
-    index: 7
-  },
-  {
-    icon: <i className='fa fa-random' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, 	lightcoral, coral)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Random",
-    index: 8
-  },
-  {
-    icon: <i className='fa fa-users' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, lightsalmon, orangered)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "2 Player",
-    index: 9
-  },
-  {
-    icon: <i className='fa fa-fighter-jet' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, indianred, firebrick)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Action",
-    index: 10
-  },
-  {
-    icon: <i className='fa fa-compass' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, lightpink, 	deeppink)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Adventure",
-    index: 11
-  },
-  // {
-  //   icon: <i className='fa fa-basketball-ball' style={{ fontSize: '24px' }}></i>,
-  //   text: "Basketball",
-  //   index: 12
-  // },
-  {
-    icon: <i className='fa fa-female' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, palevioletred, 	mediumvioletred)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Beauty",
-    index: 13
-  },
-  {
-    icon: <i className='fa fa-motorcycle' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, mediumorchid, 	purple)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Bike",
-    index: 14
-  },
-  {
-    icon: <i className='fa fa-car' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, royalblue, 	indigo)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Car",
-    index: 15
-  },
-  {
-    icon: <i className='fa fa-id-card' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, dodgerblue, 	mediumblue)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Card",
-    index: 16
-  },
-  {
-    icon: <i className='fa fa-users' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, steelblue, black)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Casual",
-    index: 17
-  },
-  {
-    icon: <i className='fa fa-mouse-pointer' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, rosybrown, 		saddlebrown)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Clicker",
-    index: 18
-  },
-  {
-    icon: <i className='fa fa-gamepad' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, blanchedalmond, 		maroon)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Controller",
-    index: 19
-  },
-  // {
-  //   icon: <i className='fa fa-tshirt' style={{ fontSize: '24px' }}></i>,
-  //   text: "Dress Up",
-  //   index: 20
-  // },
-  {
-    icon: <i className='fa fa-car' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, blanchedalmond, 		saddlebrown)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Driving",
-    index: 21
-  },
-  // {
-  //   icon: <i className='fa fa-door-open' style={{ fontSize: '24px' }}></i>,
-  //   text: "Escape",
-  //   index: 22
-  // },
-  {
-    icon: <i className='fa fa-bolt' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, mistyrose,chocolate)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Flash",
-    index: 23
-  },
-  {
-    icon: <i className='fa fa-crosshairs' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, maroon, 		maroon)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "FPS",
-    index: 24
-  },
-  // {
-  //   icon: <i className='fa fa-skull' style={{ fontSize: '24px' }}></i>,
-  //   text: "Horror",
-  //   index: 25
-  // },
-  {
-    icon: <i className='fa fa-globe' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, green, 		green)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: ".io",
-    index: 26
-  },
-  {
-    icon: <i className='fa fa-building' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, black, 		white)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Mahjong",
-    index: 27
-  },
-  {
-    icon: <i className='fa fa-cube' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, black, 		lightblue)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text',
-    }}></i>,
-    text: "Minecraft",
-    index: 28
-  },
-  // {
-  //   icon: <i className='fa fa-users' style={{ 
-  //     fontSize: '24px',
-  //   color: 'transparent', // Make the icon color transparent to show the gradient
-  //   backgroundImage: 'linear-gradient(to top, cadetblue, 		royalblue)', // Specify your gradient colors here
-  //   WebkitBackgroundClip: 'text',
-  //    }}></i>,
-  //   text: "Multiplayer",
-  //   index: 29
-  // },
-  // {
-  //   icon: <i className='fa fa-billiards' style={{ fontSize: '24px' }}></i>,
-  //   text: "Pool",
-  //   index: 30
-  // },
-  {
-    icon: <i className='fa fa-puzzle-piece' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, cadetblue, 		purple)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text'
-    }}></i>,
-    text: "Puzzle",
-    index: 31
-  },
-  {
-    icon: <i className='fa fa-bomb' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, indigo, 		indigo)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text'
-    }}></i>,
-    text: "Shooting",
-    index: 32
-  },
-  // {
-  //   icon: <i className='fa fa-futbol' style={{ fontSize: '24px' }}></i>,
-  //   text: "Soccer",
-  //   index: 33
-  // },
-  // {
-  //   icon: <i className='fa-solid fa-basketball' style={{ fontSize: '24px' }}></i>,
-  //   text: "Sports",
-  //   index: 34
-  // },
-  {
-    icon: <i className='fa fa-sticky-note' style={{
-      fontSize: '24px',
-      color: 'transparent', // Make the icon color transparent to show the gradient
-      backgroundImage: 'linear-gradient(to top, darkslategray, 		black)', // Specify your gradient colors here
-      WebkitBackgroundClip: 'text'
-    }}></i>,
-    text: "Stickman",
-    index: 35
-  },
-  // {
-  //   icon: <i className='fa fa-shield-alt' style={{ fontSize: '24px' }}></i>,
-  //   text: "Tower Defense",
-  //   index: 36
-  // }
-];
+    index: 1,
+    text: "Majhong",
+    icon: "https://images.crazygames.com/icon/Card.svg"
+  }
+]
+
+// const sideBarData = [
+//   {
+//     icon: <i class="fa fa-home" style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, blue, brown)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text', // Clip the gradient to the text (icon)
+//       // display: 'inline-block', // Ensure the icon behaves as an inline-block element
+//       // lineHeight: '24px', // Adjust line height to center the icon vertically
+//     }}></i>,
+//     text: "Dashboard",
+//     index: 1
+//   },
+//   {
+//     icon: <i class='fa fa-history' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, black, brown)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Speed up",
+//     index: 2
+//   },
+//   {
+//     icon: <i className='fa fa-play-circle' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, blue, blue)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Recently played",
+//     index: 3
+//   },
+//   {
+//     icon: <i className='fa fa-plus-circle' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, lightGreen, green)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "New",
+//     index: 4
+//   },
+//   {
+//     icon: <i className='fa fa-trophy' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, lightGreen, orange)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Trending now",
+//     index: 5
+//   },
+//   {
+//     icon: <i className='fa fa-refresh' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, brown, black)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Updated",
+//     index: 6
+//   },
+//   {
+//     icon: <i className='fa fa-film' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, wheat, red)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Originals",
+//     index: 7
+//   },
+//   {
+//     icon: <i className='fa fa-random' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, 	lightcoral, coral)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Random",
+//     index: 8
+//   },
+//   {
+//     icon: <i className='fa fa-users' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, lightsalmon, orangered)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "2 Player",
+//     index: 9
+//   },
+//   {
+//     icon: <i className='fa fa-fighter-jet' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, indianred, firebrick)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Action",
+//     index: 10
+//   },
+//   {
+//     icon: <i className='fa fa-compass' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, lightpink, 	deeppink)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Adventure",
+//     index: 11
+//   },
+//   // {
+//   //   icon: <i className='fa fa-basketball-ball' style={{ fontSize: '24px' }}></i>,
+//   //   text: "Basketball",
+//   //   index: 12
+//   // },
+//   {
+//     icon: <i className='fa fa-female' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, palevioletred, 	mediumvioletred)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Beauty",
+//     index: 13
+//   },
+//   {
+//     icon: <i className='fa fa-motorcycle' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, mediumorchid, 	purple)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Bike",
+//     index: 14
+//   },
+//   {
+//     icon: <i className='fa fa-car' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, royalblue, 	indigo)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Car",
+//     index: 15
+//   },
+//   {
+//     icon: <i className='fa fa-id-card' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, dodgerblue, 	mediumblue)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Card",
+//     index: 16
+//   },
+//   {
+//     icon: <i className='fa fa-users' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, steelblue, black)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Casual",
+//     index: 17
+//   },
+//   {
+//     icon: <i className='fa fa-mouse-pointer' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, rosybrown, 		saddlebrown)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Clicker",
+//     index: 18
+//   },
+//   {
+//     icon: <i className='fa fa-gamepad' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, blanchedalmond, 		maroon)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Controller",
+//     index: 19
+//   },
+//   // {
+//   //   icon: <i className='fa fa-tshirt' style={{ fontSize: '24px' }}></i>,
+//   //   text: "Dress Up",
+//   //   index: 20
+//   // },
+//   {
+//     icon: <i className='fa fa-car' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, blanchedalmond, 		saddlebrown)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Driving",
+//     index: 21
+//   },
+//   // {
+//   //   icon: <i className='fa fa-door-open' style={{ fontSize: '24px' }}></i>,
+//   //   text: "Escape",
+//   //   index: 22
+//   // },
+//   {
+//     icon: <i className='fa fa-bolt' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, mistyrose,chocolate)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Flash",
+//     index: 23
+//   },
+//   {
+//     icon: <i className='fa fa-crosshairs' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, maroon, 		maroon)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "FPS",
+//     index: 24
+//   },
+//   // {
+//   //   icon: <i className='fa fa-skull' style={{ fontSize: '24px' }}></i>,
+//   //   text: "Horror",
+//   //   index: 25
+//   // },
+//   {
+//     icon: <i className='fa fa-globe' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, green, 		green)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: ".io",
+//     index: 26
+//   },
+//   {
+//     icon: <i className='fa fa-building' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, black, 		white)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Mahjong",
+//     index: 27
+//   },
+//   {
+//     icon: <i className='fa fa-cube' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, black, 		lightblue)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text',
+//     }}></i>,
+//     text: "Minecraft",
+//     index: 28
+//   },
+//   // {
+//   //   icon: <i className='fa fa-users' style={{ 
+//   //     fontSize: '24px',
+//   //   color: 'transparent', // Make the icon color transparent to show the gradient
+//   //   backgroundImage: 'linear-gradient(to top, cadetblue, 		royalblue)', // Specify your gradient colors here
+//   //   WebkitBackgroundClip: 'text',
+//   //    }}></i>,
+//   //   text: "Multiplayer",
+//   //   index: 29
+//   // },
+//   // {
+//   //   icon: <i className='fa fa-billiards' style={{ fontSize: '24px' }}></i>,
+//   //   text: "Pool",
+//   //   index: 30
+//   // },
+//   {
+//     icon: <i className='fa fa-puzzle-piece' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, cadetblue, 		purple)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text'
+//     }}></i>,
+//     text: "Puzzle",
+//     index: 31
+//   },
+//   {
+//     icon: <i className='fa fa-bomb' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, indigo, 		indigo)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text'
+//     }}></i>,
+//     text: "Shooting",
+//     index: 32
+//   },
+//   // {
+//   //   icon: <i className='fa fa-futbol' style={{ fontSize: '24px' }}></i>,
+//   //   text: "Soccer",
+//   //   index: 33
+//   // },
+//   // {
+//   //   icon: <i className='fa-solid fa-basketball' style={{ fontSize: '24px' }}></i>,
+//   //   text: "Sports",
+//   //   index: 34
+//   // },
+//   {
+//     icon: <i className='fa fa-sticky-note' style={{
+//       fontSize: '24px',
+//       color: 'transparent', // Make the icon color transparent to show the gradient
+//       backgroundImage: 'linear-gradient(to top, darkslategray, 		black)', // Specify your gradient colors here
+//       WebkitBackgroundClip: 'text'
+//     }}></i>,
+//     text: "Stickman",
+//     index: 35
+//   },
+//   // {
+//   //   icon: <i className='fa fa-shield-alt' style={{ fontSize: '24px' }}></i>,
+//   //   text: "Tower Defense",
+//   //   index: 36
+//   // }
+// ];
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -497,10 +511,15 @@ export default function MiniDrawer() {
   const [open, setOpen] = React.useState(false);
   const [openSideBar, setOpenSideBar] = React.useState(true);
 
-  const userStates = useSelector(userState);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+  const navigate = useNavigate();
+  const userStates = useSelector(userState);
+
+  React.useEffect(() => {
+    dispatch(fetchUniqueCategories());
+  }, [dispatch]);
+
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -521,7 +540,9 @@ export default function MiniDrawer() {
   const { loginchk, setLogin
   } = useAppContext()
 
-
+const handleCategory = (game) => {
+    navigate(`games/${game.category_name}`);
+};
 
 
   const [auth, setAuth] = useState(false);
@@ -533,7 +554,7 @@ export default function MiniDrawer() {
   const AuthForm = () => {
     return (
       <div className="App">
-      
+
         <Paper elevation={0} style={{ padding: "10px", paddingBottom: "50px" }}>
           <div align="center">
             {loginchk ? (
@@ -576,15 +597,15 @@ export default function MiniDrawer() {
             onClick={handleDrawerOpen}
             edge="start"
             sx={{
-             marginRight: 5,
+              marginRight: 5,
               // ...(open && { display:'none',rotate:'90deg' }),
             }}
           >
-           {open? <MenuIcon 
-           /> : 
-           <MenuOpenIcon
-            onClick={handleDrawerClose}
-           />}
+            {open ? <MenuIcon
+            /> :
+              <MenuOpenIcon
+                onClick={handleDrawerClose}
+              />}
           </IconButton>
           <Typography variant="h6" noWrap component="div" >
             QuickGames
@@ -607,15 +628,16 @@ export default function MiniDrawer() {
 
 
           {userStates?.isLoggedIn === true ?
-          <IconButton sx={{ marginLeft: '9px' }} color="inherit" aria-label="favorite">
-            {/* <AccountCircleIcon fontSize='medium'  /> */}
-            {/* <AccountMenu/> */}
-            <BasicPopover/>
-          </IconButton>
-        :
-          <Button sx={{ marginLeft: '9px', borderRadius: '50px', justifyContent: 'center', backgroundColor: (theme) => 'rgb(108, 0, 224)',
-          
-           }} onClick={authclicked} variant='contained'>Login</Button>
+            <IconButton sx={{ marginLeft: '9px' }} color="inherit" aria-label="favorite">
+              {/* <AccountCircleIcon fontSize='medium'  /> */}
+              {/* <AccountMenu/> */}
+              <BasicPopover />
+            </IconButton>
+            :
+            <Button sx={{
+              marginLeft: '9px', borderRadius: '50px', justifyContent: 'center', backgroundColor: (theme) => 'rgb(108, 0, 224)',
+
+            }} onClick={authclicked} variant='contained'>Login</Button>
           }
           {/* <Button sx={{marginLeft:'9px', borderRadius: '50px'}}variant='contained'>Sign Up</Button> */}
 
@@ -624,7 +646,7 @@ export default function MiniDrawer() {
       </AppBar>
       <Drawer variant="permanent"
         open={open}
-        sx={{ backgroundColor: (theme) => 'red' }}
+        sx={{ backgroundColor: (theme) => 'red', }}
         onMouseEnter={handleDrawerOpen}
         onMouseLeave={handleDrawerClose}
       >
@@ -635,26 +657,60 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Divider />
 
-        <List 
-        className='List-Sec'
-        sx={{
-          background:'#0C0D14',
-           color:'white', 
-           }}>
-          {sideBarData.map((data, index) => (
+        <List
+          className='List-Sec'
+          sx={{
+            background: '#0C0D14',
+            color: 'white',
+          }}>
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+                '&:hover': {
+                  color: 'rgb(108, 0, 224)',
+                  paddingLeft: '5%',
+                  transform: '2s',
+                  transition: '0.3s'
+                }
+              }}
+              onClick={() => navigate("/")}
+            >
+            
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
+              }}
+            >
+              <i class="fa fa-home" style={{
+                fontSize: '24px',
+                color: 'transparent',
+                backgroundImage: 'linear-gradient(to top, blue, brown)',
+                WebkitBackgroundClip: 'text',
+              }}></i></ListItemIcon>
+            <ListItemText primary="Home" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+          {userStates.uniqueCategories.map((data, index) => (
             <ListItem key={data} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
                   px: 2.5,
-                  '&:hover':{
-                      color:'rgb(108, 0, 224)',
-                      paddingLeft:'5%',
-                      transform:'2s',
-                      transition:'0.3s'
-                    }
+                  '&:hover': {
+                    color: 'rgb(108, 0, 224)',
+                    paddingLeft: '5%',
+                    transform: '2s',
+                    transition: '0.3s'
+                  }
                 }}
+                
+              onClick={() => handleCategory(data)}
               >
                 <ListItemIcon
                   sx={{
@@ -663,38 +719,15 @@ export default function MiniDrawer() {
                     justifyContent: 'center',
                   }}
                 >
-                  {data.icon}
+                  <img src={data.icon}></img>
+                  {/* {data.icon} */}
                 </ListItemIcon>
-                <ListItemText primary={data.text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary={data.category_name} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
-        {/* <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List> */}
+        {/* <Divider />*/}
       </Drawer>
 
       {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
