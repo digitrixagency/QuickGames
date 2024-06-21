@@ -20,6 +20,12 @@ const userSlice = createSlice({
         selectedgame:[],
         topCategoriesFetching: false, // Add this line
         topCategoriesError: false, // Add this line
+        categoryDescriptions: [],  // Add this line
+        categoryDescriptionsFetching: false,  // Add this line
+        categoryDescriptionsError: false,  // Add this line
+        uniqueCategories: [],  // Add this line
+        uniqueCategoriesFetching: false,  // Add this line
+        uniqueCategoriesError: false,  // Add this line
     },
 
     reducers: {
@@ -248,6 +254,34 @@ const userSlice = createSlice({
             state.topCategoriesFetching = false;
             state.topCategoriesError = true;
         },
+
+        //fetching descriptions
+        fetchCategoryDescriptionsStart: (state) => {
+            state.categoryDescriptionsFetching = true;
+            state.categoryDescriptionsError = false;
+        },
+        fetchCategoryDescriptionsSuccess: (state, action) => {
+            state.categoryDescriptionsFetching = false;
+            state.categoryDescriptions = action.payload;
+        },
+        fetchCategoryDescriptionsError: (state) => {
+            state.categoryDescriptionsFetching = false;
+            state.categoryDescriptionsError = true;
+        },
+
+        //fetching categories
+        fetchUniqueCategoriesStart: (state) => {
+            state.uniqueCategoriesFetching = true;
+            state.uniqueCategoriesError = false;
+        },
+        fetchUniqueCategoriesSuccess: (state, action) => {
+            state.uniqueCategoriesFetching = false;
+            state.uniqueCategories = action.payload;
+        },
+        fetchUniqueCategoriesError: (state) => {
+            state.uniqueCategoriesFetching = false;
+            state.uniqueCategoriesError = true;
+        },
     }
 });
 
@@ -292,7 +326,13 @@ export const {
     GetGameFromNameError,
     fetchTopCategoriesStart,
     fetchTopCategoriesError,
-    fetchTopCategoriesSuccess
+    fetchTopCategoriesSuccess,
+    fetchCategoryDescriptionsStart,
+    fetchCategoryDescriptionsSuccess,
+    fetchCategoryDescriptionsError,
+    fetchUniqueCategoriesStart,
+    fetchUniqueCategoriesSuccess,
+    fetchUniqueCategoriesError,
 
 } = userSlice.actions
 

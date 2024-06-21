@@ -19,56 +19,74 @@ enum Role {
   USER
 }
 
-
 // Define the User table
 model User {
-  id        Int       @id @default(autoincrement())
-  username  String    @unique
-  email     String    @unique
+  id        Int            @id @default(autoincrement())
+  username  String         @unique
+  email     String         @unique
   password  String
   recovery_token  String @default("")
-  role      Role      @default(USER)
-  likes     Like[]    @relation("UserLikes")
+  role      Role           @default(USER)
+  likes     Like[]         @relation("UserLikes")
   favorites FavoriteGame[] @relation("UserFavorites")
 }
 
 // Define the Game table
 model Game {
-  id           Int       @id @default(autoincrement())
-  title        String
-  description  String    @default("")
-  technology   String    @default("")
-  rating       Float     @default(0)
-  played       Int       @default(0)
-  video_url    String    @default("")
-  game_url     String    @default("")
-  category     String    @default("")
-  subcategory  String    @default("")
-  image_url    String    @default("")
-  launch_year  String    @default("")
-  totalLikes   Int       @default(0)
-  likes        Like[]    @relation("GameLikes")
-  favorites    FavoriteGame[] @relation("GameFavorites")
+  id          Int            @id @default(autoincrement())
+  title       String
+  description String         @default("")
+  technology  String         @default("")
+  rating      Float          @default(0)
+  played      Int            @default(0)
+  video_url   String         @default("")
+  game_url    String         @default("")
+  category    String         @default("")
+  subcategory String         @default("")
+  image_url   String         @default("")
+  launch_year String         @default("")
+  totalLikes  Int            @default(0)
+  likes       Like[]         @relation("GameLikes")
+  favorites   FavoriteGame[] @relation("GameFavorites")
 }
 
 // Define the Like table
 model Like {
-  user_id    Int
-  game_id    Int
+  user_id     Int
+  game_id     Int
   like_status Int
-  user       User      @relation("UserLikes", fields: [user_id], references: [id])
-  game       Game      @relation("GameLikes", fields: [game_id], references: [id])
+  user        User @relation("UserLikes", fields: [user_id], references: [id])
+  game        Game @relation("GameLikes", fields: [game_id], references: [id])
 
   @@id([user_id, game_id])
 }
 
 // Define the FavoriteGame table
 model FavoriteGame {
-  user_id    Int
-  game_id    Int
-  user       User      @relation("UserFavorites", fields: [user_id], references: [id])
-  game       Game      @relation("GameFavorites", fields: [game_id], references: [id])
+  user_id Int
+  game_id Int
+  user    User @relation("UserFavorites", fields: [user_id], references: [id])
+  game    Game @relation("GameFavorites", fields: [game_id], references: [id])
 
   @@id([user_id, game_id])
 }
 
+//Define Content table
+model Category {
+  id                Int             @id @default(autoincrement())
+  category_name     String
+  icon              String
+  index             Int             @default(autoincrement())
+  description1      String
+  description2      Description2[]  @relation("CategoryDescription2")
+}
+
+model Description2 {
+  category_id   Int
+  category_name String
+  header        String
+  content       String
+  category      Category @relation("CategoryDescription2", fields: [category_id], references: [id])
+
+  @@id([category_id])
+}
