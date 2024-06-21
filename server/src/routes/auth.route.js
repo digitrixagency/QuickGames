@@ -18,7 +18,7 @@ authRoutes.post('/login', Login, SetToken);
 authRoutes.post('/check', VerifyToken);
 authRoutes.post('/google', GoogleAuth);
 authRoutes.get('/redirectgoogle', GetGoogleData, SetToken);
-authRoutes.get('/logout', VerifyToken, Logout);
+authRoutes.get('/logout', Logout);
 authRoutes.post('/forgot-pass', ForgotPassword);
 authRoutes.post('/reset-pass', Resetpassword);
 

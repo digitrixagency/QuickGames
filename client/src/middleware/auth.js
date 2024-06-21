@@ -6,6 +6,7 @@ import {
     AuthFailure, 
     AuthStart, 
     AuthSuccess, 
+    AuthSuccessSignUP,
     MeError, 
     MeStart, 
     MeSuccess, 
@@ -31,10 +32,10 @@ export const signUp = async (data, dispatch, navigate) => {
         const response = await API.post("/auth/signup", data , {
             withCredentials:true,
         });
-        dispatch(AuthSuccess(response.data));
+        dispatch(AuthSuccessSignUP(response.data));
         navigate("/");
     }catch (error){
-        dispatch(AuthFailure(error.response));
+        dispatch(AuthFailure(error.response.data.error.message));
         console.log(error.response.data.error.message);
         console.log(error.response.status);
     }
@@ -53,8 +54,8 @@ export const signIn = async (
       });
       dispatch(AuthSuccess(response.data));
       console.log(response.data)
-      handleClose();
-      navigate("/");
+      // handleClose();
+       navigate("/");
     } catch (error) {
       dispatch(AuthFailure(error.response));
       console.log(error);
@@ -64,6 +65,11 @@ export const signIn = async (
 export const signOut = async (dispatch, navigate) => {
   dispatch(signOutStart());
     try {
+
+      const response = await API.get("/auth/logout", {
+        withCredentials:true,
+    });
+   
       dispatch(signOutSuccess());
     } catch (error) {
       dispatch(SignOutError(error.response));

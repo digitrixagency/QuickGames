@@ -26,6 +26,7 @@ model User {
   username  String    @unique
   email     String    @unique
   password  String
+  recovery_token  String @default("")
   role      Role      @default(USER)
   likes     Like[]    @relation("UserLikes")
   favorites FavoriteGame[] @relation("UserFavorites")

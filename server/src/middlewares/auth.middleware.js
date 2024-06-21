@@ -17,9 +17,12 @@ const VerifyToken = async (
   next
 ) => {
   try {
+   
     if (req.cookies.token) {
       const accessToken = req.cookies.token.split(" ")[0];
+    
       if (accessToken) {
+        
         return res.status(401).json({ message: "Unauthenticated" });
       }
       jwt.verify(
@@ -31,6 +34,7 @@ const VerifyToken = async (
             if (err.name === "TokenExpiredError") {
               const refresh_token = req.cookies.token.split(" ")[1];
               if (refresh_token) {
+               
                 return res.status(401).json({ message: "Unauthenticated" });
               }
               jwt.verify(
@@ -38,6 +42,7 @@ const VerifyToken = async (
                 process.env.REFRESH_JWT_SECRET,
                 async (err1, value1) => {
                   if (err1) {
+                    
                     res.clearCookie("token");
                     return res.status(401).json({ error: "Unauthenticated" });
                   } else {
@@ -102,6 +107,7 @@ const VerifyToken = async (
         }
       );
     } else {
+      
       return res.status(401).json({ error: "Unauthenticated" });
     }
   } catch (error) {

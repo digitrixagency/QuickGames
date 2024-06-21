@@ -37,6 +37,10 @@ import Login from "../Authentication/Login";
 import Signup from "../Authentication/SignUp";
 
 import Dialog from '@mui/material/Dialog';
+// import DialogTitle from '@mui/material/DialogTitle';
+// import DialogContent from '@mui/material/DialogContent';
+// import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
@@ -497,7 +501,7 @@ export default function MiniDrawer() {
   const [open, setOpen] = React.useState(false);
   const [openSideBar, setOpenSideBar] = React.useState(true);
 
-  const userStates = useSelector(userState);
+  const userStates = useSelector((state)=>state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
@@ -528,6 +532,7 @@ export default function MiniDrawer() {
   const authclicked = () => {
     // navigate("/log-in")
     setAuth(true);
+
   }
 
   const AuthForm = () => {
@@ -556,7 +561,7 @@ export default function MiniDrawer() {
 
           </div>
 
-          {loginchk ? <Login /> : <Signup />}
+          {loginchk ? <Login auth={auth} setAuth={setAuth} /> : <Signup auth={auth} setAuth={setAuth} />}
         </Paper>
       </div>
     );
@@ -713,7 +718,28 @@ export default function MiniDrawer() {
       </Box> */}
 
       <div className='mainScreen'>
-        <Dialog open={auth} onClose={() => { setAuth(false); }}>
+        <Dialog open={auth} onClose={() => { setAuth(false);
+
+         
+
+         }}>
+
+
+<DialogTitle>
+        
+        <IconButton
+          aria-label="close"
+          onClick={() => setAuth(false)}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
 
 
 

@@ -29,10 +29,10 @@ import { useNavigate } from "react-router-dom";
 const isEmail = (email) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
-export default function Login() {
+export default function Login({auth,setAuth}) {
   //Jay's code start
 
-  const userStates = useSelector(userState);
+  const userStates = useSelector((state)=>state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -68,9 +68,16 @@ export default function Login() {
     if (details.password === "") setErrors({ ...errors, password: true });
 
     // console.log(details)
+  
     await signIn(details, dispatch, navigate);
+   
+    
   }
-
+  useEffect(() => {
+    if (userStates.isLoggedIn) {
+      setAuth(false);
+    }
+  }, [userStates.isLoggedIn, setAuth]);
 
   // Jay's code end
   const [showPassword, setShowPassword] = React.useState(false);
