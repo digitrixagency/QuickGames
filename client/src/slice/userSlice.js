@@ -1,5 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 import { clearLocalCache, getItemFromLocalCache, setItemInLocalCache, removeItemFromLocalCache } from "../cache/localStorage";
+
+
+import { serverURL } from "../utils/utilities";
+
+export const fetchGameStatus = createAsyncThunk(
+    "user/fetchGameStatus",
+    async (gameId, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${serverURL}/user/game/${gameId}/status`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
 
 const userSlice = createSlice({
     name: "user",
@@ -14,10 +31,10 @@ const userSlice = createSlice({
             authForms: "",
         },
         allGames: [],
-        selectedGames:[],
-        subscribedGames: [],
+        selectedGames: [],
+        favouriteGames: [],
         topCategories: [],
-        selectedgame:[],
+        selectedgame: [],
         topCategoriesFetching: false, // Add this line
         topCategoriesError: false, // Add this line
         categoryDescriptions: [],  // Add this line
@@ -26,6 +43,23 @@ const userSlice = createSlice({
         uniqueCategories: [],  // Add this line
         uniqueCategoriesFetching: false,  // Add this line
         uniqueCategoriesError: false,  // Add this line
+
+        //user Actions on like and favourite
+        likeGameFetching: false,
+        likeGameError: false,
+        dislikeGameFetching: false,
+        dislikeGameError: false,
+        addFavouriteFetching: false,
+        addFavouriteError: false,
+        removeFavouriteFetching: false,
+        removeFavouriteError: false,
+
+        gameStatus: {
+            like_status: null,
+            favorited: false,
+        },
+        gameStatusFetching: false,
+        gameStatusError: false,
     },
 
     reducers: {
@@ -183,27 +217,27 @@ const userSlice = createSlice({
             state.setPasswordStatusMessage = "";
             state.setPasswordStatusSuccess = false;
         },
-        subscribedGamefetchStart: (state) => {
-            state.subscribedGamefetchStatusSuccess = false;
-            state.subscribedGamefetchStatusPending = true;
-            state.subscribedGamefetchStatusError = false;
+        favouriteGamefetchStart: (state) => {
+            state.favouriteGamefetchStatusSuccess = false;
+            state.favouriteGamefetchStatusPending = true;
+            state.favouriteGamefetchStatusError = false;
         },
-        subscribedGamefetchError: (state, action) => {
-            state.subscribedGamefetchStatusPending = false;
-            state.subscribedGamefetchStatusSuccess = false;
-            state.subscribedGamefetchStatusError = true;
-            state.subscribedGamefetchStatusErrorMessage = action.payload.data.message;
+        favouriteGamefetchError: (state, action) => {
+            state.favouriteGamefetchStatusPending = false;
+            state.favouriteGamefetchStatusSuccess = false;
+            state.favouriteGamefetchStatusError = true;
+            state.favouriteGamefetchStatusErrorMessage = action.payload.data.message;
         },
-        subscribedGamefetchSuccess: (state, action) => {
-            state.subscribedProductfetchStatusSuccess = true;
-            state.subscribedProductfetchStatusPending = false;
-            state.subscribedProductfetchStatusError = false;
-            state.subscribedProducts = action.payload;
+        favouriteGamefetchSuccess: (state, action) => {
+            state.favouriteProductfetchStatusSuccess = true;
+            state.favouriteProductfetchStatusPending = false;
+            state.favouriteProductfetchStatusError = false;
+            state.favouriteProducts = action.payload;
         },
-        RemoveSubscribedGamefetchstatus: (state) => {
-            state.subscribedProductfetchStatusSuccess = false;
-            state.subscribedProductfetchStatusError = false;
-            state.RemoveSubscribedProductfetchstatusMessage = "";
+        RemovefavouriteGamefetchstatus: (state) => {
+            state.favouriteProductfetchStatusSuccess = false;
+            state.favouriteProductfetchStatusError = false;
+            state.RemovefavouriteProductfetchstatusMessage = "";
         },
 
         //Get Game y ID
@@ -229,11 +263,11 @@ const userSlice = createSlice({
             state.getGameFromNamePending = true;
             state.getGameFromNameError = false;
         },
-        GetGameFromNameSuccess: (state,action) => {
+        GetGameFromNameSuccess: (state, action) => {
             state.getGameFromNameSuccess = true;
             state.getGameFromNamePending = false;
             state.getGameFromIdError = false;
-            selectedgame=action.payload;
+            selectedgame = action.payload;
         },
         GetGameFromNameError: (state) => {
             state.getGameFromNameSuccess = false;
@@ -282,7 +316,107 @@ const userSlice = createSlice({
             state.uniqueCategoriesFetching = false;
             state.uniqueCategoriesError = true;
         },
-    }
+
+        //user actions on like and favourite
+        likeGameStart: (state) => {
+            state.likeGameFetching = true;
+            state.likeGameError = false;
+        },
+        likeGameSuccess: (state, action) => {
+            state.likeGameFetching = false;
+            state.likeGameError = false;
+            // Update the game state with the new like count, if needed
+        },
+        likeGameError: (state) => {
+            state.likeGameFetching = false;
+            state.likeGameError = true;
+        },
+        dislikeGameStart: (state) => {
+            state.dislikeGameFetching = true;
+            state.dislikeGameError = false;
+        },
+        dislikeGameSuccess: (state, action) => {
+            state.dislikeGameFetching = false;
+            state.dislikeGameError = false;
+            // Update the game state with the new dislike count, if needed
+        },
+        dislikeGameError: (state) => {
+            state.dislikeGameFetching = false;
+            state.dislikeGameError = true;
+        },
+        addFavouriteStart: (state) => {
+            state.addFavouriteFetching = true;
+            state.addFavouriteError = false;
+        },
+        addFavouriteSuccess: (state, action) => {
+            state.addFavouriteFetching = false;
+            state.addFavouriteError = false;
+            // Update the favorite state, if needed
+        },
+        addFavouriteError: (state) => {
+            state.addFavouriteFetching = false;
+            state.addFavouriteError = true;
+        },
+        removeFavouriteStart: (state) => {
+            state.removeFavouriteFetching = true;
+            state.removeFavouriteError = false;
+        },
+        removeFavouriteSuccess: (state, action) => {
+            state.removeFavouriteFetching = false;
+            state.removeFavouriteError = false;
+            // Update the favorite state, if needed
+        },
+        removeFavouriteError: (state) => {
+            state.removeFavouriteFetching = false;
+            state.removeFavouriteError = true;
+        },
+        gameStatusFetchingStart: (state) => {
+            state.gameStatusFetching = true;
+            state.gameStatusError = false;
+        },
+        gameStatusFetchingError: (state) => {
+            state.gameStatusFetching = false;
+            state.gameStatusError = true;
+        },
+        gameStatusFetchingSuccess: (state) => {
+            state.gameStatusFetching = false;
+            state.gameStatusError = false;
+            state.gameStatus = action.payload;
+        }
+    },
+    extraReducers: (builder) => {
+        builder
+          .addCase(fetchGameStatus.pending, (state) => {
+            state.gameStatusFetching = true;
+            state.gameStatusError = false;
+          })
+          .addCase(fetchGameStatus.fulfilled, (state, action) => {
+            state.gameStatusFetching = false;
+            state.gameStatus = action.payload;
+          })
+          .addCase(fetchGameStatus.rejected, (state, action) => {
+            state.gameStatusFetching = false;
+            state.gameStatusError = true;
+          });
+    },
+    // extraReducers: (builder) => {
+    //     builder
+    //         .addCase(likeGame.fulfilled, (state, action) => {
+    //             state.gameStatus = { ...state.gameStatus, like_status: 1 };
+    //         })
+    //         .addCase(dislikeGame.fulfilled, (state, action) => {
+    //             state.gameStatus = { ...state.gameStatus, like_status: -1 };
+    //         })
+    //         .addCase(addFavourite.fulfilled, (state, action) => {
+    //             state.gameStatus = { ...state.gameStatus, favorited: true };
+    //         })
+    //         .addCase(removeFavourite.fulfilled, (state, action) => {
+    //             state.gameStatus = { ...state.gameStatus, favorited: false };
+    //         })
+    //         .addCase(fetchGameStatus.fulfilled, (state, action) => {
+    //             state.gameStatus = action.payload;
+    //         });
+    // },
 });
 
 export const {
@@ -314,10 +448,10 @@ export const {
     resetPasswordError,
     resetPasswordSuccess,
     removeResetPasswordStatus,
-    subscribedGamefetchStart,
-    subscribedGamefetchError,
-    subscribedGamefetchSuccess,
-    RemoveSubscribedGamefetchstatus,
+    favouriteGamefetchStart,
+    favouriteGamefetchError,
+    favouriteGamefetchSuccess,
+    RemovefavouriteGamefetchstatus,
     GetGameFromIDStart,
     GetGameFromIDError,
     GetGameFromIDSuccess,
@@ -333,6 +467,18 @@ export const {
     fetchUniqueCategoriesStart,
     fetchUniqueCategoriesSuccess,
     fetchUniqueCategoriesError,
+    likeGameStart,
+    likeGameSuccess,
+    likeGameError,
+    dislikeGameStart,
+    dislikeGameSuccess,
+    dislikeGameError,
+    addFavouriteStart,
+    addFavouriteSuccess,
+    addFavouriteError,
+    removeFavouriteStart,
+    removeFavouriteSuccess,
+    removeFavouriteError,
 
 } = userSlice.actions
 

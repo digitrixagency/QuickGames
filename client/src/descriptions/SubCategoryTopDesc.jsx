@@ -17,7 +17,6 @@ function SubCatTopDesc({categoryName}) {
         }
     },[categoryName, dispatch]);
 
-    console.log(categoryDescriptions[0]);
     const data = categoryDescriptions[0]?.description1 || "No description available.";
 
     return (

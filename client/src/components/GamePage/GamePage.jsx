@@ -1,22 +1,80 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
 import "./GamePage.css";
 import UserRecentPlayed from "../RelatedGames/RelatedGame";
 import { useLocation } from "react-router-dom";
-
-
+import { useDispatch, useSelector } from "react-redux";
+import { 
+    userState, 
+    fetchGameStatus,
+} from "../../slice/userSlice";
+import { addFavourite, dislikeGame, likeGame, removeFavourite } from "../../middleware/userAction";
 
 
 const GamePage = () => {
     const { state } = useLocation();
     const { game, GameData } = state || {};
 
-    console.log(game);
+    // console.log(game);
 
     const iframeRef = useRef(null);
+
+    const userStates = useSelector(userState);
+    const dispatch = useDispatch();
+
+    const [liked, setLiked] = useState(false);
+    const [disliked, setDisliked] = useState(false);
+    const [favorited, setFavorited] = useState(false);
+
+
+
+    // console.log(userStates.isLoggedIn); true
+
+    useEffect(() => {
+        if (userStates.isLoggedIn) {
+            // console.log("game_id :" + (game.id));
+            dispatch(fetchGameStatus(game.id));
+        }
+    }, [dispatch, game.id, userStates.isLoggedIn]);
+
+    useEffect(() => {
+        if (userStates.gameStatus) {
+            console.log(userStates.gameStatus.like_status);
+            console.log(userStates.gameStatus.favorited);
+
+
+            setLiked(userStates.gameStatus.like_status === 1);
+            setDisliked(userStates.gameStatus.like_status === -1);
+            setFavorited(userStates.gameStatus.favorited);
+        }
+    }, [userStates.gameStatus]);
+
+    const handleLike = () => {
+        if (!userStates.isLoggedIn) return;
+        dispatch(likeGame(game.id));
+    };
+
+    const handleDislike = () => {
+        if (!userStates.isLoggedIn) return;
+        dispatch(dislikeGame(game.id));
+    };
+
+    const handleFavorite = () => {
+        if (!userStates.isLoggedIn) return;
+        if (favorited) {
+            dispatch(removeFavourite(game.id));
+        } else {
+            dispatch(addFavourite(game.id));
+        }
+    };
+
 
     const toggleFullScreen = () => {
         const iFrame = iframeRef.current;
@@ -43,20 +101,46 @@ const GamePage = () => {
                         ></iframe>
                     </div>
                     <div className="screen-mode-div">
-                        <ThumbUpOffAltIcon
+                        {liked ? (<ThumbUpIcon
+                            fill
                             style={{ cursor: 'pointer', marginRight: '10px' }}
                             color='primary'
+                            onClick={handleLike}
 
-                        />
-                        <ThumbDownOffAltIcon
-                            style={{ cursor: 'pointer', marginRight: '10px' }}
-                            color='primary'
+                        />) : (
 
-                        />
-                        <FavoriteIcon
+                            <ThumbUpOffAltIcon
+                                fill
+                                style={{ cursor: 'pointer', marginRight: '10px' }}
+                                color='primary'
+                                onClick={handleLike}
+                            />
+                        )}
+
+                        {disliked ? (<ThumbDownIcon
                             style={{ cursor: 'pointer', marginRight: '10px' }}
                             color='primary'
-                        />
+                            onClick={handleDislike}
+                        />) : (
+                            <ThumbDownOffAltIcon
+                                style={{ cursor: 'pointer', marginRight: '10px' }}
+                                color='primary'
+                                onClick={handleDislike}
+                            />)}
+
+                        {favorited ? (
+                            <FavoriteIcon
+                                style={{ cursor: 'pointer', marginRight: '10px' }}
+                                color='primary'
+                                onClick={handleFavorite}
+                            />
+                        ) : (
+                            <FavoriteBorderIcon
+                                style={{ cursor: 'pointer', marginRight: '10px' }}
+                                color='primary'
+                                onClick={handleFavorite}
+                            />
+                        )}
 
                         <FullscreenIcon
                             style={{ cursor: 'pointer', marginRight: '10px' }}
@@ -141,8 +225,8 @@ const GamePage = () => {
                     </div>
                 </div>
                 <div className="related-game-page">
-                {/* user recently played */}
-                    <UserRecentPlayed game={GameData}/>
+                    {/* user recently played */}
+                    <UserRecentPlayed game={GameData} />
                 </div>
             </div>
             <div className="related-game-pagelower">

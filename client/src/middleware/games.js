@@ -16,9 +16,9 @@ import {
     fetchTopCategoriesError, 
     fetchTopCategoriesStart, 
     fetchTopCategoriesSuccess, 
-    subscribedGamefetchError, 
-    subscribedGamefetchStart, 
-    subscribedGamefetchSuccess 
+    favouriteGamefetchError, 
+    favouriteGamefetchStart, 
+    favouriteGamefetchSuccess 
 } from "../slice/userSlice";
 
 
@@ -68,18 +68,18 @@ export const fetchAllGames = async (dispatch) => {
     }
 };
 
-//fetch all favorate(subscribed) games 💖
-export const fetchSubscribedGames = async (dispatch, setSubscribedGames = () => {}) =>{
-    dispatch(subscribedGamefetchStart());
+//fetch all favorate(favourite) games 💖
+export const fetchfavouriteGames = async (dispatch, setfavouriteGames = () => {}) =>{
+    dispatch(favouriteGamefetchStart());
     try {
       const response = await API.get("/",{
         withCredentials:true
       });
   
-      setSubscribedGames(response.data);
-      dispatch(subscribedGamefetchSuccess(response.data));
+      setfavouriteGames(response.data);
+      dispatch(favouriteGamefetchSuccess(response.data));
     } catch (error) {
-      dispatch(subscribedGamefetchError(error.response));
+      dispatch(favouriteGamefetchError(error.response));
     }
 }
 
