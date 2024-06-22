@@ -31,7 +31,7 @@ import LoginIcon from "@mui/icons-material/Login";
 const isEmail = (email) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
-export default function Login() {
+export default function Signup({auth,setAuth}) {
 
   //jay's logic start
 
@@ -41,7 +41,7 @@ export default function Login() {
     password: "",
   });
 
-  const userStates = useSelector(userState);
+  const userStates = useSelector((state)=>state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -95,13 +95,19 @@ export default function Login() {
       details.password
     ) {
       await signUp(details, dispatch, navigate);
+     
+     
     } else {
       return;
     }
   };
 
 
-
+  useEffect(() => {
+    if (userStates.isUserCreated) {
+      setSuccess("User Created! Please login with same Credentials");
+    }
+  }, [userStates.isUserCreated, setAuth]);
   //jay's funtionality end's
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -111,13 +117,13 @@ export default function Login() {
   // const [emailInput, setEmailInput] = useState();
   // const [passwordInput, setPasswordInput] = useState();
 
-  // // Inputs Errors
-  // const [usernameError, setUsernameError] = useState(false);
-  // const [emailError, setEmailError] = useState(false);
-  // const [passwordError, setPasswordError] = useState(false);
+  // Inputs Errors
+  const [usernameError, setUsernameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   // Overall Form Validity
-  const [formValid, setFormValid] = useState();
+  const [formValid, setFormValid] = useState("");
   const [success, setSuccess] = useState();
 
 
@@ -132,76 +138,76 @@ export default function Login() {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   // Validation for onBlur Username
-  // const handleUsername = () => {
-  //   if (!usernameInput) {
-  //     setUsernameError(true);
-  //     return;
-  //   }
+  const handleUsername = () => {
+    if (!usernameInput) {
+      setUsernameError(true);
+      return;
+    }
 
-  //   setUsernameError(false);
-  // };
+    setUsernameError(false);
+  };
 
-  // // Validation for onBlur Email
-  // const handleEmail = () => {
-  //   console.log(isEmail(emailInput));
-  //   if (!isEmail(emailInput)) {
-  //     setEmailError(true);
-  //     return;
-  //   }
+  // Validation for onBlur Email
+  const handleEmail = () => {
+    console.log(isEmail(emailInput));
+    if (!isEmail(emailInput)) {
+      setEmailError(true);
+      return;
+    }
 
-  //   setEmailError(false);
-  // };
+    setEmailError(false);
+  };
 
   // Validation for onBlur Password
-  // const handlePassword = () => {
-  //   if (
-  //     !passwordInput ||
-  //     passwordInput.length < 5 ||
-  //     passwordInput.length > 20
-  //   ) {
-  //     setPasswordError(true);
-  //     return;
-  //   }
+  const handlePassword = () => {
+    if (
+      !passwordInput ||
+      passwordInput.length < 5 ||
+      passwordInput.length > 20
+    ) {
+      setPasswordError(true);
+      return;
+    }
 
-  //   setPasswordError(false);
-  // };
+    setPasswordError(false);
+  };
 
-  // //handle Submittion
-  // const handleSubmit = () => {
-  //   setSuccess(null);
-  //   //First of all Check for Errors
+  //handle Submittion
+  const handleSubmit = () => {
+    setSuccess(null);
+    //First of all Check for Errors
 
-  //   // IF username error is true
-  //   if (usernameError || !usernameInput) {
-  //     setFormValid(
-  //       "Username is set btw 5 - 15 characters long. Please Re-Enter"
-  //     );
-  //     return;
-  //   }
+    // IF username error is true
+    if (usernameError || !usernameInput) {
+      setFormValid(
+        "Username is set btw 5 - 15 characters long. Please Re-Enter"
+      );
+      return;
+    }
 
-  //   // If Email error is true
-  //   if (emailError || !emailInput) {
-  //     setFormValid("Email is Invalid. Please Re-Enter");
-  //     return;
-  //   }
+    // If Email error is true
+    if (emailError || !emailInput) {
+      setFormValid("Email is Invalid. Please Re-Enter");
+      return;
+    }
 
-  //   // If Password error is true
-  //   if (passwordError || !passwordInput) {
-  //     setFormValid(
-  //       "Password is set btw 5 - 20 characters long. Please Re-Enter"
-  //     );
-  //     return;
-  //   }
-  //   setFormValid(null);
+    // If Password error is true
+    if (passwordError || !passwordInput) {
+      setFormValid(
+        "Password is set btw 5 - 20 characters long. Please Re-Enter"
+      );
+      return;
+    }
+    setFormValid(null);
 
-  //   // Proceed to use the information passed
-  //   console.log("Username : " + usernameInput);
-  //   console.log("Email : " + emailInput);
-  //   console.log("Password : " + passwordInput);
+    // Proceed to use the information passed
+    console.log("Username : " + usernameInput);
+    console.log("Email : " + emailInput);
+    console.log("Password : " + passwordInput);
 
-  //   //Show Successfull Submittion
-  //   setSuccess("Form Submitted Successfully");
-  // };
+    //Show Successfull Submittion
+    setSuccess("User Created! Please login  ");
+  };
   const{ loginchk, setLogin
   }=useAppContext()
 
@@ -249,7 +255,7 @@ export default function Login() {
 
           onChange={changeHandler}
 
-          // onBlur={handleEmail}
+           onBlur={handleEmail}
           // onChange={(event) => {
           //   setEmailInput(event.target.value);
           // }}
@@ -265,7 +271,7 @@ export default function Login() {
           </InputLabel>
           <Input
             // error={passwordError}
-            // onBlur={handlePassword}
+             onBlur={handlePassword}
             id="standard-adornment-password"
             type={showPassword ? "text" : "password"}
             // onChange={(event) => {
@@ -308,10 +314,10 @@ export default function Login() {
       </div>
 
       {/* Show Form Error if any */}
-      {formValid && (
+      {userStates.errorMessage.authForms && (
         <Stack sx={{ width: "100%", paddingTop: "10px" }} spacing={2}>
           <Alert severity="error" size="small">
-            {formValid}
+            {userStates.errorMessage.authForms}
           </Alert>
         </Stack>
       )}

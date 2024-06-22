@@ -10,6 +10,9 @@ import { OAuth2Client } from 'google-auth-library';
 
 const OAuth2 = google.auth.OAuth2;
 const client = new OAuth2Client();
+  // Email Validation
+  const isEmail = (email) =>
+    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
 const oauth2Client = new OAuth2(
   process.env.GOOGLE_CLIENT_ID,
@@ -67,12 +70,17 @@ const SetToken = async (req, res) => {
 
 const SignUp = async (req, res, next) => {
   try {
+  
     const { email, username, password, role } = req.body;
 
     console.log(req.body);
 
     if (password.length < 7) {
-      return handleErrorResponse(res, 401, 'password length should be more than 6');
+      return handleErrorResponse(res, 401, 'Password length should be more than 6 character');
+    }
+
+    if (!isEmail(email)) {
+      return handleErrorResponse(res, 401, 'Email is Invalid. Please Re-Enter');
     }
 
     const checkUser = await prisma.user.findFirst({
@@ -107,7 +115,13 @@ const Login = async (req, res, next) => {
   // console.log(1);
   try {
     const { credential, password } = req.body;
+    if (password.length < 7) {
+      return handleErrorResponse(res, 401, 'Password length should be more than 6 character');
+    }
 
+    if (!isEmail(credential)) {
+      return handleErrorResponse(res, 401, 'Email is Invalid. Please Re-Enter');
+    }
     let user = await prisma.user.findFirst({
       where: { email: credential },
     });
@@ -245,10 +259,11 @@ const ForgotPassword = async (req, res) => {
 
     const browser = `${result.browser.name}/(${result.browser.version})`;
     const os = `${result.os.name}/(${result.os.version})`;
+    // console.log(email);
 
-    if (email) {
+    if (!email) {
       return handleErrorResponse(res, 400, 'Please provide an email');
-    }
+    } 
 
     const user = await prisma.user.findUnique({
       where: {
@@ -278,8 +293,9 @@ const ForgotPassword = async (req, res) => {
       });
 
       const info = await transporter.sendMail({
-        from: 'Maddison Foo Koch 👻" <maddison53@ethereal.email>',
-        to: 'bar@example.com, baz@example.com',
+        from: 'krishnanishasingh29@gmail.com'
+        ,
+        to: email,
         subject: 'Hello ✔',
         text: 'Hello world?',
         html: '<b>Hello world?</b>',

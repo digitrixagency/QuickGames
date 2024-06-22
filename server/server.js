@@ -3,8 +3,8 @@ import authRoutes from './src/routes/auth.route.js';
 import { gameRoutes } from './src/routes/game.route.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import cookieParser from 'cookie-parser'; // Import cookie-parser
 import session from 'express-session';
+import cookieParser from 'cookie-parser';
 import {admin, adminRouter} from './admin.js';
 
 dotenv.config();
@@ -14,7 +14,7 @@ const corsOptions = {
   origin: "http://localhost:5173", // Update this with your frontend origin
   credentials: true, // Allow cookies and authorization headers with credentials
 };
-
+app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(cookieParser()); // Use cookie-parser middleware
 app.use(express.json());

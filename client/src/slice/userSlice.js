@@ -24,6 +24,7 @@ const userSlice = createSlice({
     initialState: {
         userInfo: getItemFromLocalCache("userInformation"),
         isLoggedIn: getItemFromLocalCache("isLoggedIn") === null ? false : true,
+        isUserCreated:false,
         isFetching: false,
         isError: false,
         errorMessage: {
@@ -69,13 +70,23 @@ const userSlice = createSlice({
             state.isFetching = false;
             state.isLoggedIn = true;
             state.userInfo = action.payload;
+            state.errorMessage.authForms="";
             setItemInLocalCache("userInfo", action.payload);
             setItemInLocalCache("isLoggedIn", true);
+        },
+        AuthSuccessSignUP: (state, action) => {
+            state.isFetching = false;
+            // state.isLoggedIn = true;
+            // state.userInfo = action.payload;
+            state.isUserCreated = true;
+            state.errorMessage.authForms="";
+            // setItemInLocalCache("userInfo", action.payload);
+            // setItemInLocalCache("isLoggedIn", true);
         },
         AuthFailure: (state, action) => {
             state.isError = true;
             state.isFetching = false;
-            state.errorMessage.authForms = action.payload.data.message;
+            state.errorMessage.authForms = action.payload;
         },
         signOutStart: (state) => {
             state.isError = false;
@@ -411,6 +422,7 @@ const userSlice = createSlice({
 export const {
     AuthStart,
     AuthSuccess,
+    AuthSuccessSignUP,
     AuthFailure,
     signOutStart,
     signOutSuccess,
