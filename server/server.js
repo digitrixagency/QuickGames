@@ -3,7 +3,8 @@ import authRoutes from './src/routes/auth.route.js';
 import { gameRoutes } from './src/routes/game.route.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
-
+import cookieParser from 'cookie-parser'; // Import cookie-parser
+import session from 'express-session';
 import {admin, adminRouter} from './admin.js';
 
 dotenv.config();
@@ -15,9 +16,30 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(cookieParser()); // Use cookie-parser middleware
 app.use(express.json());
 
-app.use(admin.options.rootPath, adminRouter); // Use AdminJS router
+
+// Session configuration
+// app.use(session({
+//   secret: process.env.JWT_SECRET,
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: { secure: false } // Set to true in production with HTTPS
+// }));
+
+// // Middleware to check if user is an admin
+// const isAdmin = async (req, res, next) => {
+//   if (req.session.userId) {
+//     const user = await prisma.user.findUnique({ where: { id: req.session.userId } });
+//     if (user && user.role === 'ADMIN') {
+//       return next();
+//     }
+//   }
+//   res.status(403).send('Access denied');
+// };
+
+app.use(admin.options.rootPath , adminRouter); // Use AdminJS router
 
 app.use("/auth/", authRoutes);
 app.use("/", gameRoutes);
