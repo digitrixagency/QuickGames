@@ -23,7 +23,7 @@ import {
 } from "../slice/userSlice";
 // import { AuthSuccess } from "../slice/userSlice";
 
-const API = axios.create({ baseURL : serverURL });
+const API = axios.create({ baseURL : serverURL ,withCredentials: true,});
 
 export const signUp = async (data, dispatch, navigate) => {
     console.log(data);
@@ -57,9 +57,27 @@ export const signIn = async (
       // handleClose();
        navigate("/");
     } catch (error) {
-      dispatch(AuthFailure(error.response));
-      console.log(error);
+      dispatch(AuthFailure(error.response.data.error.message));
+        console.log(error.response.data.error.message);
+        console.log(error.response.status);
     }
+};
+
+export const GooglesignIn = async (
+  dispatch,
+  handleClose = () => {}
+) => {
+  dispatch(AuthStart());
+  try {
+   const response=await API.get("/auth/google");
+    // dispatch(AuthSuccess(response.data));
+    // console.log(response.data)
+    // handleClose();
+     navigate("/");
+  } catch (error) {
+    dispatch(AuthFailure(error.response));
+    console.log(error);
+  }
 };
 
 export const signOut = async (dispatch, navigate) => {
