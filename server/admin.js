@@ -15,7 +15,7 @@ AdminJS.registerAdapter({ Database, Resource })
 // });
 
 const adminOptions = {
-  resources: [
+ resources: [
     { resource: { model: getModelByName('User'), client: prisma }, options: {} },
     { resource: { model: getModelByName('Game'), client: prisma }, options: {} },
     { resource: { model: getModelByName('Like'), client: prisma }, options: {} },

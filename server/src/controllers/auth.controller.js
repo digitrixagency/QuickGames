@@ -54,6 +54,8 @@ const SetToken = async (req, res) => {
         path: '/',
       })
     );
+
+    console.log(finalToken);
     const user = {
       ...userData,
       access_token: accessToken,
@@ -110,6 +112,7 @@ const SignUp = async (req, res, next) => {
 };
 
 const Login = async (req, res, next) => {
+  // console.log(1);
   try {
     const { credential, password } = req.body;
     if (password.length < 7) {
