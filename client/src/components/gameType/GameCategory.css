@@ -4,6 +4,7 @@
     width: 100%;
     padding: 10px;
     padding-left: 5%;
+    align-items: center;
     /* height: 160px; */
     /* background-color:skyblue; */
 }
@@ -11,22 +12,30 @@
 .about-game{
     width: 30%;
     padding: 10px;
-    background-color: #31323b;
+    /* background-color: #31323b; */
+    background-image: url(https://www.shutterstock.com/shutterstock/photos/1040229760/display_1500/stock-photo-pink-bright-texture-for-designer-background-gentle-classic-texture-colorful-background-colorful-1040229760.jpg);
     color: whitesmoke;
     border-radius: 10px;
+    height: 150px;
+    overflow-y: auto;
 }
+.about-game::-webkit-scrollbar {
+    display: none;
+  }
 .game-category{
     /* display: flex; */
+
     /* display:inline; */
     /* flex-direction: column; */
-    /* align-items: center; */
-    /* justify-content: center; */
-    width: 65%;
-    height: 100%;
+    /* align-items: center;  */
+     /* justify-content: center; */
+     
+    width: 69%;
+    /* height: 100%; */
     margin: 0 auto;
-    /* background-color: #31323b; */
-   
-    /* overflow-x: auto; */
+    background-image: url(https://t3.ftcdn.net/jpg/00/94/25/52/360_F_94255289_bLOLo8dVkESH4wP4QNVUg4hWBlcBEEOg.jpg);
+    border-radius: 10px;
+    height: 150px;
 }
 .game-category::-webkit-scrollbar {
     display: none; /* Hide scrollbar */

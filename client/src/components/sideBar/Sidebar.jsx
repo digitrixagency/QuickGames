@@ -39,10 +39,6 @@ import Login from "../Authentication/Login";
 import Signup from "../Authentication/SignUp";
 
 import Dialog from '@mui/material/Dialog';
-// import DialogTitle from '@mui/material/DialogTitle';
-// import DialogContent from '@mui/material/DialogContent';
-// import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
@@ -518,10 +514,15 @@ export default function MiniDrawer() {
   const [open, setOpen] = React.useState(false);
   const [openSideBar, setOpenSideBar] = React.useState(true);
 
-  const userStates = useSelector((state)=>state.user);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+  const navigate = useNavigate();
+  const userStates = useSelector(userState);
+
+  React.useEffect(() => {
+    dispatch(fetchUniqueCategories());
+  }, [dispatch]);
+
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -546,12 +547,15 @@ const handleCategory = (game) => {
     navigate(`games/${game.category_name}`);
 };
 
+const handleFavouriteGames = () =>{
+  navigate(`favourite/1/games`);
+}
+  // console.log(userStates);
 
   const [auth, setAuth] = useState(false);
   const authclicked = () => {
     // navigate("/log-in")
     setAuth(true);
-
   }
 
   const AuthForm = () => {
@@ -574,7 +578,6 @@ const handleCategory = (game) => {
     }
     return (
       <div className="App">
-
         <Paper elevation={0} style={{ padding: "10px", paddingBottom: "50px" }}>
           <div align="center">
             {loginchk ? (
@@ -598,9 +601,6 @@ const handleCategory = (game) => {
           </div>
 
           {loginchk ? <Login auth={auth} setAuth={setAuth} /> : <Signup auth={auth} setAuth={setAuth} />}
-       
-         
-        
         </Paper>
 
         <div className='w-2'>
@@ -652,10 +652,12 @@ const handleCategory = (game) => {
               />
             </Search>
           </div>
-
-          <IconButton sx={{ marginLeft: '9px' }} color="inherit" aria-label="favorite">
-            <FavoriteIcon />
-          </IconButton>
+              {
+                userStates.isLoggedIn ?  <IconButton sx={{ marginLeft: '9px' }} color="inherit" aria-label="favorite">
+            <FavoriteIcon onClick={() => handleFavouriteGames()}></FavoriteIcon>
+          </IconButton> : ""
+              }
+          
 
 
           {userStates?.isLoggedIn === true ?
@@ -677,7 +679,12 @@ const handleCategory = (game) => {
       </AppBar>
       <Drawer variant="permanent"
         open={open}
-        sx={{ backgroundColor: (theme) => 'red', }}
+        // sx={{ backgroundColor: (theme) => 'red', }}
+        PaperProps={{
+    sx: {
+      backgroundColor: "rgb(21, 21, 21)",
+    }
+  }}
         onMouseEnter={handleDrawerOpen}
         onMouseLeave={handleDrawerClose}
       >
@@ -777,28 +784,7 @@ const handleCategory = (game) => {
       </Box> */}
 
       <div className='mainScreen'>
-        <Dialog open={auth} onClose={() => { setAuth(false);
-
-         
-
-         }}>
-
-
-<DialogTitle>
-        
-        <IconButton
-          aria-label="close"
-          onClick={() => setAuth(false)}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
+        <Dialog open={auth} onClose={() => { setAuth(false); }}>
 
 
 

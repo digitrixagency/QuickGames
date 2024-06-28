@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import MenuItem from '@mui/material/MenuItem';
 
 import Select from '@mui/material/Select';
-import HoverVideoPlayer from 'react-hover-video-player';
+
 import Pagination from '@mui/material/Pagination';
 import { useDispatch, useSelector } from "react-redux";
 import { userState } from "../../slice/userSlice";
@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 import { fetchcategory } from "../../middleware/category";
 import { SubCatTopDesc, SubCatDownDesc } from '../../descriptions/SubCategoryTopDesc';
+import { getMyfavouriteGames } from '../../middleware/userAction';
 // const [age, setAge] = React.useState('');
 
 const handleChange = (event) => {
@@ -32,7 +33,7 @@ const Card = ({ imageUrl, gameid }) => {
   );
 };
 
-const GameCategoryPage = () => {
+const FavouriteGames = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { categoryName } = useParams();
@@ -57,24 +58,43 @@ const GameCategoryPage = () => {
 
   useEffect(() => {
 
-    const fetchData = async () => {
+    // const fetchData = async () => {
+    //   const data = {
+    //     category: categoryName,
+    //     limit: 63,
+    //     page: page,
+    //     filter: filter,
+    //   };
+
+    //   await fetchcategory(data, dispatch);
+    // };
+    const fetchFavData = async () => {
       const data = {
-        category: categoryName,
+        category: "Favourite Game",
         limit: 63,
         page: page,
         filter: filter,
-      };
-
-      await fetchcategory(data, dispatch);
+        user_id: 1,
+      }
+      
+      
+      await getMyfavouriteGames(data, dispatch);
     };
 
-    fetchData(); // Call the async function immediately
+    // fetchData(); // Call the async function immediately;
+    fetchFavData();
+
+    // console.log(userStates.FavouriteGames)
   }, [dispatch, categoryName, filter, page]);
 
-  console.log("selectedgames", typeof(selectedGames));
-  console.log(selectedGames);
+  // console.log("selectedgames");
+  // console.log(selectedGames);
+  // console.log(typeof(userStates.favouriteGames));
+
+  // console.log(userStates.favouriteGames);
   // console.log("category name");
   // console.log(categoryName);
+  // console.log(userStates);
 
   const handleGameSelection = (game) => {
     const gameTitle = game.title.replace(/\s+/g, '-').toLowerCase(); // Convert title to URL-friendly format
@@ -85,7 +105,7 @@ const GameCategoryPage = () => {
     <div className="flex flex-col">
 
       <div className="flex flex-row justify-between mt-3">
-        <h1 className="font-bold font-sans ml-20 mt-1 text-4xl text-white  ">{categoryName}</h1>
+        <h1 className="font-bold font-sans ml-20 mt-1 text-4xl text-white  ">My Favourite Games</h1>
 
         <Select
           value={filter}
@@ -121,48 +141,20 @@ const GameCategoryPage = () => {
 
       </div>
 
-      <div style={{
+      {/* <div style={{
         marginLeft: "80px"
       }}>
-        <SubCatTopDesc categoryName={categoryName} />
-      </div>
+        <SubCatTopDesc categoryName="My Favourite Games" />
+      </div> */}
 
-      {selectedGames && selectedGames.length > 0 ?
+      {userStates.favouriteGames && userStates.favouriteGames.length > 0 ?
         (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6  gap-1  mt-[-12px] p-8 ml-12">
 
-            {selectedGames?.map((game, index) => (
-              <div key={game.id} onClick={() => handleGameSelection(game)}>
+            {userStates.favouriteGames?.map((game, index) => (
+              <div key={game.game.id} onClick={() => handleGameSelection(game.game)}>
 
-                {/* <Card imageUrl={game.image_url} gameid={game.id} /> */}
-                <HoverVideoPlayer
-
-                                    // videoSrc={game.video_url}
-                                    videoSrc="https://ia800400.us.archive.org/3/items/games-videos/10%20Mahjong.mp4"
-
-                                    pausedOverlay={
-                                        <img
-                                            src={game.image_url}
-                                            alt="this is img"
-                                            style={{
-                                                // Make the image expand to cover the video's dimensions
-                                                width: '100%',
-                                                height: '100%',
-                                                objectFit: 'cover',
-                                                borderRadius: '10px',
-                                            }}
-                                        />
-                                    }
-                                    videoStyle={{
-                                        // Make the video expand to cover the container's dimensions
-                                        width: '400px',
-                                        height: '130px',
-                                        objectFit: 'fill',
-                                        borderRadius: '10px',
-                                    }}
-                                    onClick={() => handleGameSelection(game)}
-
-                                />
+                <Card imageUrl={game.game.image_url} gameid={game.game.id} />
 
               </div>
             ))
@@ -208,11 +200,11 @@ const GameCategoryPage = () => {
       />
 
 
-    <div style={{
+    {/* <div style={{
         marginLeft:"80px"
       }}>
-      <SubCatDownDesc categoryName={categoryName}/>
-      </div>
+      <SubCatDownDesc categoryName=/>
+      </div> */}
 
     </div>
   );
@@ -220,4 +212,4 @@ const GameCategoryPage = () => {
 
 
 
-export default GameCategoryPage;
+export default FavouriteGames;

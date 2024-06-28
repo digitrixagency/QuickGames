@@ -16,6 +16,7 @@ import {
     fetchGameStatus,
 } from "../../slice/userSlice";
 import { addFavourite, dislikeGame, likeGame, removeFavourite } from "../../middleware/userAction";
+import FavRelatedGame from "../RelatedGames/FavRelatedGame";
 
 
 const GamePage = () => {
@@ -39,15 +40,17 @@ const GamePage = () => {
 
     useEffect(() => {
         if (userStates.isLoggedIn) {
-            // console.log("game_id :" + (game.id));
+            // console.log(userStates);
             dispatch(fetchGameStatus(game.id));
+            // console.log(userStates);
+
         }
     }, [dispatch, game.id, userStates.isLoggedIn]);
 
     useEffect(() => {
         if (userStates.gameStatus) {
-            console.log(userStates.gameStatus.like_status);
-            console.log(userStates.gameStatus.favorited);
+            // console.log(userStates.gameStatus.like_status);
+            // console.log(userStates.gameStatus.favorited);
 
 
             setLiked(userStates.gameStatus.like_status === 1);
@@ -58,11 +61,15 @@ const GamePage = () => {
 
     const handleLike = () => {
         if (!userStates.isLoggedIn) return;
+        setLiked(true);
+        setDisliked(false);
         dispatch(likeGame(game.id));
     };
 
     const handleDislike = () => {
         if (!userStates.isLoggedIn) return;
+        setLiked(false);
+        setDisliked(true);
         dispatch(dislikeGame(game.id));
     };
 
@@ -70,8 +77,10 @@ const GamePage = () => {
         if (!userStates.isLoggedIn) return;
         if (favorited) {
             dispatch(removeFavourite(game.id));
+            setFavorited(false);
         } else {
             dispatch(addFavourite(game.id));
+            setFavorited(true); 
         }
     };
 
@@ -226,7 +235,7 @@ const GamePage = () => {
                 </div>
                 <div className="related-game-page">
                     {/* user recently played */}
-                    <UserRecentPlayed game={GameData} />
+                    <FavRelatedGame game={GameData} />
                 </div>
             </div>
             <div className="related-game-pagelower">

@@ -155,7 +155,6 @@ const DislikeGame = async (req, res) => {
         handleErrorResponse(res, 500);
     }
 };
-
 const LikeGame = async (req, res) => {
     
     try {
@@ -244,8 +243,10 @@ const LikeGame = async (req, res) => {
 
 const getUserLikeOrFavouriteStatus = async (req, res) => {
     try {
-        const { gameId } = req.params;
-        const { user_id } = 1;
+        // const { gameId } = req.params;
+        // const { user_id } = 1;
+        const gameId = 77;
+        const  user_id  = 1;
 
         const likeStatus = await prisma.like.findFirst({
             where: {
@@ -273,5 +274,45 @@ const getUserLikeOrFavouriteStatus = async (req, res) => {
     }
 };
 
+const getFavouriteGamesByUser = async (req, res) => {
+    try {
+        // const user_id = parseInt(req.params.userId, 10);
+        const  user_id  = 1;
+        const { filter = "new", limit = 10, page = 1 } = req.query;
+  const offset = (page - 1) * limit;
+  let orderBy = {};
 
-export { AddFavourite, RemoveFavourite, DislikeGame, LikeGame, getUserLikeOrFavouriteStatus };
+  if (filter === "new") {
+    orderBy = { launch_year: "desc" };
+  } else if (filter === "mostPlayed") {
+    orderBy = { played: "desc" };
+  } else if (filter === "mostLiked") {
+    orderBy = { totalLikes: "desc" };
+  }
+
+        const favoriteGames = await prisma.favoriteGame.findMany({
+            where: {
+                user_id: user_id
+            },
+            include: {
+                game: true // Include the game details
+            },
+            take: Number(limit),
+            skip: offset,
+        });
+
+        if (!favoriteGames) {
+            return handleErrorResponse(res, 404, "No favorite games found for this user");
+        }
+
+        return res.status(200).json(favoriteGames);
+    } catch (error) {
+        console.error(error);
+        handleErrorResponse(res, 500);
+    }
+};
+
+
+
+
+export { AddFavourite, RemoveFavourite, DislikeGame, LikeGame, getUserLikeOrFavouriteStatus, getFavouriteGamesByUser };

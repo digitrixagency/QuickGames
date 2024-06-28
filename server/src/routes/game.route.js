@@ -1,6 +1,6 @@
 import { Router } from "express";
 import * as gameController from '../controllers/game.controller.js';
-import { AddFavourite, RemoveFavourite, LikeGame, DislikeGame, getUserLikeOrFavouriteStatus } from "../controllers/userActions.controller.js";
+import { AddFavourite, RemoveFavourite, LikeGame, DislikeGame, getUserLikeOrFavouriteStatus, getFavouriteGamesByUser } from "../controllers/userActions.controller.js";
 import VerifyToken from "../middlewares/auth.middleware.js";
 
 const gameRoutes = Router();
@@ -24,6 +24,8 @@ gameRoutes.delete('/game/favourite/:gameId', RemoveFavourite); // Remove from fa
 gameRoutes.post('/game/like/:gameId', LikeGame); // Like a game
 gameRoutes.post('/game/dislike/:gameId', DislikeGame); // Dislike a game
 gameRoutes.get('/user/game/:gameId/status',  getUserLikeOrFavouriteStatus); // Get user game status
+gameRoutes.get('/favourite-games/:userId', getFavouriteGamesByUser);
+
 
 
 
