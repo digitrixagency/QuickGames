@@ -173,8 +173,9 @@ const GetGoogleData = async (req, res, next) => {
     if (token == '') {
       return handleErrorResponse(res, 401, 'Token is not found...');
     }
-    oauth2Client.credentials = token;
+
     const data = token.tokens;
+    oauth2Client.credentials = data;
     const ticket = await client.verifyIdToken({
       idToken: data.id_token,
       audience: process.env.GOOGLE_CLIENT_ID,

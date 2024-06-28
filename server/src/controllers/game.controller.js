@@ -8,7 +8,7 @@ async function getTopCategories(req, res) {
   try {
     // Aggregate data to find top 10 categories based on the number of games
     const categories = await prisma.game.groupBy({
-      by: ["category"],
+      by: ["category"],  
       _count: {
         category: true,
       },
@@ -60,7 +60,7 @@ async function getGamesByCategory(req, res) {
   } else if (filter === "mostLiked") {
     orderBy = { totalLikes: "desc" };
   }
-
+ 
   try {
     const games = await prisma.game.findMany({
       where: {
@@ -97,7 +97,7 @@ async function getGamesBySubcategory(req, res) {
       where: {
         subcategory: subcategory,
       },
-      orderBy,
+      orderBy, 
       take: Number(limit),
       skip: offset,
     });
@@ -238,7 +238,7 @@ async function getCategoryDescription(req, res) {
         category_name: category,
       },
       include: {
-        description2: true,
+        CategorySubDescription: true,
       },
     });
 

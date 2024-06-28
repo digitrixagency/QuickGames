@@ -21,7 +21,10 @@ const adminOptions = {
     { resource: { model: getModelByName('Like'), client: prisma }, options: {} },
     { resource: { model: getModelByName('FavoriteGame'), client: prisma }, options: {} },
     { resource: { model: getModelByName('Category'), client: prisma }, options: {} },
-    { resource: { model: getModelByName('Description2'), client: prisma }, options: {} },
+    { resource: { model: getModelByName('CategorySubDescription'), client: prisma }, options: {} },
+
+    // { resource: prisma.like, options: {} },
+    // { resource: prisma.favoriteGame, options: {} },
   ],
   rootPath: '/admin',
 };

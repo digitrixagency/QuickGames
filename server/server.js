@@ -43,6 +43,7 @@ app.use(admin.options.rootPath , adminRouter); // Use AdminJS router
 
 app.use("/auth/", authRoutes);
 app.use("/", gameRoutes);
+app.options('/auth/google', cors(corsOptions));
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

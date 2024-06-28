@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import {Button} from "@mui/material";
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
+import GoogleButton from 'react-google-button'
+import googleicon from '../../assets/google.png'
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -25,7 +28,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Dashhboard from "../dashboard/Dashboard"
-import { Button } from '@mui/material';
 import Chip from "@mui/material/Chip";
 import FaceIcon from "@mui/icons-material/Face";
 import Paper from "@mui/material/Paper";
@@ -52,6 +54,7 @@ import { useNavigate } from 'react-router-dom';
 import AccountMenu from '../Authentication/SignOut';
 import BasicPopover from '../Authentication/SignOut';
 import { fetchUniqueCategories } from '../../middleware/category';
+import { GooglesignIn } from '../../middleware/auth';
 
 
 
@@ -556,6 +559,23 @@ const handleFavouriteGames = () =>{
   }
 
   const AuthForm = () => {
+
+
+    const submitHandler = async (e) =>{
+      // e.preventDefault();
+      // if(details.credential === "" && details.password === ""){
+      //   setErrors({credential: true, password: true});
+      //   return ;
+      // }
+      // if(details.credential === "") setErrors({...errors, credential: true});
+      // if (details.password === "") setErrors({ ...errors, password: true });
+  
+      // // console.log(details)
+    
+      await GooglesignIn(dispatch);
+     
+      
+    }
     return (
       <div className="App">
         <Paper elevation={0} style={{ padding: "10px", paddingBottom: "50px" }}>
@@ -580,8 +600,16 @@ const handleFavouriteGames = () =>{
 
           </div>
 
-          {loginchk ? <Login /> : <Signup />}
+          {loginchk ? <Login auth={auth} setAuth={setAuth} /> : <Signup auth={auth} setAuth={setAuth} />}
         </Paper>
+
+        <div className='w-2'>
+        <GoogleButton
+  onClick={submitHandler}
+
+/>
+   
+        </div>
       </div>
     );
   }

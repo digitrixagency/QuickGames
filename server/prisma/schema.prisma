@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -21,72 +15,79 @@ enum Role {
 
 // Define the User table
 model User {
-  id        Int            @id @default(autoincrement())
-  username  String         @unique
-  email     String         @unique
-  password  String
-  recovery_token  String @default("")
-  role      Role           @default(USER)
-  likes     Like[]         @relation("UserLikes")
-  favorites FavoriteGame[] @relation("UserFavorites")
+  id             Int             @id @default(autoincrement())
+  username       String          @unique
+  email          String          @unique
+  password       String
+  recovery_token String          @default("")
+  role           Role            @default(USER)
+  likes          Like[]          @relation("UserLikes")
+  favorites      FavoriteGame[]  @relation("UserFavorites")
 }
 
 // Define the Game table
 model Game {
-  id          Int            @id @default(autoincrement())
-  title       String
-  description String         @default("")
-  technology  String         @default("")
-  rating      Float          @default(0)
-  played      Int            @default(0)
-  video_url   String         @default("")
-  game_url    String         @default("")
-  category    String         @default("")
-  subcategory String         @default("")
-  image_url   String         @default("")
-  launch_year String         @default("")
-  totalLikes  Int            @default(0)
-  likes       Like[]         @relation("GameLikes")
-  favorites   FavoriteGame[] @relation("GameFavorites")
+  id                      Int                      @id @default(autoincrement())
+  title                   String
+  description             String                   @default("")
+  technology              String                   @default("")
+  rating                  Float                    @default(0)
+  played                  Int                      @default(0)
+  video_url               String                   @default("")
+  game_url                String                   @default("")
+  categoryid              Category?                @relation("CategoryGames", fields: [category_id], references: [id])
+  category_id             Int? 
+  category                String?
+  subcategory             String                   @default("")
+  image_url               String                   @default("")
+  launch_year             String                   @default("")
+  totalLikes              Int                      @default(0)
+  likes                   Like[]                   @relation("GameLikes")
+  favorites               FavoriteGame[]           @relation("GameFavorites")
+
+
 }
 
 // Define the Like table
 model Like {
+  id          Int     @id @default(autoincrement())
   user_id     Int
   game_id     Int
   like_status Int
-  user        User @relation("UserLikes", fields: [user_id], references: [id])
-  game        Game @relation("GameLikes", fields: [game_id], references: [id])
+  user        User    @relation("UserLikes", fields: [user_id], references: [id])
+  game        Game    @relation("GameLikes", fields: [game_id], references: [id])
 
-  @@id([user_id, game_id])
+  @@unique([user_id, game_id])
 }
 
 // Define the FavoriteGame table
 model FavoriteGame {
+  id      Int  @id @default(autoincrement())
   user_id Int
   game_id Int
   user    User @relation("UserFavorites", fields: [user_id], references: [id])
   game    Game @relation("GameFavorites", fields: [game_id], references: [id])
 
-  @@id([user_id, game_id])
+  @@unique([user_id, game_id])
 }
 
-//Define Content table
+// Define the CategoryDescription table
 model Category {
-  id                Int             @id @default(autoincrement())
-  category_name     String
-  icon              String
-  index             Int             @default(autoincrement())
-  description1      String
-  description2      Description2[]  @relation("CategoryDescription2")
+  id                      Int                      @id @default(autoincrement())
+  category_name           String                   @unique
+  icon                    String?
+  description1            String?
+  games                   Game[]                    @relation("CategoryGames") // One-to-many relation with Game
+  CategorySubDescription  CategorySubDescription[]  @relation("CategorySubDescription")
+
+
 }
 
-model Description2 {
-  category_id   Int
-  category_name String
-  header        String
-  content       String
-  category      Category @relation("CategoryDescription2", fields: [category_id], references: [id])
-
-  @@id([category_id])
+// Define the CategorySubDescription table
+model CategorySubDescription {
+  id                Int      @id @default(autoincrement())
+  category_id       Int
+  header            String
+  content           String
+  category          Category @relation("CategorySubDescription", fields: [category_id], references: [id])
 }

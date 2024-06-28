@@ -1,7 +1,7 @@
-const { PrismaClient } = require('@prisma/client');
-
+import {PrismaClient} from'@prisma/client';
+import { excelToJson } from './scrap.js'; 
 const prisma = new PrismaClient();
-const excelToJson=require('./scrap')
+
 
 const filepath='./HTML_Games.xlsx'
 async function main() {
@@ -9,10 +9,48 @@ async function main() {
 
 
   const Gamedata=excelToJson(filepath);
-  console.log(Gamedata);
-  await prisma.game.createMany({
-    data:Gamedata
-  });
+ 
+async function seedDatabase() {
+  try {
+    const gamesData = excelToJson('./HTML_Games.xlsx'); // Replace with your actual file path
+
+    // Loop through the gamesData array
+    for (const gameData of gamesData) {
+      const { category } = gameData;
+
+      // Check if the category exists in CategoryDescription
+      let existingCategory = await prisma.category.findUnique({
+        where: { category_name: category }
+      });
+
+      // If the category doesn't exist, create it
+      if (!existingCategory) {
+        existingCategory = await prisma.category.create({
+          data: {
+            category_name: category,
+            // Add other fields as needed
+          }
+        });
+      }
+
+      // Now create the Game entry
+      await prisma.game.create({
+        data:{
+         ...gameData,
+         category_id:existingCategory.id
+        }
+      });
+    }
+
+    console.log('Database seeding completed.');
+  } catch (error) {
+    console.error('Error seeding database:', error);
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+seedDatabase();
 
   // Insert dummy games
   // await prisma.game.createMany({

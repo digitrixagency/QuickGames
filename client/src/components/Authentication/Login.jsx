@@ -249,23 +249,17 @@ export default function Login({auth,setAuth}) {
       </div>
 
       {/* Show Form Error if any */}
-      {formValid && (
+      
+      {userStates.errorMessage.authForms && (
         <Stack sx={{ width: "100%", paddingTop: "10px" }} spacing={2}>
           <Alert severity="error" size="small">
-            {formValid}
+            {userStates.errorMessage.authForms}
           </Alert>
         </Stack>
+        // <div>{userStates.errorMessage.authForms}</div>
       )}
 
-      {/* Show Success if no issues */}
-      {success && (
-        <Stack sx={{ width: "100%", paddingTop: "10px" }} spacing={2}>
-          <Alert severity="success" size="small">
-            {success}
-          </Alert>
-        </Stack>
-      )}
-
+      
 <div style={{ marginTop: "7px", fontSize: "10px" }} margin="left">
       
         New to QuickGames?{" "}

@@ -1,6 +1,6 @@
-const xlsx = require('xlsx');
+import xlsx from 'xlsx';
 
-function excelToJson(filePath) {
+export function excelToJson(filePath) {
   // Read the Excel file
   const workbook = xlsx.readFile(filePath);
 
@@ -40,7 +40,3 @@ function excelToJson(filePath) {
 
   return data;
 }
-
-
-
-module.exports =excelToJson;
