@@ -6,21 +6,25 @@ import {
   GoogleAuth,
   GetGoogleData,
   Logout,
-  ForgotPassword,
-  Resetpassword
+  SendMail,
+  VerifyEmail,
+  ResetPassword,
+  ForgotPassword
 } from '../controllers/auth.controller.js';
 import VerifyToken from '../middlewares/auth.middleware.js';
 
 const authRoutes = Router();
 
-authRoutes.post('/signup', SignUp, SetToken);
-authRoutes.post('/login', Login, SetToken);
-authRoutes.post('/check', VerifyToken);
-authRoutes.post('/google', GoogleAuth);
+authRoutes.post('/signup', SignUp, SetToken, VerifyToken);
+authRoutes.post('/login', Login, SetToken, VerifyToken);
+authRoutes.get('/google', GoogleAuth);
 authRoutes.get('/redirectgoogle', GetGoogleData, SetToken);
-authRoutes.get('/logout', Logout);
-authRoutes.post('/forgot-pass', ForgotPassword);
-authRoutes.post('/reset-pass', Resetpassword);
+authRoutes.get('/logout',VerifyToken, Logout);
+authRoutes.post('/sendverifyemail', SendMail);
+authRoutes.post('/sendforgotpassemail', SendMail)
+authRoutes.get('/verifyemail/:recoveryToken', VerifyEmail)
+authRoutes.post('/forgot-pass', VerifyToken, ForgotPassword);
+authRoutes.post('/reset-pass',VerifyToken, ResetPassword);
 
 export default authRoutes;
 

@@ -17,16 +17,12 @@ const VerifyToken = async (
   res,
   next
 ) => {
-  console.log(res.cookies);
+  console.log(req.cookies);
   try {
-    
-    const token  = req.cookies.token ;
+    const token  = req.cookies.token;
     if (token) {
-      const accessToken = token.split(" ")[0];
-
-      // console.log(accessToken);
-      if (accessToken) {
-        console.log(accessToken);
+      const accessToken = token.split(" ")[0]
+      if (!accessToken) {
         return res.status(401).json({ message: "Unauthenticated" });
       }
       jwt.verify(
@@ -34,14 +30,9 @@ const VerifyToken = async (
         process.env.JWT_SECRET,
         async (err, value) => {
           if (err) {
-            console.log(accessToken);
-
-            console.log("access Token Expired");
             if (err.name === "TokenExpiredError") {
               const refresh_token = req.cookies.token.split(" ")[1];
-              if (refresh_token) {
-                console.log(accessToken);
-
+              if (!refresh_token) {
                 return res.status(401).json({ message: "Unauthenticated" });
               }
               jwt.verify(
@@ -50,19 +41,18 @@ const VerifyToken = async (
                 async (err1, value1) => {
                   if (err1) {
                     res.clearCookie("token");
-                    console.log(accessToken);
-
                     return res.status(401).json({ error: "Unauthenticated" });
                   } else {
                     const user = await prisma.user.findUnique({
                       where: { email: value1.email },
                     });
-                    if (user) {
-                      console.log(accessToken);
-
+                    if (!user) {
                       return res
                         .status(404)
                         .json({ message: "No User Present" });
+                    }
+                    if(!user.isVerified){
+                      return res.status(400).json({message: "User is not verified, Please verify and try again"})
                     }
                     res.locals.userData = user;
                     const newAccessToken = jwt.sign(
@@ -98,8 +88,6 @@ const VerifyToken = async (
                         path: "/",
                       })
                     );
-                    console.log(accessToken);
-
                     return next();
                   }
                 }

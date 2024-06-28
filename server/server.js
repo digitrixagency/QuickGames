@@ -3,7 +3,6 @@ import authRoutes from './src/routes/auth.route.js';
 import { gameRoutes } from './src/routes/game.route.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import {admin, adminRouter} from './admin.js';
 
