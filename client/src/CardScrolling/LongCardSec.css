@@ -31,8 +31,8 @@
     
     .Longcard-scrolling-img-body {
       display: flex;
-      width: 203px;
-      height: 270px;
+      /* width: 203px;
+      height: 270px; */
       transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effect */
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increased elevation effect */
       border: 4.5px solid transparent; /* Initial transparent border */

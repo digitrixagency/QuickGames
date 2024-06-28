@@ -15,6 +15,9 @@ import {
     removeFavouriteStart,
     removeFavouriteSuccess,
     removeFavouriteError,
+    favouriteGamefetchStart,
+    favouriteGamefetchSuccess,
+    favouriteGamefetchError,
     // gameStatusFetchingStart,s
     // gameStatusFetchingSuccess,
     // gameStatusFetchingError
@@ -66,3 +69,21 @@ export const removeFavourite = (gameId) => async (dispatch) => {
     }
 };
 
+export const getMyfavouriteGames = async (data  , dispatch) => {
+    dispatch(favouriteGamefetchStart());
+    try{
+        const response = await API.get(`/favourite-games/${data.user_id}`,{
+            
+                params: {
+                    page: data.page, // Add the desired page number
+                    limit: data.limit, // Specify the limit (e.g., 50)
+                    filter: data.filter, // Apply any necessary filters
+                  },
+            
+        });
+        dispatch(favouriteGamefetchSuccess(response.data));
+    }catch (error){
+        dispatch(favouriteGamefetchError(error.response));
+        console.log("Error while fetching your favourite games", error);
+    }
+}

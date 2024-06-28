@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import HoverVideoPlayer from 'react-hover-video-player';
 import "./CardScrolling.css";
-import { useSelector , useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchcategory } from "../middleware/category";
 
 
@@ -71,11 +71,11 @@ const CardScrolling = ({ GameData, GameDataName }) => {
 
     const handleGameSelection = (game) => {
         const gameTitle = game.title.replace(/\s+/g, '-').toLowerCase(); // Convert title to URL-friendly format
-        navigateToThisGame(`/game/${gameTitle}`, { state: { game , GameData } });
+        navigateToThisGame(`/game/${gameTitle}`, { state: { game, GameData } });
     };
-   
-    const handleGamegategorySelection = async() => {
-         navigateToThisGame(`games/${GameDataName}`);
+
+    const handleGamegategorySelection = async () => {
+        navigateToThisGame(`games/${GameDataName}`);
     };
 
     var settings = {
@@ -135,15 +135,15 @@ const CardScrolling = ({ GameData, GameDataName }) => {
             {/* <h1 className="card-scrolling-header">{GameDataName}</h1> */}
             <div className="category-cointainer">
                 <p className="category-name" style={{
-                    paddingLeft:'0px'
+                    paddingLeft: '0px'
                 }}>
                     {GameDataName}
                     {/* {console.log(GameStore)} */}
                 </p>
-                <p className="view-more" onClick={handleGamegategorySelection} 
-                style={{
-                    paddingLeft:'20px'
-                }}>view more...</p>
+                <p className="view-more" onClick={handleGamegategorySelection}
+                    style={{
+                        paddingLeft: '20px'
+                    }}>view more...</p>
             </div>
             <div className="card-scrolling-container">
                 <Slider {...settings}>
@@ -151,9 +151,10 @@ const CardScrolling = ({ GameData, GameDataName }) => {
                         <div key={index}>
                             <div className="card-scrolling-img-body hover:border-custom-purple" >
                                 <HoverVideoPlayer
-                                
-                                    videoSrc={game.video_url}
-                                    
+
+                                    // videoSrc={game.video_url}
+                                    videoSrc="https://ia800400.us.archive.org/3/items/games-videos/10%20Mahjong.mp4"
+
                                     pausedOverlay={
                                         <img
                                             src={game.image_url}
@@ -163,10 +164,17 @@ const CardScrolling = ({ GameData, GameDataName }) => {
                                                 width: '100%',
                                                 height: '100%',
                                                 objectFit: 'cover',
-                                                borderRadius:'10px',
+                                                borderRadius: '10px',
                                             }}
                                         />
                                     }
+                                    videoStyle={{
+                                        // Make the video expand to cover the container's dimensions
+                                        width: '400px',
+                                        height: '130px',
+                                        objectFit: 'fill',
+                                        borderRadius: '10px',
+                                    }}
                                     onClick={() => handleGameSelection(game)}
 
                                 />

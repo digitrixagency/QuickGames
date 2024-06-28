@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import AfroStyles from "../../CardScrolling/AfroStyles"
+import { userState } from "../../slice/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "./GameCategoryCard.css"
 // import { GameCategories } from "../../editableFiles/GameCategory";
 
@@ -153,11 +156,7 @@ const GameCategories = [
     text: "Multiplayer",
     index: 29
   },
-  // {
-  //   icon: <i className='fa fa-billiards' style={{ fontSize: '24px' }}></i>,
-  //   text: "Pool",
-  //   index: 30
-  // },
+
   {
     icon: <i className='fa fa-puzzle-piece' style={{ fontSize: '24px' }}></i>,
     text: "Puzzle",
@@ -168,143 +167,76 @@ const GameCategories = [
     text: "Shooting",
     index: 32
   },
-  // {
-  //   icon: <i className='fa fa-futbol' style={{ fontSize: '24px' }}></i>,
-  //   text: "Soccer",
-  //   index: 33
-  // },
-  // {
-  //   icon: <i className='fa-solid fa-basketball' style={{ fontSize: '24px' }}></i>,
-  //   text: "Sports",
-  //   index: 34
-  // },
+
   {
     icon: <i className='fa fa-sticky-note' style={{ fontSize: '24px' }}></i>,
     text: "Stickman",
     index: 35
   },
-  // {
-  //   icon: <i className='fa fa-shield-alt' style={{ fontSize: '24px' }}></i>,
-  //   text: "Tower Defense",
-  //   index: 36
-  // }
+
 ];
 
-// const CategoryCard = () => {
-//   const [scrollPosition, setScrollPosition] = useState(0);
-//   const cardWidth = 1000;
-
-//   const handleLeftArrowClick = () => {
-//     setScrollPosition(Math.max(0, scrollPosition - cardWidth));
-//   };
-
-//   const handleRightArrowClick = () => {
-//     const containerWidth = document.querySelector(".game-card-container").offsetWidth;
-//     const totalWidth = document.querySelector(".game-card-list").scrollWidth;
-//     setScrollPosition(Math.min(scrollPosition + cardWidth, totalWidth - containerWidth));
-//   };
-//   return (
-//     <>
-//       <div className="Category-card-container">
-
-
-//         {/* <div className="category-left-arrow" onClick={handleLeftArrowClick}>
-//           <i class="categoryarrow left"></i>
-//         </div> */}
-
-
-
-//         {/* <div className="category-list-container"> */}
-//           <div className="category-card-list" style={{ transform: `translateX(-${scrollPosition}px)` }}>
-
-//             {GameCategories.map((category, index) => (
-//               <div key={index} className="category1-card">
-//                 {
-//                   index % 2 !== 0 && <div className="category-card-img">
-//                     <div className="icon1" style={{color:"whiteSmoke",display:"flex", justifyContent:"center"}}>{category.icon}</div>
-//                     <div className="text1" style={{color:"whiteSmoke" ,display:"flex", justifyContent:"center"}}>{category.text}</div>
-//                   </div>
-//                 }
-
-//               </div>
-//             ))}
-//           </div>
-//           <div className="category-card-list" style={{ transform: `translateX(-${scrollPosition}px)` }}>
-
-//             {GameCategories.map((category, index) => (
-//               <div key={index} className="category1-card">
-//                 {
-//                   index % 2 === 0 && <div className="category-card-img">
-//                     <div className="icon1" style={{color:"whiteSmoke",display:"flex", justifyContent:"center"}}>{category.icon}</div>
-//                     <div className="text1" style={{color:"whiteSmoke" ,display:"flex", justifyContent:"center"}}>{category.text}</div>
-//                   </div>
-//                 }
-
-//               </div>
-//             ))}
-//           </div>
-//         {/* </div> */}
-
-//         {/* <div className="category-right-arrow" onClick={handleRightArrowClick}>
-//           <i class="categoryarrow right"></i>
-//         </div> */}
-
-//       </div>
-//     </>
-//   )
-// }
 
 
 
 const CategoryCard = () => {
+
+    const navigate = useNavigate();
+    
+    const userStates = useSelector(userState);
+
+    const handleCategory = (game) => {
+      navigate(`games/${game.category_name}`);
+  };
+
     const settings = {
     // dots: true,
     speed: 2000,
-    slidesToShow: Math.max(screen.width/60,4),
+    slidesToShow: 5,
     slidesToScroll: 3,
     infinite: true,
-    autoplay: true,
+    // autoplay: true,
     // autoplaySpeed: 1000,
     autoplaySpeed: 0,
     cssEase: 'linear',  
-    responsive: [
-      // {
-      //     breakpoint: 1110,
-      //     settings: {
-      //         slidesToShow: 4,
-      //         slidesToScroll: 3
-      //     }
-      // },
-      {
-          breakpoint: 872,
-          settings: {
-              slidesToShow: 8,
-              slidesToScroll: 3
-          }
-      },
-      {
-          breakpoint: 600,
-          settings: {
-              slidesToShow: 6,
-              slidesToScroll: 3
-          }
-      },
-      {
-          breakpoint: 480,
-          settings: {
-              slidesToShow: 6,
-              slidesToScroll: 3
-          }
-      }
-  ],
+  //   responsive: [
+  //     // {
+  //     //     breakpoint: 1110,
+  //     //     settings: {
+  //     //         slidesToShow: 4,
+  //     //         slidesToScroll: 3
+  //     //     }
+  //     // },
+  //     {
+  //         breakpoint: 872,
+  //         settings: {
+  //             slidesToShow: 8,
+  //             slidesToScroll: 3
+  //         }
+  //     },
+  //     {
+  //         breakpoint: 600,
+  //         settings: {
+  //             slidesToShow: 6,
+  //             slidesToScroll: 3
+  //         }
+  //     },
+  //     {
+  //         breakpoint: 480,
+  //         settings: {
+  //             slidesToShow: 6,
+  //             slidesToScroll: 3
+  //         }
+  //     }
+  // ],
   };
   const settings2 = {
     // dots: true,
     speed: 2000,
-    slidesToShow: Math.max(screen.width/60,4),
+    slidesToShow: 5,
     slidesToScroll: -3,
     infinite: true,
-    autoplay: true,
+    // autoplay: true,
     // autoplaySpeed: 1000,
     initialSlide: 1,
 
@@ -312,43 +244,43 @@ const CategoryCard = () => {
 cssEase: 'linear',          
 // speed: 20000,
 
-    responsive: [
-      // {
-      //     breakpoint: 1110,
-      //     settings: {
-      //         slidesToShow: 4,
-      //         slidesToScroll: 3
-      //     }
-      // },
-      {
-          breakpoint: 872,
-          settings: {
-              slidesToShow: 8,
-              slidesToScroll: -3
-          }
-      },
-      {
-          breakpoint: 600,
-          settings: {
-              slidesToShow: 6,
-              slidesToScroll: -3
-          }
-      },
-      {
-          breakpoint: 480,
-          settings: {
-              slidesToShow: 6,
-              slidesToScroll: -3
-          }
-      }
-  ],
+  //   responsive: [
+  //     // {
+  //     //     breakpoint: 1110,
+  //     //     settings: {
+  //     //         slidesToShow: 4,
+  //     //         slidesToScroll: 3
+  //     //     }
+  //     // },
+  //     {
+  //         breakpoint: 872,
+  //         settings: {
+  //             slidesToShow: 8,
+  //             slidesToScroll: -3
+  //         }
+  //     },
+  //     {
+  //         breakpoint: 600,
+  //         settings: {
+  //             slidesToShow: 6,
+  //             slidesToScroll: -3
+  //         }
+  //     },
+  //     {
+  //         breakpoint: 480,
+  //         settings: {
+  //             slidesToShow: 6,
+  //             slidesToScroll: -3
+  //         }
+  //     }
+  // ],
   };
   return (
     <>
       <div className="Category-card-container">
           {/* <div className="category-card-list"> */}
           <Slider {...settings}>
-            {GameCategories.map((category, index) => (
+            {/* {GameCategories.map((category, index) => (
               <div key={index} className="category1-card">
                 {
                   index % 2 !== 0 && <div className="category-card-img">
@@ -358,16 +290,27 @@ cssEase: 'linear',
                 }
               </div>
               
+            ))} */}
+            {userStates.uniqueCategories.map((data, index) => (
+              <div key={index} className="category1-card">
+                {
+                  index % 2 !== 0 && <div className="category-card-img" onClick={() => handleCategory(data)}>
+                    <img className="icon1" src={data.icon} style={{color:"whiteSmoke",display:"flex", justifyContent:"center"}}></img>
+                    <div className="text1" style={{color:"whiteSmoke" }}>{data.category_name}</div>
+                  </div>
+                }
+              </div>
+              
             ))}
             </Slider>
           {/* </div> */}
           <Slider {...settings2}>
-            {GameCategories.map((category, index) => (
+            {userStates.uniqueCategories.map((data, index) => (
               <div key={index} className="category1-card">
                 {
-                  index % 2 === 0 && <div className="category-card-img">
-                    <div className="icon1" style={{color:"whiteSmoke",display:"flex", justifyContent:"center"}}>{category.icon}</div>
-                    <div className="text1" style={{color:"whiteSmoke" ,display:"flex", justifyContent:"center"}}>{category.text}</div>
+                  index % 2 === 0 && <div className="category-card-img" onClick={() => handleCategory(data)}>
+                  <img className="icon1" src={data.icon} style={{color:"whiteSmoke",display:"flex", justifyContent:"center"}}></img>
+                  <div className="text1" style={{color:"whiteSmoke" }}>{data.category_name}</div>
                   </div>
                 }
               </div>

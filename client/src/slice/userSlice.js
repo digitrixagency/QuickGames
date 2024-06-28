@@ -11,6 +11,7 @@ export const fetchGameStatus = createAsyncThunk(
     async (gameId, { rejectWithValue }) => {
         try {
             const response = await axios.get(`${serverURL}/user/game/${gameId}/status`);
+            console.log(response.data)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -229,10 +230,10 @@ const userSlice = createSlice({
             state.favouriteGamefetchStatusErrorMessage = action.payload.data.message;
         },
         favouriteGamefetchSuccess: (state, action) => {
-            state.favouriteProductfetchStatusSuccess = true;
-            state.favouriteProductfetchStatusPending = false;
-            state.favouriteProductfetchStatusError = false;
-            state.favouriteProducts = action.payload;
+            state.favouriteGamefetchStatusSuccess = true;
+            state.favouriteGamefetchStatusPending = false;
+            state.favouriteGamefetchStatusError = false;
+            state.favouriteGames = action.payload;
         },
         RemovefavouriteGamefetchstatus: (state) => {
             state.favouriteProductfetchStatusSuccess = false;

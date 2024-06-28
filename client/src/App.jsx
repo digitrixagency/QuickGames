@@ -8,6 +8,7 @@ import { group1 } from './editableFiles/gameHubs';
 import { Footer1 } from './components/Footer/footer';
 import MiniDrawer from './components/sideBar/Sidebar';
 import GameCategoryPage from './components/GameCategory/gamecategorypage';
+import FavouriteGames from './components/FavouriteGames/favouriteGame';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         {/* <Route path='this-game-name/' element={<GamePage GameData={group1}/>} /> */}
         <Route path='game/:title' element={<GamePage/>} />
         <Route path='games/:categoryName' element={<GameCategoryPage />} />
+        <Route path='favourite/:user_id/games' element={<FavouriteGames/>} />
         {/* <Route path='log-in/' element={</>} /> */}
       </Routes>
       <Footer1/>
