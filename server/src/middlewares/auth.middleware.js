@@ -22,7 +22,6 @@ const VerifyToken = async (
     
     if (token) {
       const accessToken = token.split(" ")[0];
-      console.log(accessToken);
       
       if (!accessToken) {
         return res.status(401).json({ message: "Unauthenticated" });

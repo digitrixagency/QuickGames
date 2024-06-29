@@ -55,10 +55,11 @@ export default function Login({ auth, setAuth }) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    
     if (!details.credential || !details.password) {
       setErrors({
-        credential: !details.credential,
-        password: !details.password,
+        credential: details.credential ? false : true,
+        password: details.password ? false : true,
       });
       return;
     }
@@ -67,9 +68,10 @@ export default function Login({ auth, setAuth }) {
 
   const forgotPasswordHandler = async (e) => {
     e.preventDefault();
-    if (!details.credential) {
+    if (!details.credential || !isEmail(details.credential)) {
       setErrors({
-        credential: !details.credential,
+        credential: true,
+        password : false
       });
       return;
     }

@@ -85,7 +85,6 @@ const SetToken = async (req, res) => {
 const SignUp = async (req, res, next) => {
   try {
     const { email, username, password } = req.body;
-    console.log(req.body);
 
     if (password.length < 7) {
       return handleErrorResponse(res, 401, 'Password length should be more than 6 character');

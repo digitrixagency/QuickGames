@@ -24,6 +24,7 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import LoginIcon from "@mui/icons-material/Login";
+import { secrets } from "../../environment/config";
 
 // Email Validation
 const isEmail = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
@@ -58,19 +59,17 @@ export default function Signup({ auth, setAuth }) {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    let usernameError = details.username === "";
-    let emailError = details.email === "" || !isEmail(details.email);
-    let passwordError = details.password === "" || details.password < 7;
+    if(!details.username || !details.email || !isEmail(details.email) || !details.password || (details.password < 7)){
+      setErrors({
+        username: details.username.trim() === "" ? true : false,
+        email: (details.email.trim() === "" || !isEmail(details.email)) ? true : false,
+        password: (details.password === "" || details.password < 7 ) ? true : false,
+      });
 
-    setErrors({
-      username: usernameError,
-      email: emailError,
-      password: passwordError,
-    });
-
-    if (!usernameError && !emailError && !passwordError) {
-      await signUp(details, dispatch, navigate);
+      return;
     }
+  
+      await signUp(details, dispatch, navigate);
   };
 
   const handleCallbackResponse = async (response) => {
@@ -80,7 +79,7 @@ export default function Signup({ auth, setAuth }) {
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
-      client_id: "1001853068134-c32ivskhd7vldrhqqob5v1goec6i6o64.apps.googleusercontent.com",
+      client_id: secrets?.google_auth_client,
       callback: handleCallbackResponse,
     });
     google.accounts.id.renderButton(document.getElementById("signInDiv"), {
