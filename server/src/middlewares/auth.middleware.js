@@ -111,7 +111,7 @@ const VerifyToken = async (
             const user = await prisma.user.findUnique({
               where: { email: value.email },
             });
-            if (user) throw new Error("No User");
+            if (!user) throw new Error("No User");
             res.locals.userData = user;
             return next();
           }

@@ -8,6 +8,7 @@ import { group1 } from './editableFiles/gameHubs';
 import { Footer1 } from './components/Footer/footer';
 import MiniDrawer from './components/sideBar/Sidebar';
 import GameCategoryPage from './components/GameCategory/gamecategorypage';
+import ForgotPassword from './components/Authentication/ForgotPassword';
 import FavouriteGames from './components/FavouriteGames/favouriteGame';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     <MiniDrawer/>
       <Routes>
         <Route path="/" exact element={<Home/>} />
+        <Route path='/forgotpassword' element={<ForgotPassword />} />
         {/* <Route path='this-game-name/' element={<GamePage GameData={group1}/>} /> */}
         <Route path='game/:title' element={<GamePage/>} />
         <Route path='games/:categoryName' element={<GameCategoryPage />} />
