@@ -262,7 +262,6 @@ async function getAllUniqueCategories(req, res) {
         id: true,
         category_name: true,
         icon: true,
-        index: true,
         description1: true
       },
     });

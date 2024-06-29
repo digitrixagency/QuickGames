@@ -17,16 +17,14 @@ const VerifyToken = async (
   res,
   next
 ) => {
-  console.log(res.cookies);
   try {
-    
     const token  = req.cookies.token ;
+    
     if (token) {
       const accessToken = token.split(" ")[0];
-
-      // console.log(accessToken);
-      if (accessToken) {
-        console.log(accessToken);
+      console.log(accessToken);
+      
+      if (!accessToken) {
         return res.status(401).json({ message: "Unauthenticated" });
       }
       jwt.verify(
@@ -34,13 +32,11 @@ const VerifyToken = async (
         process.env.JWT_SECRET,
         async (err, value) => {
           if (err) {
-            console.log(accessToken);
-
             console.log("access Token Expired");
             if (err.name === "TokenExpiredError") {
               const refresh_token = req.cookies.token.split(" ")[1];
-              if (refresh_token) {
-                console.log(accessToken);
+              if (!refresh_token) {
+                console.log("refresh Token Expired");
 
                 return res.status(401).json({ message: "Unauthenticated" });
               }
@@ -57,8 +53,8 @@ const VerifyToken = async (
                     const user = await prisma.user.findUnique({
                       where: { email: value1.email },
                     });
-                    if (user) {
-                      console.log(accessToken);
+                    if (!user) {
+                      console.log("No User Present");
 
                       return res
                         .status(404)
@@ -72,7 +68,7 @@ const VerifyToken = async (
                       },
                       process.env.JWT_SECRET,
                       {
-                        expiresIn: process.env.ACCESS_TOKEN_EXPIRATION_TIME,
+                        expiresIn: parseInt(process.env.ACCESS_TOKEN_EXPIRATION_TIME, 10),
                       }
                     );
                     const newRefreshToken = jwt.sign(

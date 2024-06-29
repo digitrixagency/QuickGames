@@ -9,6 +9,7 @@ import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
 
 const googleclient = new OAuth2Client(process.env.GOOGLE_CLIENT_LOGIN);
+const isEmail = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -213,7 +214,17 @@ const GoogleAuth = async (req, res, next) => {
 
 const Logout = async (req, res) => {
   try {
-    res.clearCookie('token');
+    console.log("hello");
+    res.set(
+      'Set-Cookie',
+      cookie.serialize('token', null, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 0,
+        path: '/',
+      })
+    );
     return res.status(200).json({ logOut: true });
   } catch (error) {
     return handleErrorResponse(res, 500, 'Internal Server Error');
@@ -941,9 +952,20 @@ const ForgotPassword = async (req, res) => {
           },
           data: {
             password: newpasswordHash,
+            recovery_token: ""
           },
         });
       }
+      res.set(
+        'Set-Cookie',
+        cookie.serialize('token', null, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+          maxAge: 0,
+          path: '/',
+        })
+      );
       return res
         .status(200)
         .json({ message: "Password changed successfully." });

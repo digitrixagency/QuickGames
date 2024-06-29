@@ -59,8 +59,8 @@ export default function Signup({ auth, setAuth }) {
     e.preventDefault();
 
     let usernameError = details.username === "";
-    let emailError = details.email === "";
-    let passwordError = details.password === "";
+    let emailError = details.email === "" || !isEmail(details.email);
+    let passwordError = details.password === "" || details.password < 7;
 
     setErrors({
       username: usernameError,

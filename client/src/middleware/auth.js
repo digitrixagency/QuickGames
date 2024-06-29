@@ -66,6 +66,7 @@ export const signOut = async (dispatch, navigate) => {
     });
 
     dispatch(signOutSuccess());
+    navigate("/")
   } catch (error) {
     dispatch(SignOutError(error.response));
     console.log(error);
