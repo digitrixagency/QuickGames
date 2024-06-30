@@ -88,7 +88,11 @@ const RemoveFavourite = async (req, res) => {
 const DislikeGame = async (req, res) => {
     try {
         // const { gameId } = req.params;
-        // const { user_id } = req.locals.userData;
+        // const { id } = res.locals.userData;
+        // const user_id = id;
+        // console.log(id);
+        // const data = req.locals.userInfo;
+        // console.log(data);
         const gameId = 77;
         const user_id = 1 ;
 
@@ -158,16 +162,14 @@ const DislikeGame = async (req, res) => {
 const LikeGame = async (req, res) => {
     
     try {
-        // const { gameId_string } = req.params;
-        // const gameId = parseInt(gameId_string, 10);
-        // console.log("gameId "+(gameId)+ " " + typeof gameId)
+        const { gameId } = req.params;
+        const { user_id } = res.locals.userData;
+        console.log(user_id);
+        const gameId_int = parseInt(gameId, 10);
 
-        const gameId = 77;
-        const  user_id  = 1;
-        // console.log(user_id)
         const gamePresent = await prisma.like.findFirst({
             where: {
-                game_id: gameId,
+                game_id: gameId_int,
                 user_id: user_id
             }
         });
@@ -177,7 +179,7 @@ const LikeGame = async (req, res) => {
                 where: {
                     user_id_game_id: {
                         user_id: user_id,
-                        game_id: gameId
+                        game_id: gameId_int
                     }
                 },
                 data: {
@@ -191,7 +193,7 @@ const LikeGame = async (req, res) => {
 
             const updatedGame = await prisma.game.update({
                 where: {
-                    id: gameId
+                    id: gameId_int
                 },
                 data: {
                     totalLikes: {
@@ -210,14 +212,14 @@ const LikeGame = async (req, res) => {
         const like = await prisma.like.create({
             data: {
                 user_id: user_id,
-                game_id: gameId,
+                game_id: gameId_int,
                 like_status: 1
             }
         });
 
         const updatedGame = await prisma.game.update({
             where: {
-                id: gameId
+                id: gameId_int
             },
             data: {
                 totalLikes: {

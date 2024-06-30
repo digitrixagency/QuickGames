@@ -733,6 +733,7 @@ const handleFavouriteGames = () =>{
             <ListItemText primary="Home" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
+          {console.log(userStates.uniqueCategories)}
           {userStates.uniqueCategories.map((data, index) => (
             <ListItem key={data} disablePadding sx={{ display: 'block' }}>
               <ListItemButton

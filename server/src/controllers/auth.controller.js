@@ -45,23 +45,25 @@ const SetToken = async (req, res) => {
 
     const finalToken = `${accessToken} ${refreshToken}`;
     res.set(
-      'Set-Cookie',
-      cookie.serialize('token', finalToken, {
+      "Set-Cookie",
+      cookie.serialize("token", finalToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: parseInt(process.env.COOKIE_EXPIRATION_TIME, 10),
-        path: '/',
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: process.env.COOKIE_EXPIRATION_TIME,
+        path: "/",
       })
     );
-
-    console.log(finalToken);
     const user = {
       ...userData,
       access_token: accessToken,
       refresh_token: refreshToken,
     };
-    return res.status(200).json(user);
+     res.status(200).json({
+      message : "User Authenticated",
+      data : user
+    })
+    // res.redirect("http://localhost:5173")
   } catch (error) {
     console.log(error);
     handleErrorResponse(res, 500);

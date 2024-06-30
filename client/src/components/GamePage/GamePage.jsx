@@ -22,6 +22,7 @@ import FavRelatedGame from "../RelatedGames/FavRelatedGame";
 const GamePage = () => {
     const { state } = useLocation();
     const { game, GameData } = state || {};
+    // console.log(game.id);
 
     // console.log(game);
 

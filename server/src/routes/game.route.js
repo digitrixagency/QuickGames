@@ -19,12 +19,12 @@ gameRoutes.get('/games/unique-categories', gameController.getAllUniqueCategories
 
 
 //protected router
-gameRoutes.post('/game/favourite/:gameId', AddFavourite); // Add to favourites
-gameRoutes.delete('/game/favourite/:gameId', RemoveFavourite); // Remove from favourites
-gameRoutes.post('/game/like/:gameId', LikeGame); // Like a game
-gameRoutes.post('/game/dislike/:gameId', DislikeGame); // Dislike a game
-gameRoutes.get('/user/game/:gameId/status',  getUserLikeOrFavouriteStatus); // Get user game status
-gameRoutes.get('/favourite-games/:userId', getFavouriteGamesByUser);
+gameRoutes.post('/game/favourite/:gameId',VerifyToken, AddFavourite); // Add to favourites
+gameRoutes.delete('/game/favourite/:gameId',VerifyToken, RemoveFavourite); // Remove from favourites
+gameRoutes.post('/game/like/:gameId',VerifyToken, LikeGame); // Like a game
+gameRoutes.post('/game/dislike/:gameId',VerifyToken, DislikeGame); // Dislike a game
+gameRoutes.get('/user/game/:gameId/status',VerifyToken,  getUserLikeOrFavouriteStatus); // Get user game status
+gameRoutes.get('/favourite-games/:userId',VerifyToken, getFavouriteGamesByUser);
 
 
 
