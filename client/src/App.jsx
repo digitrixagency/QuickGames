@@ -9,6 +9,7 @@ import { Footer1 } from './components/Footer/footer';
 import MiniDrawer from './components/sideBar/Sidebar';
 import GameCategoryPage from './components/GameCategory/gamecategorypage';
 import FavouriteGames from './components/FavouriteGames/favouriteGame';
+import AuthCallback from './components/Authentication/authcallback';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='game/:title' element={<GamePage/>} />
         <Route path='games/:categoryName' element={<GameCategoryPage />} />
         <Route path='favourite/:user_id/games' element={<FavouriteGames/>} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
         {/* <Route path='log-in/' element={</>} /> */}
       </Routes>
       <Footer1/>

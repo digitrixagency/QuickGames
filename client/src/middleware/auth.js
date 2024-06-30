@@ -69,15 +69,15 @@ export const GooglesignIn = async (
 ) => {
   dispatch(AuthStart());
   try {
-   const response=await API.get("/auth/google");
+    window.location.href = 'http://localhost:8000/auth/google';
     // dispatch(AuthSuccess(response.data));
     // console.log(response.data)
     // handleClose();
      navigate("/");
-  } catch (error) {
+  } catch (error) { 
     dispatch(AuthFailure(error.response));
     console.log(error);
-  }
+  } 
 };
 
 export const signOut = async (dispatch, navigate) => {

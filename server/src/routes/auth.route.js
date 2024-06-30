@@ -15,11 +15,11 @@ import VerifyToken from '../middlewares/auth.middleware.js';
 
 const authRoutes = Router();
 
-authRoutes.post('/signup', SignUp, SetToken, VerifyToken);
+authRoutes.post('/signup', SignUp, SetToken);
 authRoutes.post('/login', Login, SetToken, VerifyToken);
 authRoutes.get('/google', GoogleAuth);
 authRoutes.get('/redirectgoogle', GetGoogleData, SetToken);
-authRoutes.get('/logout',VerifyToken, Logout);
+authRoutes.get('/logout', Logout);
 authRoutes.post('/sendverifyemail', SendMail);
 authRoutes.post('/sendforgotpassemail', SendMail)
 authRoutes.get('/verifyemail/:recoveryToken', VerifyEmail)

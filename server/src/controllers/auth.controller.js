@@ -42,7 +42,7 @@ transporter.verify(function (error, success) {
 
 const prisma = new PrismaClient();
 
-const SetToken = async (req, res) => {
+const SetToken = async (req, res,next) => {
   try {
     const userData = res.locals.userData;
     const accessToken = jwt.sign(
@@ -79,7 +79,14 @@ const SetToken = async (req, res) => {
       access_token: accessToken,
       refresh_token: refreshToken,
     };
-    next();
+  // res.locals.userData=user
+  //  next();
+  //  res.status(200).json({
+  //   message : "User Authenticated",
+  //   data : user
+  // })
+  res.redirect(`http://localhost:5173/auth/callback?user=${encodeURIComponent(JSON.stringify(user))}`);
+  
   } catch (error) {
     console.log(error);
     handleErrorResponse(res, 500);
@@ -259,16 +266,7 @@ const GetGoogleData = async (req, res, next) => {
 
 const Logout = async (req, res) => {
   try {
-    res.set(
-      "Set-Cookie",
-      cookie.serialize("token", null, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: 0,
-        path: "/",
-      })
-    );
+    res.clearCookie('token');
     return res.status(200).json({ logOut: true });
   } catch (error) {
     return handleErrorResponse(res, 500, "Internal Server Error");

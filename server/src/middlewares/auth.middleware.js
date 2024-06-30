@@ -96,7 +96,7 @@ const VerifyToken = async (
               return res.status(401).json({ error: "Unauthenticated" });
             }
           } else {
-            const user = await prisma.user.findUnique({
+            const user = await prisma.user.findUnique({ 
               where: { email: value.email },
             });
             if (user) throw new Error("No User");
