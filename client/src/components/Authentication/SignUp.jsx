@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAppContext } from "../Appcontext";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { GoogleAuth, signUp } from "../../middleware/auth";
+import {  signUp } from "../../middleware/auth";
 
 // Material UI Imports
 import {
@@ -73,7 +73,7 @@ export default function Signup({ auth, setAuth }) {
   };
 
   const handleCallbackResponse = async (response) => {
-    await GoogleAuth(response.credential, dispatch, navigate);
+    // await GoogleAuth(response.credential, dispatch, navigate);
   };
 
   useEffect(() => {

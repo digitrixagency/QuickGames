@@ -134,25 +134,15 @@ export const resetPassword = async (dispatch, data, token) => {
   }
 };
 
-export const GoogleAuth = async (
-  token,
+export const GooglesignIn = async (
+   
   dispatch,
-  navigate,
+
   handleClose = () => {}
 ) => {
   dispatch(AuthStart());
   try {
-    const response = await API.post(
-      "/auth/google",
-      {},
-      {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    dispatch(AuthSuccess(response.data));
+    window.location.href = 'http://localhost:8000/auth/google';
     navigate("/");
     handleClose();
   } catch (error) {

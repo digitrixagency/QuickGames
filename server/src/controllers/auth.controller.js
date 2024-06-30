@@ -71,10 +71,12 @@ const SetToken = async (req, res) => {
       access_token: accessToken,
       refresh_token: refreshToken,
     };
-    res.status(200).json({
-      message: "User Authenticated",
-      data: user,
-    });
+    res.redirect(`http://localhost:5173/auth/callback?user=${encodeURIComponent(JSON.stringify(user))}`);
+  
+    // res.status(200).json({
+    //   message: "User Authenticated",
+    //   data: user,
+    // });
     // res.redirect("http://localhost:5173")
   } catch (error) {
     console.log(error);

@@ -24,6 +24,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import CloseIcon from '@mui/icons-material/Close';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -54,7 +55,7 @@ import { useNavigate } from 'react-router-dom';
 import AccountMenu from '../Authentication/SignOut';
 import BasicPopover from '../Authentication/SignOut';
 import { fetchUniqueCategories } from '../../middleware/category';
-
+import { GooglesignIn } from '../../middleware/auth';
 
 
 const drawerWidth = 240;
@@ -274,15 +275,30 @@ const handleFavouriteGames = () =>{
           </div>
 
           {loginchk ? <Login auth={auth} setAuth={setAuth} /> : <Signup auth={auth} setAuth={setAuth} />}
+        <div className='ml-[45%] text-2xl text-gray-500 my-3'> OR  </div>
+        <Button
+          variant="contained"
+          fullWidth
+          startIcon={<img src={googleicon} alt="Google Icon" style={{ width: '24px', height: '24px' }} />}
+          sx={{ 
+            backgroundColor: 'black',
+            color: 'white',
+            maxWidth: '400px',
+            '&:hover': {
+              backgroundColor: 'black',
+            },
+            marginTop: '10px',
+           
+            marginBottom: '9px'
+          }}
+          onClick={ submitHandler}
+        >
+          Sign up with Google
+        </Button>
+
         </Paper>
-
-        <div className='w-2'>
-        <GoogleButton
-  onClick={submitHandler}
-
-/>
-   
-        </div>
+        
+       
       </div>
     );
   }
@@ -459,7 +475,17 @@ const handleFavouriteGames = () =>{
       <div className='mainScreen'>
         <Dialog open={auth} onClose={() => { setAuth(false); }}>
 
-
+        <DialogTitle>
+          <IconButton
+            edge="end"
+            color="inherit"
+            onClick={() => { setAuth(false); }}
+            aria-label="close"
+            style={{ position: 'absolute', right: 18, top: 9 }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
 
           <DialogContent>
             <AuthForm />

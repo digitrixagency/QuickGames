@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GoogleAuth, forgotPasswordmail, signIn } from "../../middleware/auth";
+import {  forgotPasswordmail, signIn } from "../../middleware/auth";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../Appcontext";
 
@@ -50,7 +50,8 @@ export default function Login({ auth, setAuth }) {
   };
 
   const handleCallbackResponse = async (response) => {
-    await GoogleAuth(response.credential, dispatch, navigate);
+    
+    // await GoogleAuth(response.credential, dispatch, navigate);
   };
 
   const submitHandler = async (e) => {
@@ -78,20 +79,28 @@ export default function Login({ auth, setAuth }) {
     await forgotPasswordmail(details, dispatch, navigate);
   };
 
-  useEffect(() => {
-    /* global google */
-    google.accounts.id.initialize({
-      client_id: secrets?.google_auth_client,
-      callback: handleCallbackResponse,
-    });
-    google.accounts.id.renderButton(document.getElementById("loginDiv"), {
-      type: "icon",
-      shape: "rectangle",
-      theme: "filled_black",
-      text: "continue with",
-      width: "100%",
-    });
-  }, []);
+  // useEffect(() => {
+  //   /* global google */
+  //   // google.accounts.id.initialize({
+  //   //   client_id: secrets?.google_auth_client,
+  //   //   callback: handleCallbackResponse,
+  //   // });
+  //   // google.accounts.id.renderButton(document.getElementById("loginDiv"), {
+  //   //   type: "icon",
+  //   //   shape: "rectangle",
+  //   //   theme: "filled_black",
+  //   //   text: "continue with",
+  //   //   width: "100%",
+  //   // });
+
+  //   const loginButton = loginDivRef.current.querySelector("div");
+  //   if (loginButton) {
+  //     loginButton.addEventListener("click", async() => {
+  //       await GoogleAuth(response.credential, dispatch, navigate);
+  //       // Add any additional functionality here
+  //     });
+  //   }
+  // }, [loginDivRef]);
 
   useEffect(() => {
     if (userStates.isLoggedIn) {
@@ -160,7 +169,7 @@ export default function Login({ auth, setAuth }) {
             fullWidth
             startIcon={<LoginIcon />}
             type="submit"
-            style={{ marginTop: "10px" }}
+            style={{ marginTop: "10px" , marginBottom:"9px"}}
           >
             LOGIN
           </Button>

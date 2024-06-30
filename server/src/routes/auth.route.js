@@ -18,7 +18,7 @@ const authRoutes = Router();
 authRoutes.post('/signup', SignUp, SetToken);
 authRoutes.post('/login', Login, SetToken);
 authRoutes.get('/google', GoogleAuth);
-authRoutes.get('/logout',VerifyToken, Logout);
+authRoutes.get('/logout', Logout);
 authRoutes.post('/sendverifyemail', SendVerificationMail);
 authRoutes.post('/sendforgotpassemail', SendForgotPasswordMail)
 authRoutes.get('/verifyemail/:recoveryToken', VerifyEmail)
