@@ -53,8 +53,9 @@ export const signIn = async (
     handleClose();
     navigate("/");
   } catch (error) {
-    dispatch(AuthFailure(error.response));
-    console.log(error);
+    dispatch(AuthFailure(error.response.data.error.message));
+    console.log(error.response.data.error.message);
+    console.log(error.response.status);
   }
 };
 

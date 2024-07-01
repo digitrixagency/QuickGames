@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useAppContext } from "../Appcontext";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import {  signUp } from "../../middleware/auth";
+import {  GooglesignIn,signUp } from "../../middleware/auth";
+import googleicon from '../../assets/google.png';
+import SignupIcon from '@mui/icons-material/PersonAdd';
+import { AuthFailure } from "../../slice/userSlice";
+
 
 // Material UI Imports
 import {
@@ -71,25 +75,39 @@ export default function Signup({ auth, setAuth }) {
   
       await signUp(details, dispatch, navigate);
   };
+  const submitHandler1 = async (e) =>{
+    // e.preventDefault();
+    // if(details.credential === "" && details.password === ""){
+    //   setErrors({credential: true, password: true});
+    //   return ;
+    // }
+    // if(details.credential === "") setErrors({...errors, credential: true});
+    // if (details.password === "") setErrors({ ...errors, password: true });
 
+    // // console.log(details)
+  
+    await GooglesignIn(dispatch);
+   
+    
+  }
   const handleCallbackResponse = async (response) => {
     // await GoogleAuth(response.credential, dispatch, navigate);
   };
 
-  useEffect(() => {
-    /* global google */
-    google.accounts.id.initialize({
-      client_id: secrets?.google_auth_client,
-      callback: handleCallbackResponse,
-    });
-    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
-      type: "icon",
-      shape: "rectangle",
-      theme: "filled_black",
-      text: "continue with",
-      width: "240px",
-    });
-  }, []);
+  // useEffect(() => {
+  //   /* global google */
+  //   google.accounts.id.initialize({
+  //     client_id: secrets?.google_auth_client,
+  //     callback: handleCallbackResponse,
+  //   });
+  //   google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+  //     type: "icon",
+  //     shape: "rectangle",
+  //     theme: "filled_black",
+  //     text: "continue with",
+  //     width: "240px",
+  //   });
+  // }, []);
 
   useEffect(() => {
     if (userStates.isUserCreated) {
@@ -97,13 +115,24 @@ export default function Signup({ auth, setAuth }) {
     }
   }, [userStates.isUserCreated, setAuth]);
 
+  useEffect(() => {
+    if (userStates.errorMessage.authForms) {
+      const timer = setTimeout(() => {
+        dispatch(AuthFailure('')); // Clear the authForms error message
+      }, 2700);
+
+      return () => clearTimeout(timer);
+    }
+  }, [userStates.errorMessage.authForms, dispatch]);
+
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => event.preventDefault();
 
   return (
     <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: '45vh' }}>
         <Box width="90%" maxWidth="400px">
-          <Typography variant="h5" component="h1" gutterBottom>
+          <Typography variant="h5" component="h1" gutterBottom className="my-4"> 
             New to QuickGames? Sign Up
           </Typography>
           <TextField
@@ -157,9 +186,9 @@ export default function Signup({ auth, setAuth }) {
           <Button
             variant="contained"
             fullWidth
-            startIcon={<LoginIcon />}
+            startIcon={<SignupIcon style={{ width: '27px', height: '27px' }} className="mr-[6px]" />}
             onClick={submitHandler}
-            sx={{ mb: 2 }}
+            sx={{ mb: 2 , fontSize:'16px' }}
           >
             SIGN UP
           </Button>
@@ -189,6 +218,32 @@ export default function Signup({ auth, setAuth }) {
               Login
             </Typography>
           </Typography>
+          <div className="flex items-center my-3">
+        <div className="flex-grow border-t border-gray-400 mx-2"></div>
+        <span className="text-xl text-gray-500 mx-2">OR</span>
+        <div className="flex-grow border-t border-gray-400 mx-2"></div>
+      </div>
+      
+        <Button
+          variant="contained"
+          fullWidth
+          startIcon={<img src={googleicon} alt="Google Icon" style={{ width: '27px', height: '27px',marginRight: '6px' }} />}
+          sx={{ 
+            backgroundColor: 'black',
+            color: 'white',
+            maxWidth: '400px',
+            '&:hover': {
+              backgroundColor: 'black',
+            },
+            marginTop: '0px',
+             fontSize: '16px',
+            marginBottom: '9px'
+          }}
+          onClick={ submitHandler1}
+        >
+          Sign in with Google
+        </Button>
+
         </Box>
     </Grid>
   );

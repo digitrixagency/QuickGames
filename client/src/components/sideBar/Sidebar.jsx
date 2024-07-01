@@ -5,7 +5,7 @@ import {Button} from "@mui/material";
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import GoogleButton from 'react-google-button'
-import googleicon from '../../assets/google.png'
+
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -55,7 +55,7 @@ import { useNavigate } from 'react-router-dom';
 import AccountMenu from '../Authentication/SignOut';
 import BasicPopover from '../Authentication/SignOut';
 import { fetchUniqueCategories } from '../../middleware/category';
-import { GooglesignIn } from '../../middleware/auth';
+
 
 
 const drawerWidth = 240;
@@ -235,21 +235,7 @@ const handleFavouriteGames = () =>{
   const AuthForm = () => {
 
 
-    const submitHandler = async (e) =>{
-      // e.preventDefault();
-      // if(details.credential === "" && details.password === ""){
-      //   setErrors({credential: true, password: true});
-      //   return ;
-      // }
-      // if(details.credential === "") setErrors({...errors, credential: true});
-      // if (details.password === "") setErrors({ ...errors, password: true });
-  
-      // // console.log(details)
-    
-      await GooglesignIn(dispatch);
-     
-      
-    }
+
     return (
       <div className="App">
         <Paper elevation={0} style={{ padding: "10px", paddingBottom: "50px" }}>
@@ -275,27 +261,7 @@ const handleFavouriteGames = () =>{
           </div>
 
           {loginchk ? <Login auth={auth} setAuth={setAuth} /> : <Signup auth={auth} setAuth={setAuth} />}
-        <div className='ml-[45%] text-2xl text-gray-500 my-3'> OR  </div>
-        <Button
-          variant="contained"
-          fullWidth
-          startIcon={<img src={googleicon} alt="Google Icon" style={{ width: '24px', height: '24px' }} />}
-          sx={{ 
-            backgroundColor: 'black',
-            color: 'white',
-            maxWidth: '400px',
-            '&:hover': {
-              backgroundColor: 'black',
-            },
-            marginTop: '10px',
-           
-            marginBottom: '9px'
-          }}
-          onClick={ submitHandler}
-        >
-          Sign up with Google
-        </Button>
-
+        
         </Paper>
         
        
