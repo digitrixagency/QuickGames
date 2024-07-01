@@ -31,3 +31,9 @@
   .List-Sec::-webkit-scrollbar-thumb:hover {
     background-color: black; /* Darker color on hover */
   }
+
+  @media (max-width: 400px) {
+    .search-bar-container {
+      display: none;
+    }
+  }

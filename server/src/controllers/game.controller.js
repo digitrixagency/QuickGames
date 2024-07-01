@@ -111,6 +111,7 @@ async function getGamesBySubcategory(req, res) {
 
 async function searchGames(req, res) {
   const { searchtitle } = req.query;
+  
   const { limit = 10, page = 1 } = req.query;
   const offset = (page - 1) * limit;
 
@@ -118,7 +119,8 @@ async function searchGames(req, res) {
     const games = await prisma.game.findMany({
       where: {
         title: {
-          contains: searchtitle, // Case-insensitive search by title
+          contains: searchtitle, 
+          mode: 'insensitive',
         },
       },
       orderBy: {

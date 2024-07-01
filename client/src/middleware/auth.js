@@ -118,6 +118,23 @@ export const forgotPassword = async (data, dispatch, navigate) => {
   }
 };
 
+export const searchgames=async(data)=>{
+  try {
+    const response = await API.get("/games/search", {
+      params: {
+        searchtitle: data,
+        
+      },
+     
+     
+    });
+
+   return response.data;
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
 export const resetPassword = async (dispatch, data, token) => {
   dispatch(resetPasswordStart());
   try {
