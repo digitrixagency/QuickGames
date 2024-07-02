@@ -98,13 +98,14 @@ export const getGamesByID = async (id, setGame = () => { },dispatch) => {
     }
   }
 
-  export const getGamesByName = async (name, setGame = () => { },dispatch) => {
+  export const getGamesByName = async (title, setGame = () => { },dispatch) => {
     dispatch(GetGameFromNameStart())
     try {
-      console.log(name)
-      const result = await API.get(`/api/product/${name}`, { withCredentials: true });
-     setGame(result?.data);
-     dispatch(GetGameFromNameSuccess())
+       
+      const result = await API.get(`/game/gamedetail/t/${title}`, { withCredentials: true });
+ 
+     setGame(result.data);
+     dispatch(GetGameFromNameSuccess(result.data))
     } catch (error) {
       console.log(error);
       console.log("some error occured");

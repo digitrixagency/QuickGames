@@ -189,29 +189,34 @@ export default function MiniDrawer() {
   const userStates = useSelector(userState);
 
   const searchBarRef = useRef(null);
-
-  useEffect(() => {
-    // Function to handle clicks outside the search bar
-    const handleClickOutside = (event) => {
-      if (searchBarRef.current && !searchBarRef.current.contains(event.target)) {
-       
-       
-      }
-      else{
-        setResults([]);
-        console.log(1);
-      }
+  const resultsListRef = useRef(null);
+  const handleClickOutside = (event) => {
+    if (
       
-    };
-
-    // Add event listener to handle clicks outside the search bar
-    document.addEventListener('mousedown', handleClickOutside);
-
-    // Cleanup the event listener
+      resultsListRef.current &&
+      !resultsListRef.current.contains(event.target)
+    ) {
+      // Clear search results
+      setResults([]);
+    }
+    else{
+     
+    }
+  };
+  
+  useEffect(() => {
+   
+  
+    // Add a click event listener
+    document.addEventListener('click', handleClickOutside);
+  
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      // Clean up the event listener
+      document.removeEventListener('click', handleClickOutside);
     };
-  }, []);
+  }, [setResults]);
+  
+
 
   React.useEffect(() => {
     dispatch(fetchUniqueCategories());
@@ -321,10 +326,10 @@ export default function MiniDrawer() {
             QuickGames
           </Typography>
           {/* <div style={{ marginLeft: "auto" }}> */}
-            <div className="search-bar-container ml-auto  lg:block md:block sm:hidden xs:hidden  ">
-              <SearchBar  setResults={setResults} />
+            <div  ref={resultsListRef} className="search-bar-container ml-auto  lg:block md:block sm:hidden xs:hidden  ">
+              <SearchBar   setResults={setResults} />
               {results && results.length > 0 && (
-          <SearchResultsList results={results} className="z-50" />
+          <SearchResultsList    setResults={setResults}  results={results} className="z-50" />
         )}
             </div>
             {/* 

@@ -48,6 +48,7 @@ async function getTopCategories(req, res) {
 }
 
 async function getGamesByCategory(req, res) {
+  
   const { category } = req.params;
   const { filter = "new", limit = 10, page = 1 } = req.query;
   const offset = (page - 1) * limit;
@@ -70,7 +71,7 @@ async function getGamesByCategory(req, res) {
       take: Number(limit),
       skip: offset,
     });
-
+// console.log(games);
     res.json(games);
   } catch (error) {
     console.error("Error fetching games:", error);
@@ -139,16 +140,18 @@ async function searchGames(req, res) {
 
 async function getGameByName(req, res) {
   const { title } = req.params;
+ 
 
   try {
     const game = await prisma.game.findFirst({
       where: {
         title: {
           equals: title, // Case-insensitive exact match
+          mode: 'insensitive',
         },
       },
     });
-
+    console.log(game);
     if (!game) {
       return handleErrorResponse(res, 404, "Game not found");
     }

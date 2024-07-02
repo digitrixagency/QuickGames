@@ -20,8 +20,8 @@ const FavRelatedGame = ({ game }) => {
     //     navigateToThisGame(`/game/${gameTitle}`, { state: { game , GameData } });
     // }
     const handleGameSelection = (selectedGame) => {
-        const gameTitle = selectedGame.title.replace(/\s+/g, '-').toLowerCase(); // Convert title to URL-friendly format
-        navigate(`/game/${gameTitle}`, { state: { game: selectedGame, GameData: game } });
+        const gameTitle = selectedGame.title; // Convert title to URL-friendly format
+        navigate(`/game/${gameTitle}`);
     };
 
     useEffect(() => {

@@ -39,7 +39,7 @@ const GameCategoryPage = () => {
   const [page, setPage] = React.useState(1);
   const [filter, setfilter] = React.useState('new');
 
-  const userStates = useSelector(userState);
+  
   const { selectedGames } = useSelector((state) => state.user);
 
   const handlepageChange = async (event, value) => {
@@ -77,8 +77,8 @@ const GameCategoryPage = () => {
   // console.log(categoryName);
 
   const handleGameSelection = (game) => {
-    const gameTitle = game.title.replace(/\s+/g, '-').toLowerCase(); // Convert title to URL-friendly format
-    navigate(`/game/${gameTitle}`, { state: { game: game, GameData: selectedGames } });
+    const gameTitle = game.title; // Convert title to URL-friendly format
+    navigate(`/game/${gameTitle}`);
   };
 
   return (

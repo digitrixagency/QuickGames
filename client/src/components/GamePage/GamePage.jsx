@@ -9,7 +9,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import "./GamePage.css";
 import UserRecentPlayed from "../RelatedGames/RelatedGame";
-import { useLocation } from "react-router-dom";
+import { useLocation ,useParams} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { 
     userState, 
@@ -17,17 +17,22 @@ import {
 } from "../../slice/userSlice";
 import { addFavourite, dislikeGame, likeGame, removeFavourite } from "../../middleware/userAction";
 import FavRelatedGame from "../RelatedGames/FavRelatedGame";
-
+import { getGamesByName } from "../../middleware/games";
+import { fetchcategory } from "../../middleware/category";
 
 const GamePage = () => {
     const { state } = useLocation();
-    const { game, GameData } = state || {};
+    const { title } = useParams();
+    const gameTitle=title;
+    const [GameData, setGameData] = useState(state ? state.GameData : null);
+    const [game, setGame] = useState(state ? state.game : null);
+    const [loading, setLoading] = useState(!state);
 
     // console.log(game);
 
     const iframeRef = useRef(null);
 
-    const userStates = useSelector(userState);
+    const userStates = useSelector((state)=>state.user);
     const dispatch = useDispatch();
 
     const [liked, setLiked] = useState(false);
@@ -35,9 +40,89 @@ const GamePage = () => {
     const [favorited, setFavorited] = useState(false);
 
 
+//     useEffect(() => {
+       
+          
+//             const fetchGame = async () => {
+//                 try {
+//                     console.log(title);
+                   
+//                   await getGamesByName(title,setGame,dispatch)
+                 
+//                     setGame(userStates.selectedgame);
+                  
+                   
 
-    // console.log(userStates.isLoggedIn); true
+                   
 
+//                     setLoading(false);
+//                 } catch (error) {
+                  
+//                     console.error('Error fetching game details:', error);
+//                     setLoading(false);
+//                 }
+//             };
+//             fetchGame();
+           
+        
+//     }, [ title,dispatch,state]);
+//     // console.log(userStates.isLoggedIn); true
+//     useEffect(() => {
+
+//         setGame(userStates.selectedgame);
+//         const data1 = {
+//             category: userStates.selectedgame.category,
+           
+//           };
+// const fetchsimilargame=async()=>{
+//     await fetchcategory(data1,dispatch);
+// }
+     
+// fetchsimilargame();
+      
+
+//     }, [dispatch,userStates.selectedgame]);
+//     useEffect(() => {
+        
+//         setGameData(userStates.selectedGames);
+
+//     }, [dispatch, userStates.selectedGames]);
+   
+
+useEffect(() => {
+    const fetchGameDetails = async () => {
+        try {
+            // Fetch game details
+            await getGamesByName(title, setGame, dispatch);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching game details:', error);
+            setLoading(false);
+        }
+    };
+
+    const fetchSimilarGameCategory = async () => {
+        try {
+            // Fetch category data for similar games
+            const data1 = {
+                category: userStates.selectedgame.category,
+            };
+            await fetchcategory(data1, dispatch);
+        } catch (error) {
+            console.error('Error fetching category data:', error);
+        }
+    };
+
+    // Fetch game details and category data
+    fetchGameDetails();
+    fetchSimilarGameCategory();
+
+    // Update selected games data
+    setGameData(userStates.selectedGames);
+
+}, [title, dispatch]);
+
+   
     useEffect(() => {
         if (userStates.isLoggedIn) {
             // console.log(userStates);
@@ -45,7 +130,7 @@ const GamePage = () => {
             // console.log(userStates);
 
         }
-    }, [dispatch, game.id, userStates.isLoggedIn]);
+    }, [dispatch, game, userStates.isLoggedIn]);
 
     useEffect(() => {
         if (userStates.gameStatus) {
@@ -98,6 +183,13 @@ const GamePage = () => {
             });
         }
     };
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+
+
     return (
         <>
             <div className="Gamepage-cointainer">

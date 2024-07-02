@@ -35,7 +35,7 @@ const userSlice = createSlice({
         selectedGames: [],
         favouriteGames: [],
         topCategories: [],
-        selectedgame: [],
+        selectedgame: {},
         topCategoriesFetching: false, // Add this line
         topCategoriesError: false, // Add this line
         categoryDescriptions: [],  // Add this line
@@ -159,6 +159,7 @@ const userSlice = createSlice({
             state.isError = false;
             state.isFetching = false;
             state.selectedGames = action.payload;
+           
         },
         fetchselectedGamesError: (state) => {
             state.isError = true;
@@ -268,7 +269,9 @@ const userSlice = createSlice({
             state.getGameFromNameSuccess = true;
             state.getGameFromNamePending = false;
             state.getGameFromIdError = false;
-            selectedgame = action.payload;
+            // console.log(action.payload);
+            state.selectedgame = action.payload;
+            // console.log(state.selectedgame);
         },
         GetGameFromNameError: (state) => {
             state.getGameFromNameSuccess = false;
