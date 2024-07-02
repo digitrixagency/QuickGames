@@ -138,6 +138,26 @@ async function searchGames(req, res) {
   }
 }
 
+
+
+async function getDashboardGames(req, res) {
+  const { limit = 5 } = req.query; // Default limit to fetch is 5 games
+
+  try {
+    const topGames = await prisma.game.findMany({
+      orderBy: [
+        { launch_year: 'desc' }, // Order by launch year descending
+        { totalLikes: 'desc' }   // Then by total likes descending
+      ],
+      take: Number(limit),
+    });
+
+    res.json(topGames);
+  } catch (error) {
+    console.error("Error fetching top games by launch year and likes:", error);
+    handleErrorResponse(res, 500);
+  }
+}
 async function getGameByName(req, res) {
   const { title } = req.params;
  
@@ -289,6 +309,7 @@ export {
   countDislikesById,
   getCategoryDescription,
   getAllUniqueCategories,
+  getDashboardGames
 };
 
 

@@ -61,6 +61,12 @@ const userSlice = createSlice({
         },
         gameStatusFetching: false,
         gameStatusError: false,
+
+        getGameDashboardSuccess : true,
+        getGameDashboardPending : false,
+        getGameDashboardError : false,
+        // console.log(action.payload);
+        dashboardTopgame : [],
     },
 
     reducers: {
@@ -279,6 +285,10 @@ const userSlice = createSlice({
             state.getGameFromNameError = true;
         },
 
+        //Get Game by name
+        
+
+
         //fetching for dashboard
         fetchTopCategoriesStart: (state) => {
             state.topCategoriesFetching = true;
@@ -387,6 +397,28 @@ const userSlice = createSlice({
             state.gameStatusError = false;
             state.gameStatus = action.payload;
         }
+
+,
+
+        GetGameDashboardStart: (state) => {
+            state.getGameDashboardSuccess = false;
+            state.getGameDashboardPending = true;
+            state.getGameDashboardError = false;
+        },
+        GetGameDashboardSuccess: (state, action) => {
+            state.getGameDashboardSuccess = true;
+            state.getGameDashboardPending = false;
+            state.getGameDashboardError = false;
+            // console.log(action.payload);
+            state.dashboardTopgame = action.payload;
+            // console.log(state.selectedgame);
+        },
+        GetGameDashboardError: (state) => {
+            state.getGameDashboardSuccess = false;
+            state.getGameDashboardPending = false;
+            state.getGameDashboardError = true;
+        },
+
     },
     extraReducers: (builder) => {
         builder
@@ -483,6 +515,9 @@ export const {
     removeFavouriteStart,
     removeFavouriteSuccess,
     removeFavouriteError,
+    GetGameDashboardStart,
+    GetGameDashboardSuccess,
+    GetGameDashboardError
 
 } = userSlice.actions
 

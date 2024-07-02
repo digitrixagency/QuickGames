@@ -18,7 +18,10 @@ import {
     fetchTopCategoriesSuccess, 
     favouriteGamefetchError, 
     favouriteGamefetchStart, 
-    favouriteGamefetchSuccess 
+    favouriteGamefetchSuccess ,
+    GetGameDashboardStart,
+    GetGameDashboardSuccess,
+    GetGameDashboardError
 } from "../slice/userSlice";
 
 
@@ -110,6 +113,22 @@ export const getGamesByID = async (id, setGame = () => { },dispatch) => {
       console.log(error);
       console.log("some error occured");
       dispatch(GetGameFromNameError())
+    }
+  }
+
+  export const getdashboardGames = async (dispatch) => {
+  
+    dispatch( GetGameDashboardStart())
+    try {
+       
+      const result = await API.get('/games/dashboardgame', { withCredentials: true });
+ 
+    
+     dispatch(  GetGameDashboardSuccess(result.data))
+    } catch (error) {
+      console.log(error);
+     
+      dispatch(GetGameDashboardError())
     }
   }
  
