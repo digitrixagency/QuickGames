@@ -37,11 +37,13 @@ const GamePage = () => {
 
 
     // console.log(userStates.isLoggedIn); true
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const user_id = userInfo?.data?.id || null;
 
     useEffect(() => {
         if (userStates.isLoggedIn) {
             // console.log(userStates);
-            dispatch(fetchGameStatus(game.id));
+            dispatch(fetchGameStatus({ user_id: user_id, gameId: game.id }));
             // console.log(userStates);
 
         }
@@ -63,23 +65,23 @@ const GamePage = () => {
         if (!userStates.isLoggedIn) return;
         setLiked(true);
         setDisliked(false);
-        dispatch(likeGame(game.id));
+        dispatch(likeGame({ gameId: game.id, user_id: user_id }));
     };
 
     const handleDislike = () => {
         if (!userStates.isLoggedIn) return;
         setLiked(false);
         setDisliked(true);
-        dispatch(dislikeGame(game.id));
+        dispatch(dislikeGame({ gameId: game.id, user_id: user_id }));
     };
 
     const handleFavorite = () => {
         if (!userStates.isLoggedIn) return;
         if (favorited) {
-            dispatch(removeFavourite(game.id));
+            dispatch(removeFavourite({ gameId: game.id, user_id: user_id }));
             setFavorited(false);
         } else {
-            dispatch(addFavourite(game.id));
+            dispatch(addFavourite({ gameId: game.id, user_id: user_id }));
             setFavorited(true); 
         }
     };
