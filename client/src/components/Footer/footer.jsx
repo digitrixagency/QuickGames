@@ -62,14 +62,8 @@ return (
           </div>
     </div>
 
-    <div className="row">
-          <div className="form">
-            <form action="">
-                <input type="text" placeholder="Email here..."/>
-                <button><i className="fa fa-paper-plane"></i></button>
-            </form>
-          </div>
-    </div>
+   
+
 
 </div>
 </footer>

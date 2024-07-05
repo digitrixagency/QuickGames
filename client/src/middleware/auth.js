@@ -53,8 +53,9 @@ export const signIn = async (
     handleClose();
     navigate("/");
   } catch (error) {
-    dispatch(AuthFailure(error.response));
-    console.log(error);
+    dispatch(AuthFailure(error.response.data.error.message));
+    console.log(error.response.data.error.message);
+    console.log(error.response.status);
   }
 };
 
@@ -117,6 +118,23 @@ export const forgotPassword = async (data, dispatch, navigate) => {
   }
 };
 
+export const searchgames=async(data)=>{
+  try {
+    const response = await API.get("/games/search", {
+      params: {
+        searchtitle: data,
+        
+      },
+     
+     
+    });
+
+   return response.data;
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
 export const resetPassword = async (dispatch, data, token) => {
   dispatch(resetPasswordStart());
   try {
@@ -134,25 +152,15 @@ export const resetPassword = async (dispatch, data, token) => {
   }
 };
 
-export const GoogleAuth = async (
-  token,
+export const GooglesignIn = async (
+   
   dispatch,
-  navigate,
+
   handleClose = () => {}
 ) => {
   dispatch(AuthStart());
   try {
-    const response = await API.post(
-      "/auth/google",
-      {},
-      {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    dispatch(AuthSuccess(response.data));
+    window.location.href = 'http://localhost:8000/auth/google';
     navigate("/");
     handleClose();
   } catch (error) {

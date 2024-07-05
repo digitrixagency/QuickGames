@@ -1,0 +1,40 @@
+.results-list {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  color: black;
+  flex-direction: column;
+  box-shadow: 0px 0px 8px #ddd;
+  border-radius: 10px;
+  margin-top: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+  position: absolute; /* Ensure the results list is positioned absolutely */
+  top: 45px;
+  left: 42%; /* Adjust this value based on your layout */
+  z-index: 10; /* Ensure the results list is above other content */
+}
+
+
+/* Media query for screens larger than 768px */
+@media (min-width: 768px) {
+  .results-list {
+    left: 32%;
+  }
+}
+
+/* Media query for screens larger than 1024px */
+@media (min-width: 1024px) {
+  .results-list {
+    left: 36%;
+  }
+}
+
+
+
+/* Media query for screens larger than 1440px */
+@media (min-width: 1060px) {
+  .results-list {
+    left: 42%;
+  }
+}

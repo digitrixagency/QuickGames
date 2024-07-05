@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GoogleAuth, forgotPasswordmail, signIn } from "../../middleware/auth";
+import { GooglesignIn, forgotPasswordmail, signIn } from "../../middleware/auth";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../Appcontext";
+import googleicon from '../../assets/google.png'
 
 // Material UI Imports
 import {
@@ -26,6 +27,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import LoginIcon from "@mui/icons-material/Login";
 import { secrets } from "../../environment/config";
+import { AuthFailure } from "../../slice/userSlice";
 
 const isEmail = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
@@ -50,7 +52,8 @@ export default function Login({ auth, setAuth }) {
   };
 
   const handleCallbackResponse = async (response) => {
-    await GoogleAuth(response.credential, dispatch, navigate);
+    
+    // await GoogleAuth(response.credential, dispatch, navigate);
   };
 
   const submitHandler = async (e) => {
@@ -65,6 +68,24 @@ export default function Login({ auth, setAuth }) {
     }
     await signIn(details, dispatch, navigate);
   };
+  const submitHandler1 = async (e) =>{
+    // e.preventDefault();
+    // if(details.credential === "" && details.password === ""){
+    //   setErrors({credential: true, password: true});
+    //   return ;
+    // }
+    // if(details.credential === "") setErrors({...errors, credential: true});
+    // if (details.password === "") setErrors({ ...errors, password: true });
+
+    // // console.log(details)
+  
+    await GooglesignIn(dispatch);
+   
+    
+  }
+  // const handleCallbackResponse = async (response) => {
+  //   // await GoogleAuth(response.credential, dispatch, navigate);
+  // };
 
   const forgotPasswordHandler = async (e) => {
     e.preventDefault();
@@ -78,26 +99,44 @@ export default function Login({ auth, setAuth }) {
     await forgotPasswordmail(details, dispatch, navigate);
   };
 
-  useEffect(() => {
-    /* global google */
-    google.accounts.id.initialize({
-      client_id: secrets?.google_auth_client,
-      callback: handleCallbackResponse,
-    });
-    google.accounts.id.renderButton(document.getElementById("loginDiv"), {
-      type: "icon",
-      shape: "rectangle",
-      theme: "filled_black",
-      text: "continue with",
-      width: "100%",
-    });
-  }, []);
+  // useEffect(() => {
+  //   /* global google */
+  //   // google.accounts.id.initialize({
+  //   //   client_id: secrets?.google_auth_client,
+  //   //   callback: handleCallbackResponse,
+  //   // });
+  //   // google.accounts.id.renderButton(document.getElementById("loginDiv"), {
+  //   //   type: "icon",
+  //   //   shape: "rectangle",
+  //   //   theme: "filled_black",
+  //   //   text: "continue with",
+  //   //   width: "100%",
+  //   // });
+
+  //   const loginButton = loginDivRef.current.querySelector("div");
+  //   if (loginButton) {
+  //     loginButton.addEventListener("click", async() => {
+  //       await GoogleAuth(response.credential, dispatch, navigate);
+  //       // Add any additional functionality here
+  //     });
+  //   }
+  // }, [loginDivRef]);
 
   useEffect(() => {
     if (userStates.isLoggedIn) {
       setAuth(false);
     }
   }, [userStates.isLoggedIn, setAuth]);
+
+  useEffect(() => {
+    if (userStates.errorMessage.authForms) {
+      const timer = setTimeout(() => {
+        dispatch(AuthFailure('')); // Clear the authForms error message
+      }, 2700);
+
+      return () => clearTimeout(timer);
+    }
+  }, [userStates.errorMessage.authForms, dispatch]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => event.preventDefault();
@@ -158,28 +197,32 @@ export default function Login({ auth, setAuth }) {
           <Button
             variant="contained"
             fullWidth
-            startIcon={<LoginIcon />}
+            startIcon={<LoginIcon  style={{ width: '27px', height: '27px' }}  />}
             type="submit"
-            style={{ marginTop: "10px" }}
+            onClick={submitHandler}
+            style={{ marginTop: "10px" , marginBottom:"9px"  , fontSize:'16px'}}
           >
             LOGIN
           </Button>
           </form>
           <div id="loginDiv" ></div>
-          {formValid && (
-            <Stack sx={{ width: "100%", paddingTop: "10px" }} spacing={2}>
-              <Alert severity="error" size="small">
-                {formValid}
-              </Alert>
-            </Stack>
-          )}
-          {success && (
+          {/* Show Form Error if any */}
+      
+      {userStates.errorMessage.authForms && (
+        <Stack sx={{ width: "100%", paddingTop: "10px" }} spacing={2}>
+          <Alert severity="error" size="small">
+            {userStates.errorMessage.authForms}
+          </Alert>
+        </Stack>
+        // <div>{userStates.errorMessage.authForms}</div>
+      )}
+          {/* {success && (
             <Stack sx={{ width: "100%", paddingTop: "10px" }} spacing={2}>
               <Alert severity="success" size="small">
                 {success}
               </Alert>
             </Stack>
-          )}
+          )} */}
            <Typography variant="body2" align="center" sx={{ mt: 2 }}>
            New to QuickGames?{" "}
             <Typography
@@ -191,6 +234,31 @@ export default function Login({ auth, setAuth }) {
               Sign Up
             </Typography>
           </Typography>
+
+          <div className="flex items-center my-3">
+        <div className="flex-grow border-t border-gray-400 mx-2"></div>
+        <span className="text-xl text-gray-500 mx-2">OR</span>
+        <div className="flex-grow border-t border-gray-400 mx-2"></div>
+      </div> 
+          <Button
+          variant="contained"
+          fullWidth
+          startIcon={<img src={googleicon} alt="Google Icon" style={{ width: '27px', height: '27px',marginRight: '6px' }} />}
+          sx={{ 
+            backgroundColor: 'black',
+            color: 'white',
+            maxWidth: '400px',
+            '&:hover': {
+              backgroundColor: 'black',
+            },
+            marginTop: '0px',
+             fontSize: '16px',
+            marginBottom: '9px'
+          }}
+          onClick={ submitHandler1}
+        >
+          Sign in with Google
+        </Button>
       </Box>
     </Grid>
   );

@@ -32,6 +32,7 @@ export const fetchcategory = async (data, dispatch) => {
                   },
             }
         );
+        console.log(response.data);
         dispatch(fetchselectedGamesSuccess(response.data));
     }catch (error){
         dispatch(fetchselectedGamesError(error.response));

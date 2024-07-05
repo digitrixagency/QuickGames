@@ -16,7 +16,7 @@ gameRoutes.get('/game/gamedetail/likes/:gameId', gameController.countLikesById);
 gameRoutes.get('/game/gamedetail/dislikes/:gameId', gameController.countDislikesById);
 gameRoutes.get('/category/description/:category',gameController.getCategoryDescription);
 gameRoutes.get('/games/unique-categories', gameController.getAllUniqueCategories);
-
+gameRoutes.get('/games/dashboardgame', gameController.getDashboardGames);
 
 //protected router
 gameRoutes.post('/game/favourite/:gameId', AddFavourite); // Add to favourites

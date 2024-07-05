@@ -18,7 +18,10 @@ import {
     fetchTopCategoriesSuccess, 
     favouriteGamefetchError, 
     favouriteGamefetchStart, 
-    favouriteGamefetchSuccess 
+    favouriteGamefetchSuccess ,
+    GetGameDashboardStart,
+    GetGameDashboardSuccess,
+    GetGameDashboardError
 } from "../slice/userSlice";
 
 
@@ -98,17 +101,34 @@ export const getGamesByID = async (id, setGame = () => { },dispatch) => {
     }
   }
 
-  export const getGamesByName = async (name, setGame = () => { },dispatch) => {
+  export const getGamesByName = async (title, setGame = () => { },dispatch) => {
     dispatch(GetGameFromNameStart())
     try {
-      console.log(name)
-      const result = await API.get(`/api/product/${name}`, { withCredentials: true });
-     setGame(result?.data);
-     dispatch(GetGameFromNameSuccess())
+       
+      const result = await API.get(`/game/gamedetail/t/${title}`, { withCredentials: true });
+ 
+     setGame(result.data);
+     dispatch(GetGameFromNameSuccess(result.data))
     } catch (error) {
       console.log(error);
       console.log("some error occured");
       dispatch(GetGameFromNameError())
+    }
+  }
+
+  export const getdashboardGames = async (dispatch) => {
+  
+    dispatch( GetGameDashboardStart())
+    try {
+       
+      const result = await API.get('/games/dashboardgame', { withCredentials: true });
+ 
+    
+     dispatch(  GetGameDashboardSuccess(result.data))
+    } catch (error) {
+      console.log(error);
+     
+      dispatch(GetGameDashboardError())
     }
   }
  

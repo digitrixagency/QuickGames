@@ -36,7 +36,7 @@ const userSlice = createSlice({
         selectedGames: [],
         favouriteGames: [],
         topCategories: [],
-        selectedgame: [],
+        selectedgame: {},
         topCategoriesFetching: false, // Add this line
         topCategoriesError: false, // Add this line
         categoryDescriptions: [],  // Add this line
@@ -62,6 +62,12 @@ const userSlice = createSlice({
         },
         gameStatusFetching: false,
         gameStatusError: false,
+
+        getGameDashboardSuccess : true,
+        getGameDashboardPending : false,
+        getGameDashboardError : false,
+        // console.log(action.payload);
+        dashboardTopgame : [],
     },
 
     reducers: {
@@ -160,6 +166,7 @@ const userSlice = createSlice({
             state.isError = false;
             state.isFetching = false;
             state.selectedGames = action.payload;
+           
         },
         fetchselectedGamesError: (state) => {
             state.isError = true;
@@ -269,13 +276,19 @@ const userSlice = createSlice({
             state.getGameFromNameSuccess = true;
             state.getGameFromNamePending = false;
             state.getGameFromIdError = false;
-            selectedgame = action.payload;
+            // console.log(action.payload);
+            state.selectedgame = action.payload;
+            // console.log(state.selectedgame);
         },
         GetGameFromNameError: (state) => {
             state.getGameFromNameSuccess = false;
             state.getGameFromNamePending = false;
             state.getGameFromNameError = true;
         },
+
+        //Get Game by name
+        
+
 
         //fetching for dashboard
         fetchTopCategoriesStart: (state) => {
@@ -385,6 +398,28 @@ const userSlice = createSlice({
             state.gameStatusError = false;
             state.gameStatus = action.payload;
         }
+
+,
+
+        GetGameDashboardStart: (state) => {
+            state.getGameDashboardSuccess = false;
+            state.getGameDashboardPending = true;
+            state.getGameDashboardError = false;
+        },
+        GetGameDashboardSuccess: (state, action) => {
+            state.getGameDashboardSuccess = true;
+            state.getGameDashboardPending = false;
+            state.getGameDashboardError = false;
+            // console.log(action.payload);
+            state.dashboardTopgame = action.payload;
+            // console.log(state.selectedgame);
+        },
+        GetGameDashboardError: (state) => {
+            state.getGameDashboardSuccess = false;
+            state.getGameDashboardPending = false;
+            state.getGameDashboardError = true;
+        },
+
     },
     extraReducers: (builder) => {
         builder
@@ -481,6 +516,9 @@ export const {
     removeFavouriteStart,
     removeFavouriteSuccess,
     removeFavouriteError,
+    GetGameDashboardStart,
+    GetGameDashboardSuccess,
+    GetGameDashboardError
 
 } = userSlice.actions
 
