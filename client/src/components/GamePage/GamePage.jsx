@@ -82,6 +82,9 @@ const GamePage = () => {
 
   //     }, [dispatch, userStates.selectedGames]);
 
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  const user_id = userInfo?.data?.id || null;
+
   useEffect(() => {
     const fetchGameDetails = async () => {
       try {
@@ -131,7 +134,7 @@ const GamePage = () => {
   useEffect(() => {
     if (userStates.isLoggedIn) {
       // console.log(userStates);
-      dispatch(fetchGameStatus(game.id));
+      dispatch(fetchGameStatus({ user_id: user_id, gameId: game.id }));
       // console.log(userStates);
     }
   }, [dispatch, game, userStates.isLoggedIn]);
@@ -147,30 +150,31 @@ const GamePage = () => {
     }
   }, [userStates.gameStatus]);
 
-  const handleLike = () => {
-    if (!userStates.isLoggedIn) return;
-    setLiked(true);
-    setDisliked(false);
-    dispatch(likeGame(game.id));
-  };
+    const handleLike = () => {
+        if (!userStates.isLoggedIn) return;
+        setLiked(true);
+        setDisliked(false);
+        dispatch(likeGame({ gameId: game.id, user_id: user_id }));
+    };
 
-  const handleDislike = () => {
-    if (!userStates.isLoggedIn) return;
-    setLiked(false);
-    setDisliked(true);
-    dispatch(dislikeGame(game.id));
-  };
+    const handleDislike = () => {
+        if (!userStates.isLoggedIn) return;
+        setLiked(false);
+        setDisliked(true);
+        dispatch(dislikeGame({ gameId: game.id, user_id: user_id }));
+    };
 
-  const handleFavorite = () => {
-    if (!userStates.isLoggedIn) return;
-    if (favorited) {
-      dispatch(removeFavourite(game.id));
-      setFavorited(false);
-    } else {
-      dispatch(addFavourite(game.id));
-      setFavorited(true);
-    }
-  };
+    const handleFavorite = () => {
+        if (!userStates.isLoggedIn) return;
+        if (favorited) {
+            dispatch(removeFavourite({ gameId: game.id, user_id: user_id }));
+            setFavorited(false);
+        } else {
+            dispatch(addFavourite({ gameId: game.id, user_id: user_id }));
+            setFavorited(true); 
+        }
+    };
+
 
   const toggleFullScreen = () => {
     const iFrame = iframeRef.current;

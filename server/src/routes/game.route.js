@@ -23,8 +23,8 @@ gameRoutes.post('/game/favourite/:gameId', AddFavourite); // Add to favourites
 gameRoutes.delete('/game/favourite/:gameId', RemoveFavourite); // Remove from favourites
 gameRoutes.post('/game/like/:gameId', LikeGame); // Like a game
 gameRoutes.post('/game/dislike/:gameId', DislikeGame); // Dislike a game
-gameRoutes.get('/user/game/:gameId/status',  getUserLikeOrFavouriteStatus); // Get user game status
-gameRoutes.get('/favourite-games/:userId', getFavouriteGamesByUser);
+gameRoutes.post('/user/game/:gameId/status',  getUserLikeOrFavouriteStatus); // Get user game status
+gameRoutes.get('/favourite-games/:user_id', getFavouriteGamesByUser);
 
 
 

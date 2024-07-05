@@ -8,9 +8,10 @@ import { serverURL } from "../utils/utilities";
 
 export const fetchGameStatus = createAsyncThunk(
     "user/fetchGameStatus",
-    async (gameId, { rejectWithValue }) => {
+    async ({ gameId, user_id }, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${serverURL}/user/game/${gameId}/status`);
+            // console.log("fetching game status",user_id, gameId)
+            const response = await axios.post(`${serverURL}/user/game/${gameId}/status`, {user_id });
             console.log(response.data)
             return response.data;
         } catch (error) {

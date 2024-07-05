@@ -24,6 +24,10 @@ const FavRelatedGame = ({ game }) => {
         navigate(`/game/${gameTitle}`);
     };
 
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const user_id = userInfo?.data?.id || null;
+    // console.log(user_id)
+
     useEffect(() => {
         const fetchFavData = async () => {
           const data = {
@@ -31,7 +35,7 @@ const FavRelatedGame = ({ game }) => {
             limit: 63,
             page: page,
             filter: filter,
-            user_id: 1,
+            user_id: user_id,
           }
           
           

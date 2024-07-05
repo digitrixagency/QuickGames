@@ -43,6 +43,9 @@ const FavouriteGames = () => {
   const userStates = useSelector(userState);
   const { selectedGames } = useSelector((state) => state.user);
 
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const user_id = userInfo?.data?.id || null;
+
   const handlepageChange = async (event, value) => {
     setPage(value);
     setfilter('new');
@@ -74,7 +77,7 @@ const FavouriteGames = () => {
         limit: 63,
         page: page,
         filter: filter,
-        user_id: 1,
+        user_id: user_id,
       }
       
       
