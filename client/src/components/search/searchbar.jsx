@@ -9,8 +9,9 @@ import { searchgames } from "../../middleware/auth";
 import "./searchbar.css";
 
 const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-
+  position: "absolute",
+left:"50%",
+top:"15px",
   borderRadius: "21px",
   backgroundColor: "rgba(255, 255, 255, 0.15)",
   "&:hover": {

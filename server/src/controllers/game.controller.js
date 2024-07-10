@@ -171,7 +171,7 @@ async function getGameByName(req, res) {
         },
       },
     });
-    console.log(game);
+    // console.log(game);
     if (!game) {
       return handleErrorResponse(res, 404, "Game not found");
     }

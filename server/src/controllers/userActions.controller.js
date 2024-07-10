@@ -264,6 +264,7 @@ const getFavouriteGamesByUser = async (req, res) => {
     // console.log(1)
     try {
         const { user_id } = req.params; // Assuming user_id is passed as a URL parameter
+        
         // const user_id = "3";
         // console.log("getFavouriteGamesByUser :",typeof user_id, user_id)
         const { filter = "new", limit = 10, page = 1 } = req.query;

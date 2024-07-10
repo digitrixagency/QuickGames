@@ -9,6 +9,7 @@ import { serverURL } from "../utils/utilities";
 export const fetchGameStatus = createAsyncThunk(
     "user/fetchGameStatus",
     async ({ gameId, user_id }, { rejectWithValue }) => {
+        console.log(typeof user_id, user_id, "this is user id")
         try {
             // console.log("fetching game status",user_id, gameId)
             const response = await axios.post(`${serverURL}/user/game/${gameId}/status`, {user_id });

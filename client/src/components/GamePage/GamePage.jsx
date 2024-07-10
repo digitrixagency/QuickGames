@@ -85,6 +85,8 @@ const GamePage = () => {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   const user_id = userInfo?.data?.id || null;
 
+
+
   useEffect(() => {
     const fetchGameDetails = async () => {
       try {
@@ -112,6 +114,7 @@ const GamePage = () => {
 
         // Update selected games data after fetching category
         setGameData(userStates.selectedGames);
+        console.log(userStates.selectedGames);
       } catch (error) {
         console.error("Error fetching category data:", error);
       }
@@ -132,12 +135,16 @@ const GamePage = () => {
     setGameData(userStates.selectedGames);
   }, [userStates.selectedGames]);
   useEffect(() => {
-    if (userStates.isLoggedIn) {
+    
+    if (userStates.isLoggedIn && userStates.selectedgame.id) {
+        console.log("selected game",userStates.selectedgame.id)
       // console.log(userStates);
-      dispatch(fetchGameStatus({ user_id: user_id, gameId: game.id }));
+    //   console.log(userStates.selectedGames.id)
+
+      dispatch(fetchGameStatus({ user_id: user_id, gameId: userStates.selectedgame.id }));
       // console.log(userStates);
     }
-  }, [dispatch, game, userStates.isLoggedIn]);
+  }, [dispatch, userStates.selectedgame, userStates.isLoggedIn]);
 
   useEffect(() => {
     if (userStates.gameStatus) {
@@ -151,26 +158,26 @@ const GamePage = () => {
   }, [userStates.gameStatus]);
 
     const handleLike = () => {
-        if (!userStates.isLoggedIn) return;
+        if (!userStates.isLoggedIn && !userStates.selectedgame.id) return;
         setLiked(true);
         setDisliked(false);
-        dispatch(likeGame({ gameId: game.id, user_id: user_id }));
+        dispatch(likeGame({ gameId: userStates.selectedgame.id, user_id: user_id }));
     };
 
     const handleDislike = () => {
-        if (!userStates.isLoggedIn) return;
+        if (!userStates.isLoggedIn && !userStates.selectedgame.id) return;
         setLiked(false);
         setDisliked(true);
-        dispatch(dislikeGame({ gameId: game.id, user_id: user_id }));
+        dispatch(dislikeGame({ gameId: userStates.selectedgame.id, user_id: user_id }));
     };
 
     const handleFavorite = () => {
-        if (!userStates.isLoggedIn) return;
+        if (!userStates.isLoggedIn && !userStates.selectedgame.id) return;
         if (favorited) {
-            dispatch(removeFavourite({ gameId: game.id, user_id: user_id }));
+            dispatch(removeFavourite({ gameId: userStates.selectedgame.id, user_id: user_id }));
             setFavorited(false);
         } else {
-            dispatch(addFavourite({ gameId: game.id, user_id: user_id }));
+            dispatch(addFavourite({ gameId: userStates.selectedgame.id, user_id: user_id }));
             setFavorited(true); 
         }
     };

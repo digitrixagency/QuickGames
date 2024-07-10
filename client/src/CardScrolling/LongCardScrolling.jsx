@@ -66,7 +66,7 @@ const LongCardScrolling = ({ GameData, GameDataName }) => {
 
     const handleGameSelection = (game) => {
         const gameTitle = game.title; // Convert title to URL-friendly format
-        navigateToThisGame(`/game/${gameTitle}`);
+        navigateToThisGame(`/game/${gameTitle}`, { state: { game , GameData } });
         // navigateToThisGame(`this-game-name/`);
     };
     const handleGamegategorySelection = async() => {

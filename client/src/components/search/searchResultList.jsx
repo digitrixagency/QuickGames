@@ -1,6 +1,6 @@
-import "./searchResultList.css";
 import { SearchResult } from "./searchResult";
 import { useNavigate } from "react-router-dom";
+import "./searchResultList.css";
 
 
 export const SearchResultsList = ({ results ,setResults}) => {
